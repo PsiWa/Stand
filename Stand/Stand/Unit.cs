@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Modbus.Device;
+using System;
 using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
@@ -14,8 +16,10 @@ namespace Stand
     {
         private string name;
         private int address;
-        public bool isConnected;
+        public bool isConnected=false;
         private SerialPort COMport = new SerialPort();
+        private ModbusSerialMaster masterCOM;
+        private ManualResetEvent mreScan= new ManualResetEvent(false);
 
         public Unit(string name)
         {
@@ -96,6 +100,58 @@ namespace Stand
             ReadTimeout = COMport.ReadTimeout.ToString();
             WriteTimeout = COMport.WriteTimeout.ToString();
             Handshake = COMport.Handshake.ToString();
+        }
+
+        public bool TryToConnect()
+        {
+            try
+            {
+                COMport.Open();
+                masterCOM = ModbusSerialMaster.CreateRtu(COMport);
+                isConnected = true;
+                return isConnected;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка подключения");
+                COMport.Close();
+                isConnected= false;
+                return isConnected;
+            }
+        }
+
+        public void Disconnect()
+        {
+            COMport.Close();
+        }
+
+        public string TestComRead()
+        {
+            byte _slaveStationAddr = Convert.ToByte(this.address);
+            ushort[] usRegs = null;
+            mreScan.Reset();
+            usRegs = masterCOM.ReadHoldingRegisters(_slaveStationAddr, 16299, 2);
+            mreScan.Set();
+            return (usRegs[0]).ToString();//GetFloatFromRegs(usRegs[1], usRegs[0]).ToString();
+
+        }
+
+        private Single GetFloatFromRegs(ushort _reg1, ushort _reg0)
+        {
+            try
+            {
+                List<byte> lstFloat = new List<byte>();
+                byte[] bytes0 = BitConverter.GetBytes(_reg0);
+                byte[] bytes1 = BitConverter.GetBytes(_reg1);
+                lstFloat.AddRange(bytes0);
+                lstFloat.AddRange(bytes1);
+                Single _float = BitConverter.ToSingle(lstFloat.ToArray(), 0);
+                return _float;
+            }
+            catch (Exception)
+            {
+                return Single.NaN;
+            }
         }
     }
 }

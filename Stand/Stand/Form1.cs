@@ -10,6 +10,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.Serialization;
+using System.Threading;
+using System.Security.Cryptography;
+using System.Runtime.ConstrainedExecution;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Runtime.Remoting.Contexts;
 
 namespace Stand
 {
@@ -23,8 +28,6 @@ namespace Stand
         private XDocument xDefaultDoc = new XDocument();
         private XElement xSettings = new XElement("settings");
         public Unit FlowMeter = new Unit("flowmeter");
-
-
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -75,8 +78,50 @@ namespace Stand
             addsett.Show();
         }
 
-        //НАСТРОЙКИ
-        //Расходомер
+        private void FlowConnectButton_Click(object sender, EventArgs e)
+        {
+            if (FlowMeter.isConnected)
+            {
+                FlowMeter.Disconnect();
+                FlowConnectButton.Text = "Подключиться";
+                FlowStatusTextBox.BackColor = Color.Red;
+            }
+            else
+            {
+                if (FlowMeter.TryToConnect())
+                {
+                    FlowConnectButton.Text = "Отключиться";
+                    FlowStatusTextBox.BackColor = Color.Green;
+                }
+            }
+
+        }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            string text = "";
+            var threadParameters = new System.Threading.ThreadStart(delegate { WriteTextSafe(text); });
+            var thread2 = new System.Threading.Thread(threadParameters);
+            thread2.Start();
+        }
+
+        public void WriteTextSafe(string text)
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                if (textBox1.InvokeRequired)
+                {
+                    Action safeWrite = delegate { WriteTextSafe($"{FlowMeter.TestComRead()}"); };
+                    //Action safeWrite = delegate { WriteTextSafe($"{DateTime.Now.Second.ToString()}"); };
+                    textBox1.Invoke(safeWrite);
+                }
+                else
+                    textBox1.Text = text;
+
+                Thread.Sleep(1);
+            }
+            
+        }
 
     }
 }

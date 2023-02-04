@@ -30,6 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Settings = new System.Windows.Forms.TabPage();
+            this.FlowAdditionalButton = new System.Windows.Forms.Button();
             this.FlowSaveButton = new System.Windows.Forms.Button();
             this.FlowConnectButton = new System.Windows.Forms.Button();
             this.FlowStatusTextBox = new System.Windows.Forms.TextBox();
@@ -42,7 +43,8 @@
             this.FlowComComboBox = new System.Windows.Forms.ComboBox();
             this.FlowmeterLabel = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.FlowAdditionalButton = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.Settings.SuspendLayout();
             this.SuspendLayout();
@@ -59,6 +61,8 @@
             // 
             // Settings
             // 
+            this.Settings.Controls.Add(this.textBox1);
+            this.Settings.Controls.Add(this.button1);
             this.Settings.Controls.Add(this.FlowAdditionalButton);
             this.Settings.Controls.Add(this.FlowSaveButton);
             this.Settings.Controls.Add(this.FlowConnectButton);
@@ -79,6 +83,16 @@
             this.Settings.Text = "Настройки";
             this.Settings.UseVisualStyleBackColor = true;
             // 
+            // FlowAdditionalButton
+            // 
+            this.FlowAdditionalButton.Location = new System.Drawing.Point(168, 21);
+            this.FlowAdditionalButton.Name = "FlowAdditionalButton";
+            this.FlowAdditionalButton.Size = new System.Drawing.Size(121, 23);
+            this.FlowAdditionalButton.TabIndex = 11;
+            this.FlowAdditionalButton.Text = "Доп. настройки";
+            this.FlowAdditionalButton.UseVisualStyleBackColor = true;
+            this.FlowAdditionalButton.Click += new System.EventHandler(this.FlowAdditionalButton_Click);
+            // 
             // FlowSaveButton
             // 
             this.FlowSaveButton.Location = new System.Drawing.Point(25, 208);
@@ -97,6 +111,7 @@
             this.FlowConnectButton.TabIndex = 9;
             this.FlowConnectButton.Text = "Подключиться";
             this.FlowConnectButton.UseVisualStyleBackColor = true;
+            this.FlowConnectButton.Click += new System.EventHandler(this.FlowConnectButton_Click);
             // 
             // FlowStatusTextBox
             // 
@@ -193,15 +208,22 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // FlowAdditionalButton
+            // button1
             // 
-            this.FlowAdditionalButton.Location = new System.Drawing.Point(168, 21);
-            this.FlowAdditionalButton.Name = "FlowAdditionalButton";
-            this.FlowAdditionalButton.Size = new System.Drawing.Size(121, 23);
-            this.FlowAdditionalButton.TabIndex = 11;
-            this.FlowAdditionalButton.Text = "Доп. настройки";
-            this.FlowAdditionalButton.UseVisualStyleBackColor = true;
-            this.FlowAdditionalButton.Click += new System.EventHandler(this.FlowAdditionalButton_Click);
+            this.button1.Location = new System.Drawing.Point(633, 22);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(204, 33);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(633, 64);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(204, 20);
+            this.textBox1.TabIndex = 14;
             // 
             // Form1
             // 
@@ -236,6 +258,8 @@
         private System.Windows.Forms.Label FlowSpeedLabel;
         private System.Windows.Forms.Label FlowComLabel;
         private System.Windows.Forms.Button FlowAdditionalButton;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 
