@@ -59,6 +59,7 @@ namespace Stand
                     Convert.ToInt32(ReadTimeotTextBox.Text),
                     Convert.ToInt32(WriteTimeoutTextBox.Text), 
                     (Handshake)Enum.Parse(typeof(Handshake), HandshakeComboBox.Text));
+                un.SaveSettingsXML();
                 this.Close();
             }
             catch(Exception)
