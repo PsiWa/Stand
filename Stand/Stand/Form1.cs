@@ -277,16 +277,28 @@ namespace Stand
         public int i = 0;
         internal void TestReadHolding(Unit un, ListBox l,ushort address, ushort nofpoints, bool isReversed)
         {
+            int wait = 1000;
             while (true)
             {
                 float[] fRegs = un.ComReadHolding(address, nofpoints, isReversed);
-                Action read = () => l.Items.Add($"{fRegs[0]} {DateTime.Now}");
-                if (InvokeRequired)
-                    Invoke(read);
-                else
-                    read();
-                if (_stopper.WaitOne(1000, false))  // Sleep for 500 ms, but wake up immediately
-                {                                  // if _stopper is signalled.
+                if (nofpoints == 1)
+                {
+                    Action read = () => l.Items.Add($"{fRegs[0]} {DateTime.Now}");
+                    if (InvokeRequired)
+                        Invoke(read);
+                    else
+                        read();
+                }
+                if (nofpoints == 2)
+                {
+                    Action read = () => l.Items.Add($"{fRegs[0]} {fRegs[1]} {DateTime.Now}");
+                    if (InvokeRequired)
+                        Invoke(read);
+                    else
+                        read();
+                }
+                if (_stopper.WaitOne(wait, false))  
+                {                                  
                     break;
                 }
             }
@@ -296,13 +308,25 @@ namespace Stand
             int wait = 1000;
             while (true)
             {
-                Action read = () => l.Items.Add($"{un.ComReadInput(address, nofpoints, isReversed)} {DateTime.Now}");
-                if (InvokeRequired)
-                    Invoke(read);
-                else
-                    read();
-                if (_stopper.WaitOne(wait, false))  // Sleep for 500 ms, but wake up immediately
-                {                                  // if _stopper is signalled.
+                float[] fRegs = un.ComReadHolding(address, nofpoints, isReversed);
+                if (nofpoints == 1)
+                {
+                    Action read = () => l.Items.Add($"{fRegs[0]} {DateTime.Now}");
+                    if (InvokeRequired)
+                        Invoke(read);
+                    else
+                        read();
+                }
+                if (nofpoints == 2)
+                {
+                    Action read = () => l.Items.Add($"{fRegs[0]} {fRegs[1]} {DateTime.Now}");
+                    if (InvokeRequired)
+                        Invoke(read);
+                    else
+                        read();
+                }
+                if (_stopper.WaitOne(wait, false)) 
+                {                             
                     break;
                 }
             }
@@ -334,7 +358,7 @@ namespace Stand
             }
             if (FrequencyChanger.isConnected)
             {
-                ushort address = 49161;
+                ushort address = 49161; // посмотреть формулу расчета
                 ushort nofpoints = 2;
                 bool isReversed = false;
 

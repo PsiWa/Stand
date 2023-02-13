@@ -227,42 +227,48 @@ namespace Stand
                 }
                 else
                 {
-                    MessageBox.Show("Пока читаем максимум по 2");
+                    MessageBox.Show("Пока читаем максимум по 2"); // это надо исправить
                     fRegs[i] = 0;
                 }
             }
             return fRegs;
         }
 
-        public float ComReadInput(ushort startAddress, ushort nOfPoints, bool reversFlag)
+        public float[] ComReadInput(ushort startAddress, ushort nOfPoints, bool reversFlag)
         {
-            byte _slaveStationAddr = Convert.ToByte(this.address);
-            ushort[] usRegs = null;
-            try
+            float[] fRegs = new float[this.address.Length];
+            for (int i = 0; i < address.Length; i++)
             {
-                mreScan.Reset();
-                usRegs = masterCOM.ReadInputRegisters(_slaveStationAddr, startAddress, nOfPoints);
-                mreScan.Set();
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Ошибка чтения регистра");
-                return (float)0;
-            }
-            if (usRegs.Length == 1)
-                return (float)usRegs[0];
-            else if (usRegs.Length == 2)
-            {
-                if (reversFlag)
-                    return (float)GetFloatFromRegs(usRegs[1], usRegs[0]);
+                byte _slaveStationAddr = Convert.ToByte(this.address[i]);
+                ushort[] usRegs = null;
+                try
+                {
+                    mreScan.Reset();
+                    usRegs = masterCOM.ReadInputRegisters(_slaveStationAddr, startAddress, nOfPoints);
+                    mreScan.Set();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Ошибка чтения регистра");
+                    fRegs[i] = 0;
+                    break;
+                }
+                if (usRegs.Length == 1)
+                    fRegs[i] = usRegs[0];
+                else if (usRegs.Length == 2)
+                {
+                    if (reversFlag)
+                        fRegs[i] = GetFloatFromRegs(usRegs[1], usRegs[0]);
+                    else
+                        fRegs[i] = GetFloatFromRegs(usRegs[0], usRegs[1]);
+                }
                 else
-                    return (float)GetFloatFromRegs(usRegs[0], usRegs[1]);
+                {
+                    MessageBox.Show("Пока читаем максимум по 2"); // это надо исправить
+                    fRegs[i] = 0;
+                }
             }
-            else
-            {
-                MessageBox.Show("Пока читаем максимум по 2");
-                return (float)0;
-            }
+            return fRegs;
         }
 
         static private Single GetFloatFromRegs(ushort _reg1, ushort _reg0)
