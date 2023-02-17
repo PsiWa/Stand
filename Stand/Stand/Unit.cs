@@ -17,7 +17,7 @@ namespace Stand
     public class Unit
     {
         private string name;
-        private int[] address = new int[1];
+        public int[] address = new int[1];
         public bool isConnected=false;
         private SerialPort COMport = new SerialPort();
         private ModbusSerialMaster masterCOM;
@@ -258,7 +258,7 @@ namespace Stand
                 else if (usRegs.Length == 2)
                 {
                     if (reversFlag)
-                        fRegs[i] = GetFloatFromRegs(usRegs[1], usRegs[0]);
+                        fRegs[0] = GetFloatFromRegs(usRegs[1], usRegs[0]);
                     else
                         fRegs[i] = GetFloatFromRegs(usRegs[0], usRegs[1]);
                 }

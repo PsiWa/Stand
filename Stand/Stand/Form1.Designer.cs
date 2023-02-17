@@ -30,6 +30,10 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Settings = new System.Windows.Forms.TabPage();
+            this.PressureAddressOffsetComboBox = new System.Windows.Forms.ComboBox();
+            this.ValveAddressOffsetComboBox = new System.Windows.Forms.ComboBox();
+            this.FrequencyAddressOffsetComboBox = new System.Windows.Forms.ComboBox();
+            this.FlowAddressOffsetComboBox = new System.Windows.Forms.ComboBox();
             this.ValveAdditionalButton = new System.Windows.Forms.Button();
             this.ValveSaveButton = new System.Windows.Forms.Button();
             this.ValveConnectButton = new System.Windows.Forms.Button();
@@ -42,6 +46,18 @@
             this.ValveComLabel = new System.Windows.Forms.Label();
             this.ValveComComboBox = new System.Windows.Forms.ComboBox();
             this.ValveSwitchLabel = new System.Windows.Forms.Label();
+            this.PressureAdditionalButton = new System.Windows.Forms.Button();
+            this.PressureSaveButton = new System.Windows.Forms.Button();
+            this.PressureConnectButton = new System.Windows.Forms.Button();
+            this.PressureStatusTextBox = new System.Windows.Forms.TextBox();
+            this.PressureStatusLabel = new System.Windows.Forms.Label();
+            this.PressureAddressTextBox = new System.Windows.Forms.TextBox();
+            this.PressureAddressLabel = new System.Windows.Forms.Label();
+            this.PressureSpeedTextBox = new System.Windows.Forms.TextBox();
+            this.PressureSpeedLabel = new System.Windows.Forms.Label();
+            this.PressureComLabel = new System.Windows.Forms.Label();
+            this.PressureComComboBox = new System.Windows.Forms.ComboBox();
+            this.PressureGaugeLabel = new System.Windows.Forms.Label();
             this.FrequencyAdditionalSettings = new System.Windows.Forms.Button();
             this.FrequencySaveButton = new System.Windows.Forms.Button();
             this.FrequencyConnectButton = new System.Windows.Forms.Button();
@@ -67,27 +83,11 @@
             this.FlowComComboBox = new System.Windows.Forms.ComboBox();
             this.FlowmeterLabel = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.listBox3 = new System.Windows.Forms.ListBox();
             this.button2 = new System.Windows.Forms.Button();
             this.listBox2 = new System.Windows.Forms.ListBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.listBox3 = new System.Windows.Forms.ListBox();
-            this.FlowAddressOffsetComboBox = new System.Windows.Forms.ComboBox();
-            this.FrequencyAddressOffsetComboBox = new System.Windows.Forms.ComboBox();
-            this.PressureGaugeLabel = new System.Windows.Forms.Label();
-            this.PressureComComboBox = new System.Windows.Forms.ComboBox();
-            this.PressureComLabel = new System.Windows.Forms.Label();
-            this.PressureSpeedLabel = new System.Windows.Forms.Label();
-            this.PressureSpeedTextBox = new System.Windows.Forms.TextBox();
-            this.PressureAddressLabel = new System.Windows.Forms.Label();
-            this.PressureAddressTextBox = new System.Windows.Forms.TextBox();
-            this.PressureStatusLabel = new System.Windows.Forms.Label();
-            this.PressureStatusTextBox = new System.Windows.Forms.TextBox();
-            this.PressureConnectButton = new System.Windows.Forms.Button();
-            this.PressureSaveButton = new System.Windows.Forms.Button();
-            this.PressureAdditionalButton = new System.Windows.Forms.Button();
-            this.ValveAddressOffsetComboBox = new System.Windows.Forms.ComboBox();
-            this.PressureAddressOffsetComboBox = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.Settings.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -100,7 +100,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(913, 607);
+            this.tabControl1.Size = new System.Drawing.Size(648, 548);
             this.tabControl1.TabIndex = 0;
             // 
             // Settings
@@ -160,10 +160,82 @@
             this.Settings.Location = new System.Drawing.Point(4, 22);
             this.Settings.Name = "Settings";
             this.Settings.Padding = new System.Windows.Forms.Padding(3);
-            this.Settings.Size = new System.Drawing.Size(905, 581);
+            this.Settings.Size = new System.Drawing.Size(640, 522);
             this.Settings.TabIndex = 0;
             this.Settings.Text = "Настройки";
             this.Settings.UseVisualStyleBackColor = true;
+            // 
+            // PressureAddressOffsetComboBox
+            // 
+            this.PressureAddressOffsetComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PressureAddressOffsetComboBox.FormattingEnabled = true;
+            this.PressureAddressOffsetComboBox.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"});
+            this.PressureAddressOffsetComboBox.Location = new System.Drawing.Point(266, 389);
+            this.PressureAddressOffsetComboBox.Name = "PressureAddressOffsetComboBox";
+            this.PressureAddressOffsetComboBox.Size = new System.Drawing.Size(43, 21);
+            this.PressureAddressOffsetComboBox.TabIndex = 54;
+            // 
+            // ValveAddressOffsetComboBox
+            // 
+            this.ValveAddressOffsetComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ValveAddressOffsetComboBox.FormattingEnabled = true;
+            this.ValveAddressOffsetComboBox.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"});
+            this.ValveAddressOffsetComboBox.Location = new System.Drawing.Point(588, 389);
+            this.ValveAddressOffsetComboBox.Name = "ValveAddressOffsetComboBox";
+            this.ValveAddressOffsetComboBox.Size = new System.Drawing.Size(43, 21);
+            this.ValveAddressOffsetComboBox.TabIndex = 53;
+            // 
+            // FrequencyAddressOffsetComboBox
+            // 
+            this.FrequencyAddressOffsetComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.FrequencyAddressOffsetComboBox.FormattingEnabled = true;
+            this.FrequencyAddressOffsetComboBox.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"});
+            this.FrequencyAddressOffsetComboBox.Location = new System.Drawing.Point(588, 128);
+            this.FrequencyAddressOffsetComboBox.Name = "FrequencyAddressOffsetComboBox";
+            this.FrequencyAddressOffsetComboBox.Size = new System.Drawing.Size(43, 21);
+            this.FrequencyAddressOffsetComboBox.TabIndex = 52;
+            // 
+            // FlowAddressOffsetComboBox
+            // 
+            this.FlowAddressOffsetComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.FlowAddressOffsetComboBox.FormattingEnabled = true;
+            this.FlowAddressOffsetComboBox.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"});
+            this.FlowAddressOffsetComboBox.Location = new System.Drawing.Point(266, 127);
+            this.FlowAddressOffsetComboBox.Name = "FlowAddressOffsetComboBox";
+            this.FlowAddressOffsetComboBox.Size = new System.Drawing.Size(43, 21);
+            this.FlowAddressOffsetComboBox.TabIndex = 51;
             // 
             // ValveAdditionalButton
             // 
@@ -279,6 +351,121 @@
             this.ValveSwitchLabel.Size = new System.Drawing.Size(110, 25);
             this.ValveSwitchLabel.TabIndex = 39;
             this.ValveSwitchLabel.Text = "Задвижка";
+            // 
+            // PressureAdditionalButton
+            // 
+            this.PressureAdditionalButton.Location = new System.Drawing.Point(13, 308);
+            this.PressureAdditionalButton.Name = "PressureAdditionalButton";
+            this.PressureAdditionalButton.Size = new System.Drawing.Size(121, 23);
+            this.PressureAdditionalButton.TabIndex = 38;
+            this.PressureAdditionalButton.Text = "Доп. настройки";
+            this.PressureAdditionalButton.UseVisualStyleBackColor = true;
+            this.PressureAdditionalButton.Click += new System.EventHandler(this.PressureAdditionalButton_Click);
+            // 
+            // PressureSaveButton
+            // 
+            this.PressureSaveButton.Location = new System.Drawing.Point(13, 481);
+            this.PressureSaveButton.Name = "PressureSaveButton";
+            this.PressureSaveButton.Size = new System.Drawing.Size(296, 34);
+            this.PressureSaveButton.TabIndex = 37;
+            this.PressureSaveButton.Text = "Сохранить настройки";
+            this.PressureSaveButton.UseVisualStyleBackColor = true;
+            this.PressureSaveButton.Click += new System.EventHandler(this.PressureSaveButton_Click);
+            // 
+            // PressureConnectButton
+            // 
+            this.PressureConnectButton.Location = new System.Drawing.Point(13, 441);
+            this.PressureConnectButton.Name = "PressureConnectButton";
+            this.PressureConnectButton.Size = new System.Drawing.Size(296, 34);
+            this.PressureConnectButton.TabIndex = 36;
+            this.PressureConnectButton.Text = "Подключиться";
+            this.PressureConnectButton.UseVisualStyleBackColor = true;
+            this.PressureConnectButton.Click += new System.EventHandler(this.PressureConnectButton_Click);
+            // 
+            // PressureStatusTextBox
+            // 
+            this.PressureStatusTextBox.BackColor = System.Drawing.Color.Red;
+            this.PressureStatusTextBox.Enabled = false;
+            this.PressureStatusTextBox.Location = new System.Drawing.Point(156, 415);
+            this.PressureStatusTextBox.Name = "PressureStatusTextBox";
+            this.PressureStatusTextBox.Size = new System.Drawing.Size(153, 20);
+            this.PressureStatusTextBox.TabIndex = 35;
+            // 
+            // PressureStatusLabel
+            // 
+            this.PressureStatusLabel.AutoSize = true;
+            this.PressureStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.PressureStatusLabel.Location = new System.Drawing.Point(9, 413);
+            this.PressureStatusLabel.Name = "PressureStatusLabel";
+            this.PressureStatusLabel.Size = new System.Drawing.Size(62, 20);
+            this.PressureStatusLabel.TabIndex = 34;
+            this.PressureStatusLabel.Text = "Статус";
+            // 
+            // PressureAddressTextBox
+            // 
+            this.PressureAddressTextBox.Location = new System.Drawing.Point(156, 389);
+            this.PressureAddressTextBox.Name = "PressureAddressTextBox";
+            this.PressureAddressTextBox.Size = new System.Drawing.Size(104, 20);
+            this.PressureAddressTextBox.TabIndex = 33;
+            // 
+            // PressureAddressLabel
+            // 
+            this.PressureAddressLabel.AutoSize = true;
+            this.PressureAddressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.PressureAddressLabel.Location = new System.Drawing.Point(9, 387);
+            this.PressureAddressLabel.Name = "PressureAddressLabel";
+            this.PressureAddressLabel.Size = new System.Drawing.Size(147, 20);
+            this.PressureAddressLabel.TabIndex = 32;
+            this.PressureAddressLabel.Text = "Адрес устройства";
+            // 
+            // PressureSpeedTextBox
+            // 
+            this.PressureSpeedTextBox.Location = new System.Drawing.Point(156, 363);
+            this.PressureSpeedTextBox.Name = "PressureSpeedTextBox";
+            this.PressureSpeedTextBox.Size = new System.Drawing.Size(153, 20);
+            this.PressureSpeedTextBox.TabIndex = 31;
+            // 
+            // PressureSpeedLabel
+            // 
+            this.PressureSpeedLabel.AutoSize = true;
+            this.PressureSpeedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.PressureSpeedLabel.Location = new System.Drawing.Point(9, 361);
+            this.PressureSpeedLabel.Name = "PressureSpeedLabel";
+            this.PressureSpeedLabel.Size = new System.Drawing.Size(141, 20);
+            this.PressureSpeedLabel.TabIndex = 30;
+            this.PressureSpeedLabel.Text = "Скорость обмена";
+            // 
+            // PressureComLabel
+            // 
+            this.PressureComLabel.AutoSize = true;
+            this.PressureComLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.PressureComLabel.Location = new System.Drawing.Point(9, 334);
+            this.PressureComLabel.Name = "PressureComLabel";
+            this.PressureComLabel.Size = new System.Drawing.Size(85, 20);
+            this.PressureComLabel.TabIndex = 29;
+            this.PressureComLabel.Text = "COM порт";
+            // 
+            // PressureComComboBox
+            // 
+            this.PressureComComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.PressureComComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.PressureComComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PressureComComboBox.FormattingEnabled = true;
+            this.PressureComComboBox.Location = new System.Drawing.Point(156, 336);
+            this.PressureComComboBox.Name = "PressureComComboBox";
+            this.PressureComComboBox.Size = new System.Drawing.Size(153, 21);
+            this.PressureComComboBox.Sorted = true;
+            this.PressureComComboBox.TabIndex = 28;
+            // 
+            // PressureGaugeLabel
+            // 
+            this.PressureGaugeLabel.AutoSize = true;
+            this.PressureGaugeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.PressureGaugeLabel.Location = new System.Drawing.Point(8, 279);
+            this.PressureGaugeLabel.Name = "PressureGaugeLabel";
+            this.PressureGaugeLabel.Size = new System.Drawing.Size(196, 25);
+            this.PressureGaugeLabel.TabIndex = 27;
+            this.PressureGaugeLabel.Text = "Датчики давления";
             // 
             // FrequencyAdditionalSettings
             // 
@@ -520,10 +707,28 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(905, 581);
+            this.tabPage2.Size = new System.Drawing.Size(640, 522);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(8, 347);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // listBox3
+            // 
+            this.listBox3.FormattingEnabled = true;
+            this.listBox3.Location = new System.Drawing.Point(418, 6);
+            this.listBox3.Name = "listBox3";
+            this.listBox3.Size = new System.Drawing.Size(199, 277);
+            this.listBox3.TabIndex = 3;
             // 
             // button2
             // 
@@ -550,211 +755,6 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(199, 277);
             this.listBox1.TabIndex = 0;
-            // 
-            // listBox3
-            // 
-            this.listBox3.FormattingEnabled = true;
-            this.listBox3.Location = new System.Drawing.Point(418, 6);
-            this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(199, 277);
-            this.listBox3.TabIndex = 3;
-            // 
-            // FlowAddressOffsetComboBox
-            // 
-            this.FlowAddressOffsetComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.FlowAddressOffsetComboBox.FormattingEnabled = true;
-            this.FlowAddressOffsetComboBox.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8"});
-            this.FlowAddressOffsetComboBox.Location = new System.Drawing.Point(266, 127);
-            this.FlowAddressOffsetComboBox.Name = "FlowAddressOffsetComboBox";
-            this.FlowAddressOffsetComboBox.Size = new System.Drawing.Size(43, 21);
-            this.FlowAddressOffsetComboBox.TabIndex = 51;
-            // 
-            // FrequencyAddressOffsetComboBox
-            // 
-            this.FrequencyAddressOffsetComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.FrequencyAddressOffsetComboBox.FormattingEnabled = true;
-            this.FrequencyAddressOffsetComboBox.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8"});
-            this.FrequencyAddressOffsetComboBox.Location = new System.Drawing.Point(588, 128);
-            this.FrequencyAddressOffsetComboBox.Name = "FrequencyAddressOffsetComboBox";
-            this.FrequencyAddressOffsetComboBox.Size = new System.Drawing.Size(43, 21);
-            this.FrequencyAddressOffsetComboBox.TabIndex = 52;
-            // 
-            // PressureGaugeLabel
-            // 
-            this.PressureGaugeLabel.AutoSize = true;
-            this.PressureGaugeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.PressureGaugeLabel.Location = new System.Drawing.Point(8, 279);
-            this.PressureGaugeLabel.Name = "PressureGaugeLabel";
-            this.PressureGaugeLabel.Size = new System.Drawing.Size(196, 25);
-            this.PressureGaugeLabel.TabIndex = 27;
-            this.PressureGaugeLabel.Text = "Датчики давления";
-            // 
-            // PressureComComboBox
-            // 
-            this.PressureComComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.PressureComComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.PressureComComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.PressureComComboBox.FormattingEnabled = true;
-            this.PressureComComboBox.Location = new System.Drawing.Point(156, 336);
-            this.PressureComComboBox.Name = "PressureComComboBox";
-            this.PressureComComboBox.Size = new System.Drawing.Size(153, 21);
-            this.PressureComComboBox.Sorted = true;
-            this.PressureComComboBox.TabIndex = 28;
-            // 
-            // PressureComLabel
-            // 
-            this.PressureComLabel.AutoSize = true;
-            this.PressureComLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.PressureComLabel.Location = new System.Drawing.Point(9, 334);
-            this.PressureComLabel.Name = "PressureComLabel";
-            this.PressureComLabel.Size = new System.Drawing.Size(85, 20);
-            this.PressureComLabel.TabIndex = 29;
-            this.PressureComLabel.Text = "COM порт";
-            // 
-            // PressureSpeedLabel
-            // 
-            this.PressureSpeedLabel.AutoSize = true;
-            this.PressureSpeedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.PressureSpeedLabel.Location = new System.Drawing.Point(9, 361);
-            this.PressureSpeedLabel.Name = "PressureSpeedLabel";
-            this.PressureSpeedLabel.Size = new System.Drawing.Size(141, 20);
-            this.PressureSpeedLabel.TabIndex = 30;
-            this.PressureSpeedLabel.Text = "Скорость обмена";
-            // 
-            // PressureSpeedTextBox
-            // 
-            this.PressureSpeedTextBox.Location = new System.Drawing.Point(156, 363);
-            this.PressureSpeedTextBox.Name = "PressureSpeedTextBox";
-            this.PressureSpeedTextBox.Size = new System.Drawing.Size(153, 20);
-            this.PressureSpeedTextBox.TabIndex = 31;
-            // 
-            // PressureAddressLabel
-            // 
-            this.PressureAddressLabel.AutoSize = true;
-            this.PressureAddressLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.PressureAddressLabel.Location = new System.Drawing.Point(9, 387);
-            this.PressureAddressLabel.Name = "PressureAddressLabel";
-            this.PressureAddressLabel.Size = new System.Drawing.Size(147, 20);
-            this.PressureAddressLabel.TabIndex = 32;
-            this.PressureAddressLabel.Text = "Адрес устройства";
-            // 
-            // PressureAddressTextBox
-            // 
-            this.PressureAddressTextBox.Location = new System.Drawing.Point(156, 389);
-            this.PressureAddressTextBox.Name = "PressureAddressTextBox";
-            this.PressureAddressTextBox.Size = new System.Drawing.Size(104, 20);
-            this.PressureAddressTextBox.TabIndex = 33;
-            // 
-            // PressureStatusLabel
-            // 
-            this.PressureStatusLabel.AutoSize = true;
-            this.PressureStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.PressureStatusLabel.Location = new System.Drawing.Point(9, 413);
-            this.PressureStatusLabel.Name = "PressureStatusLabel";
-            this.PressureStatusLabel.Size = new System.Drawing.Size(62, 20);
-            this.PressureStatusLabel.TabIndex = 34;
-            this.PressureStatusLabel.Text = "Статус";
-            // 
-            // PressureStatusTextBox
-            // 
-            this.PressureStatusTextBox.BackColor = System.Drawing.Color.Red;
-            this.PressureStatusTextBox.Enabled = false;
-            this.PressureStatusTextBox.Location = new System.Drawing.Point(156, 415);
-            this.PressureStatusTextBox.Name = "PressureStatusTextBox";
-            this.PressureStatusTextBox.Size = new System.Drawing.Size(153, 20);
-            this.PressureStatusTextBox.TabIndex = 35;
-            // 
-            // PressureConnectButton
-            // 
-            this.PressureConnectButton.Location = new System.Drawing.Point(13, 441);
-            this.PressureConnectButton.Name = "PressureConnectButton";
-            this.PressureConnectButton.Size = new System.Drawing.Size(296, 34);
-            this.PressureConnectButton.TabIndex = 36;
-            this.PressureConnectButton.Text = "Подключиться";
-            this.PressureConnectButton.UseVisualStyleBackColor = true;
-            this.PressureConnectButton.Click += new System.EventHandler(this.PressureConnectButton_Click);
-            // 
-            // PressureSaveButton
-            // 
-            this.PressureSaveButton.Location = new System.Drawing.Point(13, 481);
-            this.PressureSaveButton.Name = "PressureSaveButton";
-            this.PressureSaveButton.Size = new System.Drawing.Size(296, 34);
-            this.PressureSaveButton.TabIndex = 37;
-            this.PressureSaveButton.Text = "Сохранить настройки";
-            this.PressureSaveButton.UseVisualStyleBackColor = true;
-            this.PressureSaveButton.Click += new System.EventHandler(this.PressureSaveButton_Click);
-            // 
-            // PressureAdditionalButton
-            // 
-            this.PressureAdditionalButton.Location = new System.Drawing.Point(13, 308);
-            this.PressureAdditionalButton.Name = "PressureAdditionalButton";
-            this.PressureAdditionalButton.Size = new System.Drawing.Size(121, 23);
-            this.PressureAdditionalButton.TabIndex = 38;
-            this.PressureAdditionalButton.Text = "Доп. настройки";
-            this.PressureAdditionalButton.UseVisualStyleBackColor = true;
-            this.PressureAdditionalButton.Click += new System.EventHandler(this.PressureAdditionalButton_Click);
-            // 
-            // ValveAddressOffsetComboBox
-            // 
-            this.ValveAddressOffsetComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ValveAddressOffsetComboBox.FormattingEnabled = true;
-            this.ValveAddressOffsetComboBox.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8"});
-            this.ValveAddressOffsetComboBox.Location = new System.Drawing.Point(588, 389);
-            this.ValveAddressOffsetComboBox.Name = "ValveAddressOffsetComboBox";
-            this.ValveAddressOffsetComboBox.Size = new System.Drawing.Size(43, 21);
-            this.ValveAddressOffsetComboBox.TabIndex = 53;
-            // 
-            // PressureAddressOffsetComboBox
-            // 
-            this.PressureAddressOffsetComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.PressureAddressOffsetComboBox.FormattingEnabled = true;
-            this.PressureAddressOffsetComboBox.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8"});
-            this.PressureAddressOffsetComboBox.Location = new System.Drawing.Point(266, 389);
-            this.PressureAddressOffsetComboBox.Name = "PressureAddressOffsetComboBox";
-            this.PressureAddressOffsetComboBox.Size = new System.Drawing.Size(43, 21);
-            this.PressureAddressOffsetComboBox.TabIndex = 54;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(8, 347);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 

@@ -281,17 +281,17 @@ namespace Stand
             while (true)
             {
                 float[] fRegs = un.ComReadHolding(address, nofpoints, isReversed);
-                if (nofpoints == 1)
+                if (un.address.Length ==1)
                 {
-                    Action read = () => l.Items.Add($"{fRegs[0]} {DateTime.Now}");
+                    Action read = () => l.Items.Add($"{fRegs[0]} {DateTime.Now.Second}");
                     if (InvokeRequired)
                         Invoke(read);
                     else
                         read();
                 }
-                if (nofpoints == 2)
+                if (un.address.Length == 2)
                 {
-                    Action read = () => l.Items.Add($"{fRegs[0]} {fRegs[1]} {DateTime.Now}");
+                    Action read = () => l.Items.Add($"{fRegs[0]} {fRegs[1]} {DateTime.Now.Second}");
                     if (InvokeRequired)
                         Invoke(read);
                     else
@@ -309,17 +309,17 @@ namespace Stand
             while (true)
             {
                 float[] fRegs = un.ComReadHolding(address, nofpoints, isReversed);
-                if (nofpoints == 1)
+                if (un.address.Length == 1)
                 {
-                    Action read = () => l.Items.Add($"{fRegs[0]} {DateTime.Now}");
+                    Action read = () => l.Items.Add($"{fRegs[0]} {DateTime.Now.Second}");
                     if (InvokeRequired)
                         Invoke(read);
                     else
                         read();
                 }
-                if (nofpoints == 2)
+                if (un.address.Length == 2)
                 {
-                    Action read = () => l.Items.Add($"{fRegs[0]} {fRegs[1]} {DateTime.Now}");
+                    Action read = () => l.Items.Add($"{fRegs[0]} {fRegs[1]} {DateTime.Now.Second}");
                     if (InvokeRequired)
                         Invoke(read);
                     else
@@ -348,7 +348,7 @@ namespace Stand
             if (PressureGauges.isConnected)
             {
 
-                ushort address = 49161;
+                ushort address = 4; // регистры 4,10,16,22,28,34,40,46
                 ushort nofpoints = 2;
                 bool isReversed = false;
 
@@ -358,9 +358,9 @@ namespace Stand
             }
             if (FrequencyChanger.isConnected)
             {
-                ushort address = 49161; // посмотреть формулу расчета
+                ushort address = 16479; // N меню * 10 - 1
                 ushort nofpoints = 2;
-                bool isReversed = false;
+                bool isReversed = true;
 
                 var threadParameters = new System.Threading.ThreadStart(delegate { TestReadInput(FrequencyChanger, listBox3, address, nofpoints, isReversed); });
                 var thread = new System.Threading.Thread(threadParameters);
