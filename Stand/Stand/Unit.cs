@@ -17,7 +17,7 @@ namespace Stand
     public class Unit
     {
         private string name;
-        public int[] address = new int[1];
+        private int address;
         public bool isConnected=false;
         private SerialPort COMport = new SerialPort();
         private ModbusSerialMaster masterCOM;
@@ -34,14 +34,11 @@ namespace Stand
             return this.name;
         }
 
-        public void SetParameters(string COM, int BaudRate, int address, int offset)
+        public void SetParameters(string COM, int BaudRate, int address)
         {
             COMport.PortName = COM;
             COMport.BaudRate = BaudRate;
-            Array.Resize(ref this.address, offset);
-            this.address[0] = address;
-            for (int i = 1; i < offset; i++)
-                this.address[i] = this.address[0] + i;
+            this.address = address;
         }
 
         public void SetParameters(int DataBits, Parity Parity, StopBits StopBits, bool DtrEnable, 
@@ -57,15 +54,12 @@ namespace Stand
             COMport.Handshake = Handshake;
         }
 
-        public void SetParameters(string COM, int BaudRate, int address, int offset, int DataBits, 
-            Parity Parity, StopBits StopBits, bool DtrEnable, bool RtsEnable, int ReadTimeout, int WriteTimeout, Handshake Handshake)
+        public void SetParameters(string COM, int BaudRate, int address, int DataBits, Parity Parity, 
+            StopBits StopBits, bool DtrEnable, bool RtsEnable, int ReadTimeout, int WriteTimeout, Handshake Handshake)
         {
             COMport.PortName = COM;
             COMport.BaudRate= BaudRate;
-            Array.Resize(ref this.address, offset);
-            this.address[0] = address;
-            for (int i = 1; i < offset; i++)
-                this.address[i] = this.address[0] + i;
+            this.address = address;
             COMport.DataBits = DataBits;
             COMport.Parity = Parity;
             COMport.StopBits = StopBits;
@@ -83,8 +77,7 @@ namespace Stand
             XAttribute xNameAttr = new XAttribute("Name", name);
             XAttribute xCOMAttr = new XAttribute("COM", COMport.PortName);
             XAttribute xSpeedAttr = new XAttribute("BaudRate", COMport.BaudRate);
-            XAttribute xAddrAttr = new XAttribute("Address", this.address[0]);
-            XAttribute xOffsetAttr = new XAttribute("Offset", this.address.Length);
+            XAttribute xAddrAttr = new XAttribute("Address", this.address);
             XAttribute xDataBitsAttr = new XAttribute("DataBits", COMport.DataBits);
             XAttribute xParityAttr = new XAttribute("Parity",COMport.Parity);
             XAttribute xStopBitsAttr = new XAttribute("StopBits", COMport.StopBits);
@@ -93,15 +86,14 @@ namespace Stand
             XAttribute xReadTimeoutAttr = new XAttribute("ReadTimeout", COMport.ReadTimeout);
             XAttribute xWriteTimeoutAttr = new XAttribute("WriteTimeout", COMport.WriteTimeout);
             XAttribute xHandshakeAttr = new XAttribute("Handshake", COMport.Handshake);
-            xUnit.Add(xNameAttr, xCOMAttr, xSpeedAttr, xAddrAttr, xOffsetAttr, xDataBitsAttr, xParityAttr, xStopBitsAttr, 
+            xUnit.Add(xNameAttr, xCOMAttr, xSpeedAttr, xAddrAttr, xDataBitsAttr, xParityAttr, xStopBitsAttr, 
                 xDtrEnableAttr, xRtsEnableAttr, xReadTimeoutAttr, xWriteTimeoutAttr, xHandshakeAttr);
             Form1.xSettings.Add(xUnit);
             Form1.xSettings.Save("Defaults.xml");
         }
 
-        public void LoadSettingsXML(XElement el)
+        public void LoadSettingsXML(XElement el, ref ComboBox ComCB, ref TextBox BaudRateTB, ref TextBox AddressTB)
         {
-            int offset = 0;
             try
             {
                 COMport.PortName = el.Attribute("COM").Value;
@@ -113,11 +105,7 @@ namespace Stand
 
             try
             {
-                address[0] = Convert.ToInt32(el.Attribute("Address").Value);
-                offset = Convert.ToInt32(el.Attribute("Offset").Value);
-                Array.Resize(ref this.address, offset);
-                for (int i = 1; i < offset; i++)
-                    this.address[i] = this.address[0] + i;
+                address = Convert.ToInt32(el.Attribute("Address").Value);
                 COMport.BaudRate = Convert.ToInt32(el.Attribute("BaudRate").Value);
             }
             catch (Exception)
@@ -139,7 +127,10 @@ namespace Stand
             {
                 this.SetDeffaultAdditionalSettings();
             }
-            }
+            ComCB.SelectedIndex = ComCB.FindStringExact(COMport.PortName);
+            BaudRateTB.Text = this.COMport.BaudRate.ToString();
+            AddressTB.Text = this.address.ToString();
+        }
 
         public void SetDeffaultAdditionalSettings()
         {
@@ -157,8 +148,7 @@ namespace Stand
         {
             COMname = COMport.PortName;
             BaudRate = COMport.BaudRate.ToString();
-            address = this.address[0].ToString();
-            offset = this.address.Length.ToString();
+            address = this.address.ToString();
         }
         public void GetParametersString(ref string DataBits,ref string Parity,ref string StopBits,ref string DtrEnable,
              ref string RtsEnable,ref string ReadTimeout,ref string WriteTimeout,ref string Handshake)
@@ -197,78 +187,62 @@ namespace Stand
             isConnected = false;
         }
 
-        public float[] ComReadHolding(ushort startAddress, ushort nOfPoints, bool reversFlag)
+        public float ComReadHolding(ref Parameter par, bool reversFlag, int offset)
         {
-            float[] fRegs = new float[this.address.Length];
-            for (int i = 0; i<address.Length;i++)
+            float fRegs;
+            byte _slaveStationAddr = Convert.ToByte(this.address);
+            ushort[] usRegs = null;
+            try
             {
-                byte _slaveStationAddr = Convert.ToByte(this.address[i]);
-                ushort[] usRegs = null;
-                try
-                {
-                    mreScan.Reset();
-                    usRegs = masterCOM.ReadHoldingRegisters(_slaveStationAddr, startAddress, nOfPoints);
-                    mreScan.Set();
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Ошибка чтения регистра");
-                    fRegs[i] = 0;
-                    break;
-                }
-                if (usRegs.Length == 1)
-                    fRegs[i] = usRegs[0];
-                else if (usRegs.Length == 2)
-                {
-                    if (reversFlag)
-                        fRegs[i] = GetFloatFromRegs(usRegs[1], usRegs[0]);
-                    else
-                        fRegs[i] = GetFloatFromRegs(usRegs[0], usRegs[1]);
-                }
-                else
-                {
-                    MessageBox.Show("Пока читаем максимум по 2"); // это надо исправить
-                    fRegs[i] = 0;
-                }
+                mreScan.Reset();
+                usRegs = masterCOM.ReadHoldingRegisters(_slaveStationAddr, par.RegisterAddress, 2);
+                mreScan.Set();
             }
-            return fRegs;
+            catch (Exception)
+            {
+                //MessageBox.Show("Ошибка чтения регистра");
+                return 0;
+            }
+            if (offset == 0)
+            {
+                if (reversFlag)
+                    fRegs = GetFloatFromRegs(usRegs[1], usRegs[0]);
+                else
+                    fRegs = GetFloatFromRegs(usRegs[0], usRegs[1]);
+            }
+            else
+                fRegs = Convert.ToInt32(usRegs[offset]);
+            par.MeasuredRegs.Add(fRegs);
+            return par.MeasuredRegs.Last();
         }
 
-        public float[] ComReadInput(ushort startAddress, ushort nOfPoints, bool reversFlag)
+        public float ComReadInput(ref Parameter par, bool reversFlag, int offset)
         {
-            float[] fRegs = new float[this.address.Length];
-            for (int i = 0; i < address.Length; i++)
+            float fRegs;
+            byte _slaveStationAddr = Convert.ToByte(this.address);
+            ushort[] usRegs = null;
+            try
             {
-                byte _slaveStationAddr = Convert.ToByte(this.address[i]);
-                ushort[] usRegs = null;
-                try
-                {
-                    mreScan.Reset();
-                    usRegs = masterCOM.ReadInputRegisters(_slaveStationAddr, startAddress, nOfPoints);
-                    mreScan.Set();
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Ошибка чтения регистра");
-                    fRegs[i] = 0;
-                    break;
-                }
-                if (usRegs.Length == 1)
-                    fRegs[i] = usRegs[0];
-                else if (usRegs.Length == 2)
-                {
-                    if (reversFlag)
-                        fRegs[0] = GetFloatFromRegs(usRegs[1], usRegs[0]);
-                    else
-                        fRegs[i] = GetFloatFromRegs(usRegs[0], usRegs[1]);
-                }
-                else
-                {
-                    MessageBox.Show("Пока читаем максимум по 2"); // это надо исправить
-                    fRegs[i] = 0;
-                }
+                mreScan.Reset();
+                usRegs = masterCOM.ReadInputRegisters(_slaveStationAddr, par.RegisterAddress, 2);
+                mreScan.Set();
             }
-            return fRegs;
+            catch (Exception)
+            {
+                //MessageBox.Show("Ошибка чтения регистра");
+                return 0;
+            }
+            if (offset == 0)
+            {
+                if (reversFlag)
+                    fRegs = GetFloatFromRegs(usRegs[1], usRegs[0]);
+                else
+                    fRegs = GetFloatFromRegs(usRegs[0], usRegs[1]);
+            }
+            else
+                fRegs = Convert.ToInt32(usRegs[offset]);
+            par.MeasuredRegs.Add(fRegs);
+            return par.MeasuredRegs.Last();
         }
 
         static private Single GetFloatFromRegs(ushort _reg1, ushort _reg0)
@@ -288,8 +262,9 @@ namespace Stand
                 return Single.NaN;
             }
         }
-        /// Test Methods
+        
 
+        /// Test Methods
         public string TestComRead()
         {
             byte _slaveStationAddr = Convert.ToByte(this.address);

@@ -12,6 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -55,6 +57,7 @@
     <Compile Include="AdditionalUnitSettingsForm.Designer.cs">
       <DependentUpon>AdditionalUnitSettingsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Parameter.cs" />
     <Compile Include="Unit.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
