@@ -596,7 +596,7 @@ namespace Stand
                 if (Pressure8.CheckIfToggled())
                 {
                     var threadParameters = new System.Threading.ThreadStart(delegate
-                    { TestReadInput(PressureGauges, listBox6, ref Pressure8, isReversed, offset); });
+                    { TestReadInput(PressureGauges, listBox7, ref Pressure8, isReversed, offset); });
                     var thread = new System.Threading.Thread(threadParameters);
                     thread.Start();
                 }
@@ -608,32 +608,32 @@ namespace Stand
                 bool isReversed = true;
                 {
                     var threadParameters = new System.Threading.ThreadStart(delegate
-                    { TestReadInput(FrequencyChanger, listBox2, ref RPM, isReversed, offset); });
+                    { TestReadHolding(FrequencyChanger, listBox2, ref RPM, isReversed, offset); });
                     var thread = new System.Threading.Thread(threadParameters);
                     thread.Start();
                 }
                 {
                     var threadParameters = new System.Threading.ThreadStart(delegate
-                    { TestReadInput(FrequencyChanger, listBox3, ref Voltage, isReversed, offset); });
+                    { TestReadHolding(FrequencyChanger, listBox3, ref Voltage, isReversed, offset); });
                     var thread = new System.Threading.Thread(threadParameters);
                     thread.Start();
                 }
             }
             if (Vibration.isConnected)
             {
-                ushort address = 16479;
+                //ushort address = 16479;
                 int offset = 0;
                 bool isReversed = false;
 
                 {
                     var threadParameters = new System.Threading.ThreadStart(delegate
-                    { TestReadInput(FrequencyChanger, listBox4, ref XAmplitude, isReversed, offset); });
+                    { TestReadInput(Vibration, listBox4, ref XAmplitude, isReversed, offset); });
                     var thread = new System.Threading.Thread(threadParameters);
                     thread.Start();
                 }
                 {
                     var threadParameters = new System.Threading.ThreadStart(delegate
-                    { TestReadInput(FrequencyChanger, listBox5, ref YAmplitude, isReversed, offset); });
+                    { TestReadInput(Vibration, listBox5, ref YAmplitude, isReversed, offset); });
                     var thread = new System.Threading.Thread(threadParameters);
                     thread.Start();
                 }
