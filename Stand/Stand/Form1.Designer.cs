@@ -28,6 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Settings = new System.Windows.Forms.TabPage();
             this.VibrationAdditionalSettings = new System.Windows.Forms.Button();
@@ -92,6 +104,31 @@
             this.FlowComComboBox = new System.Windows.Forms.ComboBox();
             this.FlowmeterLabel = new System.Windows.Forms.Label();
             this.Parameters = new System.Windows.Forms.TabPage();
+            this.UoMRedactorButton = new System.Windows.Forms.Button();
+            this.PPressureTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.PYAmplitudeTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.PXAmplitudeTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.PLoadTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.PRPMTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.PPowerTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.PTorqueTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.PVoltageTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.PFreqTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.PCurrentTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.RegDataTypeLable = new System.Windows.Forms.Label();
+            this.PFlowTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.RegTypeLabel = new System.Windows.Forms.Label();
+            this.PPressureRegisterComboBox = new System.Windows.Forms.ComboBox();
+            this.PYAmplitudeRegisterComboBox = new System.Windows.Forms.ComboBox();
+            this.PXAmplitudeRegisterComboBox = new System.Windows.Forms.ComboBox();
+            this.PLoadRegisterComboBox = new System.Windows.Forms.ComboBox();
+            this.PRPMRegisterComboBox = new System.Windows.Forms.ComboBox();
+            this.PPowerRegisterComboBox = new System.Windows.Forms.ComboBox();
+            this.PTorqueRegisterComboBox = new System.Windows.Forms.ComboBox();
+            this.PVoltageRegisterComboBox = new System.Windows.Forms.ComboBox();
+            this.PFreqRegisterComboBox = new System.Windows.Forms.ComboBox();
+            this.PCurrentRegisterComboBox = new System.Windows.Forms.ComboBox();
+            this.PFlowRegisterComboBox = new System.Windows.Forms.ComboBox();
             this.SaveParametersButton = new System.Windows.Forms.Button();
             this.RgistersAdditionalButton = new System.Windows.Forms.Button();
             this.RgisterLabel = new System.Windows.Forms.Label();
@@ -156,26 +193,22 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.listBox7 = new System.Windows.Forms.ListBox();
-            this.listBox6 = new System.Windows.Forms.ListBox();
-            this.listBox5 = new System.Windows.Forms.ListBox();
-            this.listBox4 = new System.Windows.Forms.ListBox();
-            this.listBox3 = new System.Windows.Forms.ListBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.VarTimeChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button3 = new System.Windows.Forms.Button();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.Settings.SuspendLayout();
             this.Parameters.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.VarTimeChart)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -183,6 +216,7 @@
             this.tabControl1.Controls.Add(this.Settings);
             this.tabControl1.Controls.Add(this.Parameters);
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -846,6 +880,31 @@
             // 
             // Parameters
             // 
+            this.Parameters.Controls.Add(this.UoMRedactorButton);
+            this.Parameters.Controls.Add(this.PPressureTypeComboBox);
+            this.Parameters.Controls.Add(this.PYAmplitudeTypeComboBox);
+            this.Parameters.Controls.Add(this.PXAmplitudeTypeComboBox);
+            this.Parameters.Controls.Add(this.PLoadTypeComboBox);
+            this.Parameters.Controls.Add(this.PRPMTypeComboBox);
+            this.Parameters.Controls.Add(this.PPowerTypeComboBox);
+            this.Parameters.Controls.Add(this.PTorqueTypeComboBox);
+            this.Parameters.Controls.Add(this.PVoltageTypeComboBox);
+            this.Parameters.Controls.Add(this.PFreqTypeComboBox);
+            this.Parameters.Controls.Add(this.PCurrentTypeComboBox);
+            this.Parameters.Controls.Add(this.RegDataTypeLable);
+            this.Parameters.Controls.Add(this.PFlowTypeComboBox);
+            this.Parameters.Controls.Add(this.RegTypeLabel);
+            this.Parameters.Controls.Add(this.PPressureRegisterComboBox);
+            this.Parameters.Controls.Add(this.PYAmplitudeRegisterComboBox);
+            this.Parameters.Controls.Add(this.PXAmplitudeRegisterComboBox);
+            this.Parameters.Controls.Add(this.PLoadRegisterComboBox);
+            this.Parameters.Controls.Add(this.PRPMRegisterComboBox);
+            this.Parameters.Controls.Add(this.PPowerRegisterComboBox);
+            this.Parameters.Controls.Add(this.PTorqueRegisterComboBox);
+            this.Parameters.Controls.Add(this.PVoltageRegisterComboBox);
+            this.Parameters.Controls.Add(this.PFreqRegisterComboBox);
+            this.Parameters.Controls.Add(this.PCurrentRegisterComboBox);
+            this.Parameters.Controls.Add(this.PFlowRegisterComboBox);
             this.Parameters.Controls.Add(this.SaveParametersButton);
             this.Parameters.Controls.Add(this.RgistersAdditionalButton);
             this.Parameters.Controls.Add(this.RgisterLabel);
@@ -916,6 +975,336 @@
             this.Parameters.TabIndex = 1;
             this.Parameters.Text = "Настройки параметров";
             this.Parameters.UseVisualStyleBackColor = true;
+            // 
+            // UoMRedactorButton
+            // 
+            this.UoMRedactorButton.Location = new System.Drawing.Point(742, 525);
+            this.UoMRedactorButton.Name = "UoMRedactorButton";
+            this.UoMRedactorButton.Size = new System.Drawing.Size(105, 41);
+            this.UoMRedactorButton.TabIndex = 142;
+            this.UoMRedactorButton.Text = "Редактор ед. измерения";
+            this.UoMRedactorButton.UseVisualStyleBackColor = true;
+            this.UoMRedactorButton.Visible = false;
+            this.UoMRedactorButton.Click += new System.EventHandler(this.UoMRedactorButton_Click);
+            // 
+            // PPressureTypeComboBox
+            // 
+            this.PPressureTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PPressureTypeComboBox.FormattingEnabled = true;
+            this.PPressureTypeComboBox.Items.AddRange(new object[] {
+            "Single",
+            "Float AB",
+            "Float BA"});
+            this.PPressureTypeComboBox.Location = new System.Drawing.Point(713, 348);
+            this.PPressureTypeComboBox.Name = "PPressureTypeComboBox";
+            this.PPressureTypeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.PPressureTypeComboBox.TabIndex = 141;
+            this.PPressureTypeComboBox.Visible = false;
+            // 
+            // PYAmplitudeTypeComboBox
+            // 
+            this.PYAmplitudeTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PYAmplitudeTypeComboBox.FormattingEnabled = true;
+            this.PYAmplitudeTypeComboBox.Items.AddRange(new object[] {
+            "Single",
+            "Float AB",
+            "Float BA"});
+            this.PYAmplitudeTypeComboBox.Location = new System.Drawing.Point(713, 299);
+            this.PYAmplitudeTypeComboBox.Name = "PYAmplitudeTypeComboBox";
+            this.PYAmplitudeTypeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.PYAmplitudeTypeComboBox.TabIndex = 140;
+            this.PYAmplitudeTypeComboBox.Visible = false;
+            // 
+            // PXAmplitudeTypeComboBox
+            // 
+            this.PXAmplitudeTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PXAmplitudeTypeComboBox.FormattingEnabled = true;
+            this.PXAmplitudeTypeComboBox.Items.AddRange(new object[] {
+            "Single",
+            "Float AB",
+            "Float BA"});
+            this.PXAmplitudeTypeComboBox.Location = new System.Drawing.Point(713, 275);
+            this.PXAmplitudeTypeComboBox.Name = "PXAmplitudeTypeComboBox";
+            this.PXAmplitudeTypeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.PXAmplitudeTypeComboBox.TabIndex = 139;
+            this.PXAmplitudeTypeComboBox.Visible = false;
+            // 
+            // PLoadTypeComboBox
+            // 
+            this.PLoadTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PLoadTypeComboBox.FormattingEnabled = true;
+            this.PLoadTypeComboBox.Items.AddRange(new object[] {
+            "Single",
+            "Float AB",
+            "Float BA"});
+            this.PLoadTypeComboBox.Location = new System.Drawing.Point(713, 226);
+            this.PLoadTypeComboBox.Name = "PLoadTypeComboBox";
+            this.PLoadTypeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.PLoadTypeComboBox.TabIndex = 138;
+            this.PLoadTypeComboBox.Visible = false;
+            // 
+            // PRPMTypeComboBox
+            // 
+            this.PRPMTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PRPMTypeComboBox.FormattingEnabled = true;
+            this.PRPMTypeComboBox.Items.AddRange(new object[] {
+            "Single",
+            "Float AB",
+            "Float BA"});
+            this.PRPMTypeComboBox.Location = new System.Drawing.Point(713, 202);
+            this.PRPMTypeComboBox.Name = "PRPMTypeComboBox";
+            this.PRPMTypeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.PRPMTypeComboBox.TabIndex = 137;
+            this.PRPMTypeComboBox.Visible = false;
+            // 
+            // PPowerTypeComboBox
+            // 
+            this.PPowerTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PPowerTypeComboBox.FormattingEnabled = true;
+            this.PPowerTypeComboBox.Items.AddRange(new object[] {
+            "Single",
+            "Float AB",
+            "Float BA"});
+            this.PPowerTypeComboBox.Location = new System.Drawing.Point(713, 178);
+            this.PPowerTypeComboBox.Name = "PPowerTypeComboBox";
+            this.PPowerTypeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.PPowerTypeComboBox.TabIndex = 136;
+            this.PPowerTypeComboBox.Visible = false;
+            // 
+            // PTorqueTypeComboBox
+            // 
+            this.PTorqueTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PTorqueTypeComboBox.FormattingEnabled = true;
+            this.PTorqueTypeComboBox.Items.AddRange(new object[] {
+            "Single",
+            "Float AB",
+            "Float BA"});
+            this.PTorqueTypeComboBox.Location = new System.Drawing.Point(713, 154);
+            this.PTorqueTypeComboBox.Name = "PTorqueTypeComboBox";
+            this.PTorqueTypeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.PTorqueTypeComboBox.TabIndex = 135;
+            this.PTorqueTypeComboBox.Visible = false;
+            // 
+            // PVoltageTypeComboBox
+            // 
+            this.PVoltageTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PVoltageTypeComboBox.FormattingEnabled = true;
+            this.PVoltageTypeComboBox.Items.AddRange(new object[] {
+            "Single",
+            "Float AB",
+            "Float BA"});
+            this.PVoltageTypeComboBox.Location = new System.Drawing.Point(713, 130);
+            this.PVoltageTypeComboBox.Name = "PVoltageTypeComboBox";
+            this.PVoltageTypeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.PVoltageTypeComboBox.TabIndex = 134;
+            this.PVoltageTypeComboBox.Visible = false;
+            // 
+            // PFreqTypeComboBox
+            // 
+            this.PFreqTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PFreqTypeComboBox.FormattingEnabled = true;
+            this.PFreqTypeComboBox.Items.AddRange(new object[] {
+            "Single",
+            "Float AB",
+            "Float BA"});
+            this.PFreqTypeComboBox.Location = new System.Drawing.Point(713, 106);
+            this.PFreqTypeComboBox.Name = "PFreqTypeComboBox";
+            this.PFreqTypeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.PFreqTypeComboBox.TabIndex = 133;
+            this.PFreqTypeComboBox.Visible = false;
+            // 
+            // PCurrentTypeComboBox
+            // 
+            this.PCurrentTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PCurrentTypeComboBox.FormattingEnabled = true;
+            this.PCurrentTypeComboBox.Items.AddRange(new object[] {
+            "Single",
+            "Float AB",
+            "Float BA"});
+            this.PCurrentTypeComboBox.Location = new System.Drawing.Point(713, 82);
+            this.PCurrentTypeComboBox.Name = "PCurrentTypeComboBox";
+            this.PCurrentTypeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.PCurrentTypeComboBox.TabIndex = 132;
+            this.PCurrentTypeComboBox.Visible = false;
+            // 
+            // RegDataTypeLable
+            // 
+            this.RegDataTypeLable.AutoSize = true;
+            this.RegDataTypeLable.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.RegDataTypeLable.Location = new System.Drawing.Point(709, 6);
+            this.RegDataTypeLable.Name = "RegDataTypeLable";
+            this.RegDataTypeLable.Size = new System.Drawing.Size(116, 24);
+            this.RegDataTypeLable.TabIndex = 131;
+            this.RegDataTypeLable.Text = "Тип данных";
+            this.RegDataTypeLable.Visible = false;
+            // 
+            // PFlowTypeComboBox
+            // 
+            this.PFlowTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PFlowTypeComboBox.FormattingEnabled = true;
+            this.PFlowTypeComboBox.Items.AddRange(new object[] {
+            "Single",
+            "Float AB",
+            "Float BA"});
+            this.PFlowTypeComboBox.Location = new System.Drawing.Point(713, 33);
+            this.PFlowTypeComboBox.Name = "PFlowTypeComboBox";
+            this.PFlowTypeComboBox.Size = new System.Drawing.Size(121, 21);
+            this.PFlowTypeComboBox.TabIndex = 129;
+            this.PFlowTypeComboBox.Visible = false;
+            // 
+            // RegTypeLabel
+            // 
+            this.RegTypeLabel.AutoSize = true;
+            this.RegTypeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.RegTypeLabel.Location = new System.Drawing.Point(575, 6);
+            this.RegTypeLabel.Name = "RegTypeLabel";
+            this.RegTypeLabel.Size = new System.Drawing.Size(132, 24);
+            this.RegTypeLabel.TabIndex = 128;
+            this.RegTypeLabel.Text = "Тип регистра";
+            this.RegTypeLabel.Visible = false;
+            // 
+            // PPressureRegisterComboBox
+            // 
+            this.PPressureRegisterComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PPressureRegisterComboBox.FormattingEnabled = true;
+            this.PPressureRegisterComboBox.Items.AddRange(new object[] {
+            "Input Register",
+            "Holding Register"});
+            this.PPressureRegisterComboBox.Location = new System.Drawing.Point(579, 348);
+            this.PPressureRegisterComboBox.Name = "PPressureRegisterComboBox";
+            this.PPressureRegisterComboBox.Size = new System.Drawing.Size(128, 21);
+            this.PPressureRegisterComboBox.TabIndex = 127;
+            this.PPressureRegisterComboBox.Visible = false;
+            // 
+            // PYAmplitudeRegisterComboBox
+            // 
+            this.PYAmplitudeRegisterComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PYAmplitudeRegisterComboBox.FormattingEnabled = true;
+            this.PYAmplitudeRegisterComboBox.Items.AddRange(new object[] {
+            "Input Register",
+            "Holding Register"});
+            this.PYAmplitudeRegisterComboBox.Location = new System.Drawing.Point(579, 299);
+            this.PYAmplitudeRegisterComboBox.Name = "PYAmplitudeRegisterComboBox";
+            this.PYAmplitudeRegisterComboBox.Size = new System.Drawing.Size(128, 21);
+            this.PYAmplitudeRegisterComboBox.TabIndex = 126;
+            this.PYAmplitudeRegisterComboBox.Visible = false;
+            // 
+            // PXAmplitudeRegisterComboBox
+            // 
+            this.PXAmplitudeRegisterComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PXAmplitudeRegisterComboBox.FormattingEnabled = true;
+            this.PXAmplitudeRegisterComboBox.Items.AddRange(new object[] {
+            "Input Register",
+            "Holding Register"});
+            this.PXAmplitudeRegisterComboBox.Location = new System.Drawing.Point(579, 275);
+            this.PXAmplitudeRegisterComboBox.Name = "PXAmplitudeRegisterComboBox";
+            this.PXAmplitudeRegisterComboBox.Size = new System.Drawing.Size(128, 21);
+            this.PXAmplitudeRegisterComboBox.TabIndex = 125;
+            this.PXAmplitudeRegisterComboBox.Visible = false;
+            // 
+            // PLoadRegisterComboBox
+            // 
+            this.PLoadRegisterComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PLoadRegisterComboBox.FormattingEnabled = true;
+            this.PLoadRegisterComboBox.Items.AddRange(new object[] {
+            "Input Register",
+            "Holding Register"});
+            this.PLoadRegisterComboBox.Location = new System.Drawing.Point(579, 226);
+            this.PLoadRegisterComboBox.Name = "PLoadRegisterComboBox";
+            this.PLoadRegisterComboBox.Size = new System.Drawing.Size(128, 21);
+            this.PLoadRegisterComboBox.TabIndex = 124;
+            this.PLoadRegisterComboBox.Visible = false;
+            // 
+            // PRPMRegisterComboBox
+            // 
+            this.PRPMRegisterComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PRPMRegisterComboBox.FormattingEnabled = true;
+            this.PRPMRegisterComboBox.Items.AddRange(new object[] {
+            "Input Register",
+            "Holding Register"});
+            this.PRPMRegisterComboBox.Location = new System.Drawing.Point(579, 202);
+            this.PRPMRegisterComboBox.Name = "PRPMRegisterComboBox";
+            this.PRPMRegisterComboBox.Size = new System.Drawing.Size(128, 21);
+            this.PRPMRegisterComboBox.TabIndex = 123;
+            this.PRPMRegisterComboBox.Visible = false;
+            // 
+            // PPowerRegisterComboBox
+            // 
+            this.PPowerRegisterComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PPowerRegisterComboBox.FormattingEnabled = true;
+            this.PPowerRegisterComboBox.Items.AddRange(new object[] {
+            "Input Register",
+            "Holding Register"});
+            this.PPowerRegisterComboBox.Location = new System.Drawing.Point(579, 178);
+            this.PPowerRegisterComboBox.Name = "PPowerRegisterComboBox";
+            this.PPowerRegisterComboBox.Size = new System.Drawing.Size(128, 21);
+            this.PPowerRegisterComboBox.TabIndex = 122;
+            this.PPowerRegisterComboBox.Visible = false;
+            // 
+            // PTorqueRegisterComboBox
+            // 
+            this.PTorqueRegisterComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PTorqueRegisterComboBox.FormattingEnabled = true;
+            this.PTorqueRegisterComboBox.Items.AddRange(new object[] {
+            "Input Register",
+            "Holding Register"});
+            this.PTorqueRegisterComboBox.Location = new System.Drawing.Point(579, 154);
+            this.PTorqueRegisterComboBox.Name = "PTorqueRegisterComboBox";
+            this.PTorqueRegisterComboBox.Size = new System.Drawing.Size(128, 21);
+            this.PTorqueRegisterComboBox.TabIndex = 121;
+            this.PTorqueRegisterComboBox.Visible = false;
+            // 
+            // PVoltageRegisterComboBox
+            // 
+            this.PVoltageRegisterComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PVoltageRegisterComboBox.FormattingEnabled = true;
+            this.PVoltageRegisterComboBox.Items.AddRange(new object[] {
+            "Input Register",
+            "Holding Register"});
+            this.PVoltageRegisterComboBox.Location = new System.Drawing.Point(579, 130);
+            this.PVoltageRegisterComboBox.Name = "PVoltageRegisterComboBox";
+            this.PVoltageRegisterComboBox.Size = new System.Drawing.Size(128, 21);
+            this.PVoltageRegisterComboBox.TabIndex = 120;
+            this.PVoltageRegisterComboBox.Visible = false;
+            // 
+            // PFreqRegisterComboBox
+            // 
+            this.PFreqRegisterComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PFreqRegisterComboBox.FormattingEnabled = true;
+            this.PFreqRegisterComboBox.Items.AddRange(new object[] {
+            "Input Register",
+            "Holding Register"});
+            this.PFreqRegisterComboBox.Location = new System.Drawing.Point(579, 106);
+            this.PFreqRegisterComboBox.Name = "PFreqRegisterComboBox";
+            this.PFreqRegisterComboBox.Size = new System.Drawing.Size(128, 21);
+            this.PFreqRegisterComboBox.TabIndex = 119;
+            this.PFreqRegisterComboBox.Visible = false;
+            // 
+            // PCurrentRegisterComboBox
+            // 
+            this.PCurrentRegisterComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PCurrentRegisterComboBox.FormattingEnabled = true;
+            this.PCurrentRegisterComboBox.Items.AddRange(new object[] {
+            "Input Register",
+            "Holding Register"});
+            this.PCurrentRegisterComboBox.Location = new System.Drawing.Point(579, 82);
+            this.PCurrentRegisterComboBox.Name = "PCurrentRegisterComboBox";
+            this.PCurrentRegisterComboBox.Size = new System.Drawing.Size(128, 21);
+            this.PCurrentRegisterComboBox.TabIndex = 118;
+            this.PCurrentRegisterComboBox.Visible = false;
+            // 
+            // PFlowRegisterComboBox
+            // 
+            this.PFlowRegisterComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PFlowRegisterComboBox.FormattingEnabled = true;
+            this.PFlowRegisterComboBox.Items.AddRange(new object[] {
+            "Input Register",
+            "Holding Register"});
+            this.PFlowRegisterComboBox.Location = new System.Drawing.Point(579, 33);
+            this.PFlowRegisterComboBox.Name = "PFlowRegisterComboBox";
+            this.PFlowRegisterComboBox.Size = new System.Drawing.Size(128, 21);
+            this.PFlowRegisterComboBox.TabIndex = 117;
+            this.PFlowRegisterComboBox.Visible = false;
             // 
             // SaveParametersButton
             // 
@@ -1535,22 +1924,10 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.button3);
+            this.tabPage1.Controls.Add(this.VarTimeChart);
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.listBox7);
-            this.tabPage1.Controls.Add(this.listBox6);
-            this.tabPage1.Controls.Add(this.listBox5);
-            this.tabPage1.Controls.Add(this.listBox4);
-            this.tabPage1.Controls.Add(this.listBox3);
-            this.tabPage1.Controls.Add(this.listBox2);
-            this.tabPage1.Controls.Add(this.label22);
-            this.tabPage1.Controls.Add(this.label21);
-            this.tabPage1.Controls.Add(this.label20);
-            this.tabPage1.Controls.Add(this.label19);
-            this.tabPage1.Controls.Add(this.label18);
-            this.tabPage1.Controls.Add(this.label17);
-            this.tabPage1.Controls.Add(this.label16);
-            this.tabPage1.Controls.Add(this.listBox1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Size = new System.Drawing.Size(967, 572);
@@ -1558,137 +1935,55 @@
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // listBox7
+            // VarTimeChart
             // 
-            this.listBox7.FormattingEnabled = true;
-            this.listBox7.Location = new System.Drawing.Point(24, 302);
-            this.listBox7.Name = "listBox7";
-            this.listBox7.Size = new System.Drawing.Size(137, 212);
-            this.listBox7.TabIndex = 93;
+            chartArea1.Name = "ChartArea1";
+            this.VarTimeChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.VarTimeChart.Legends.Add(legend1);
+            this.VarTimeChart.Location = new System.Drawing.Point(83, 34);
+            this.VarTimeChart.Name = "VarTimeChart";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series1.Color = System.Drawing.Color.Red;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series2.Color = System.Drawing.Color.Red;
+            series2.Legend = "Legend1";
+            series2.Name = "Series2";
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series3.Color = System.Drawing.Color.Blue;
+            series3.Legend = "Legend1";
+            series3.Name = "Series3";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series4.Color = System.Drawing.Color.Blue;
+            series4.Legend = "Legend1";
+            series4.Name = "Series4";
+            this.VarTimeChart.Series.Add(series1);
+            this.VarTimeChart.Series.Add(series2);
+            this.VarTimeChart.Series.Add(series3);
+            this.VarTimeChart.Series.Add(series4);
+            this.VarTimeChart.Size = new System.Drawing.Size(795, 383);
+            this.VarTimeChart.TabIndex = 96;
+            this.VarTimeChart.Text = "VarTimeChart";
             // 
-            // listBox6
+            // button2
             // 
-            this.listBox6.FormattingEnabled = true;
-            this.listBox6.Location = new System.Drawing.Point(744, 48);
-            this.listBox6.Name = "listBox6";
-            this.listBox6.Size = new System.Drawing.Size(137, 212);
-            this.listBox6.TabIndex = 92;
-            // 
-            // listBox5
-            // 
-            this.listBox5.FormattingEnabled = true;
-            this.listBox5.Location = new System.Drawing.Point(596, 48);
-            this.listBox5.Name = "listBox5";
-            this.listBox5.Size = new System.Drawing.Size(137, 212);
-            this.listBox5.TabIndex = 91;
-            // 
-            // listBox4
-            // 
-            this.listBox4.FormattingEnabled = true;
-            this.listBox4.Location = new System.Drawing.Point(453, 48);
-            this.listBox4.Name = "listBox4";
-            this.listBox4.Size = new System.Drawing.Size(137, 212);
-            this.listBox4.TabIndex = 90;
-            // 
-            // listBox3
-            // 
-            this.listBox3.FormattingEnabled = true;
-            this.listBox3.Location = new System.Drawing.Point(310, 48);
-            this.listBox3.Name = "listBox3";
-            this.listBox3.Size = new System.Drawing.Size(137, 212);
-            this.listBox3.TabIndex = 89;
-            // 
-            // listBox2
-            // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(167, 48);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(137, 212);
-            this.listBox2.TabIndex = 88;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label22.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.label22.Location = new System.Drawing.Point(20, 275);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(180, 24);
-            this.label22.TabIndex = 87;
-            this.label22.Text = "Датчик давления 8";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label21.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.label21.Location = new System.Drawing.Point(740, 21);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(180, 24);
-            this.label21.TabIndex = 80;
-            this.label21.Text = "Датчик давления 1";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label20.Location = new System.Drawing.Point(592, 21);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(63, 24);
-            this.label20.TabIndex = 67;
-            this.label20.Text = "Ось Y";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label19.Location = new System.Drawing.Point(449, 21);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(63, 24);
-            this.label19.TabIndex = 66;
-            this.label19.Text = "Ось Х";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label18.Location = new System.Drawing.Point(306, 21);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(123, 24);
-            this.label18.TabIndex = 65;
-            this.label18.Text = "Напряжение";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label17.Location = new System.Drawing.Point(163, 21);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(51, 24);
-            this.label17.TabIndex = 64;
-            this.label17.Text = "RPM";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label16.Location = new System.Drawing.Point(20, 21);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(75, 24);
-            this.label16.TabIndex = 58;
-            this.label16.Text = "Расход";
-            // 
-            // listBox1
-            // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(24, 48);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(137, 212);
-            this.listBox1.TabIndex = 0;
+            this.button2.Location = new System.Drawing.Point(883, 542);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 95;
+            this.button2.Text = "stop";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(255, 302);
+            this.button1.Location = new System.Drawing.Point(883, 491);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 94;
@@ -1696,15 +1991,95 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // button2
+            // tabPage2
             // 
-            this.button2.Location = new System.Drawing.Point(255, 353);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 95;
-            this.button2.Text = "stop";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.tabPage2.Controls.Add(this.button6);
+            this.tabPage2.Controls.Add(this.button5);
+            this.tabPage2.Controls.Add(this.button4);
+            this.tabPage2.Controls.Add(this.chart1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(967, 572);
+            this.tabPage2.TabIndex = 3;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(695, 423);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.TabIndex = 97;
+            this.button3.Text = "add";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // chart1
+            // 
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
+            this.chart1.Location = new System.Drawing.Point(8, 8);
+            this.chart1.Name = "chart1";
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series5.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            series5.Legend = "Legend1";
+            series5.Name = "dP";
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series6.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            series6.Legend = "Legend1";
+            series6.Name = "dP мгновенная";
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series7.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            series7.Legend = "Legend1";
+            series7.Name = "N";
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series8.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            series8.Legend = "Legend1";
+            series8.Name = "N мгновенная";
+            this.chart1.Series.Add(series5);
+            this.chart1.Series.Add(series6);
+            this.chart1.Series.Add(series7);
+            this.chart1.Series.Add(series8);
+            this.chart1.Size = new System.Drawing.Size(950, 446);
+            this.chart1.TabIndex = 0;
+            this.chart1.Text = "chart1";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(768, 460);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(116, 35);
+            this.button4.TabIndex = 1;
+            this.button4.Text = "start";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(768, 515);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(116, 35);
+            this.button5.TabIndex = 2;
+            this.button5.Text = "stop";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(572, 460);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(116, 35);
+            this.button6.TabIndex = 3;
+            this.button6.Text = "add";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // Form1
             // 
@@ -1722,7 +2097,9 @@
             this.Parameters.ResumeLayout(false);
             this.Parameters.PerformLayout();
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.VarTimeChart)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1857,22 +2234,40 @@
         private System.Windows.Forms.Button RgistersAdditionalButton;
         private System.Windows.Forms.Button SaveParametersButton;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.ListBox listBox7;
-        private System.Windows.Forms.ListBox listBox6;
-        private System.Windows.Forms.ListBox listBox5;
-        private System.Windows.Forms.ListBox listBox4;
-        private System.Windows.Forms.ListBox listBox3;
-        private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label RegTypeLabel;
+        private System.Windows.Forms.ComboBox PFlowRegisterComboBox;
+        private System.Windows.Forms.ComboBox PPressureRegisterComboBox;
+        private System.Windows.Forms.ComboBox PYAmplitudeRegisterComboBox;
+        private System.Windows.Forms.ComboBox PXAmplitudeRegisterComboBox;
+        private System.Windows.Forms.ComboBox PLoadRegisterComboBox;
+        private System.Windows.Forms.ComboBox PRPMRegisterComboBox;
+        private System.Windows.Forms.ComboBox PPowerRegisterComboBox;
+        private System.Windows.Forms.ComboBox PTorqueRegisterComboBox;
+        private System.Windows.Forms.ComboBox PVoltageRegisterComboBox;
+        private System.Windows.Forms.ComboBox PFreqRegisterComboBox;
+        private System.Windows.Forms.ComboBox PCurrentRegisterComboBox;
+        private System.Windows.Forms.ComboBox PPressureTypeComboBox;
+        private System.Windows.Forms.ComboBox PYAmplitudeTypeComboBox;
+        private System.Windows.Forms.ComboBox PXAmplitudeTypeComboBox;
+        private System.Windows.Forms.ComboBox PLoadTypeComboBox;
+        private System.Windows.Forms.ComboBox PRPMTypeComboBox;
+        private System.Windows.Forms.ComboBox PPowerTypeComboBox;
+        private System.Windows.Forms.ComboBox PTorqueTypeComboBox;
+        private System.Windows.Forms.ComboBox PVoltageTypeComboBox;
+        private System.Windows.Forms.ComboBox PFreqTypeComboBox;
+        private System.Windows.Forms.ComboBox PCurrentTypeComboBox;
+        private System.Windows.Forms.Label RegDataTypeLable;
+        private System.Windows.Forms.ComboBox PFlowTypeComboBox;
+        private System.Windows.Forms.Button UoMRedactorButton;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.DataVisualization.Charting.Chart VarTimeChart;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }
 

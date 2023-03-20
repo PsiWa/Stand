@@ -223,6 +223,7 @@
             this.Controls.Add(this.DataBitsTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "AdditionalUnitSettingsForm";
             this.Load += new System.EventHandler(this.AdditionalUnitSettingsForm_Load);
             this.ResumeLayout(false);

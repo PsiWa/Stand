@@ -20,12 +20,14 @@ using System.Runtime.InteropServices;
 using System.Reflection.Emit;
 using System.Diagnostics;
 using System.Linq.Expressions;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Stand
 {
     public partial class Form1 : Form
     {
         private static ManualResetEvent _stopper = new ManualResetEvent(false);
+        private bool stopthread= false;
         public Form1()
         {
             InitializeComponent();
@@ -36,30 +38,72 @@ namespace Stand
         internal bool IsRegistersAdditionalToggled = false;
 
         #region Инициализация устройств и параметров
-        public Unit FlowMeter = new Unit("Flowmeter");
-        public Unit FrequencyChanger = new Unit("FrequencyChanger");
-        public Unit PressureGauges = new Unit("PressureGauges");
-        public Unit Valve = new Unit("Valve");
-        public Unit Vibration = new Unit("Vibration");
+        static public Unit FlowMeter = new Unit("Flowmeter");
+        static public Unit FrequencyChanger = new Unit("FrequencyChanger");
+        static public Unit PressureGauges = new Unit("PressureGauges");
+        static public Unit Valve = new Unit("Valve");
+        static public Unit Vibration = new Unit("Vibration");
 
-        private Parameter Flow = new Parameter("Flow", new string[] { "л/ч", "л/сут", "м3/час", "м3/сут" });
-        private Parameter Current = new Parameter("Current", new string[] { "А" });
-        private Parameter CurrentFrequency = new Parameter("CurrentFrequency", new string[] { "Гц" });
-        private Parameter Voltage = new Parameter("Voltage", new string[] { "В" });
-        private Parameter Torque = new Parameter("Torque", new string[] { "Н*м" });
-        private Parameter Power = new Parameter("Power", new string[] { "Вт","кВт" });
-        private Parameter RPM = new Parameter("RPM", new string[] { "об/мин" });
-        private Parameter EngineLoad = new Parameter("EngineLoad", new string[] { "%" });
-        private Parameter XAmplitude = new Parameter("XAmplitude", new string[] { "мм/с" });
-        private Parameter YAmplitude = new Parameter("YAmplitude", new string[] { "мм/с" });
-        private Parameter Pressure1 = new Parameter("Pressure1", new string[] { "Па","кПа","МПа","атм" });
-        private Parameter Pressure2 = new Parameter("Pressure2", new string[] { "Па", "кПа", "МПа", "атм" });
-        private Parameter Pressure3 = new Parameter("Pressure3", new string[] { "Па", "кПа", "МПа", "атм" });
-        private Parameter Pressure4 = new Parameter("Pressure4", new string[] { "Па", "кПа", "МПа", "атм" });
-        private Parameter Pressure5 = new Parameter("Pressure5", new string[] { "Па", "кПа", "МПа", "атм" });
-        private Parameter Pressure6 = new Parameter("Pressure6", new string[] { "Па", "кПа", "МПа", "атм" });
-        private Parameter Pressure7 = new Parameter("Pressure7", new string[] { "Па", "кПа", "МПа", "атм" });
-        private Parameter Pressure8 = new Parameter("Pressure8", new string[] { "Па", "кПа", "МПа", "атм" });
+        /*static private Parameter Flow = new Parameter("Flow", new string[] { "л/ч", "л/сут", "м3/час", "м3/сут" });
+        static private Parameter Current = new Parameter("Current", new string[] { "А" });
+        static private Parameter CurrentFrequency = new Parameter("CurrentFrequency", new string[] { "Гц" });
+        static private Parameter Voltage = new Parameter("Voltage", new string[] { "В" });
+        static private Parameter Torque = new Parameter("Torque", new string[] { "Н*м" });
+        static private Parameter Power = new Parameter("Power", new string[] { "Вт", "кВт" });
+        static private Parameter RPM = new Parameter("RPM", new string[] { "об/мин" });
+        static private Parameter EngineLoad = new Parameter("EngineLoad", new string[] { "%" });
+        static private Parameter XAmplitude = new Parameter("XAmplitude", new string[] { "мм/с" });
+        static private Parameter YAmplitude = new Parameter("YAmplitude", new string[] { "мм/с" });
+        static private Parameter Pressure1 = new Parameter("Pressure1", new string[] { "Па", "кПа", "МПа", "атм" });
+        static private Parameter Pressure2 = new Parameter("Pressure2", new string[] { "Па", "кПа", "МПа", "атм" });
+        static private Parameter Pressure3 = new Parameter("Pressure3", new string[] { "Па", "кПа", "МПа", "атм" });
+        static private Parameter Pressure4 = new Parameter("Pressure4", new string[] { "Па", "кПа", "МПа", "атм" });
+        static private Parameter Pressure5 = new Parameter("Pressure5", new string[] { "Па", "кПа", "МПа", "атм" });
+        static private Parameter Pressure6 = new Parameter("Pressure6", new string[] { "Па", "кПа", "МПа", "атм" });
+        static private Parameter Pressure7 = new Parameter("Pressure7", new string[] { "Па", "кПа", "МПа", "атм" });
+        static private Parameter Pressure8 = new Parameter("Pressure8", new string[] { "Па", "кПа", "МПа", "атм" });*/
+
+        static private Parameter Flow = new Parameter("Flow");
+        static private Parameter Current = new Parameter("Current");
+        static private Parameter CurrentFrequency = new Parameter("CurrentFrequency");
+        static private Parameter Voltage = new Parameter("Voltage");
+        static private Parameter Torque = new Parameter("Torque");
+        static private Parameter Power = new Parameter("Power");
+        static private Parameter RPM = new Parameter("RPM");
+        static private Parameter EngineLoad = new Parameter("EngineLoad");
+        static private Parameter XAmplitude = new Parameter("XAmplitude");
+        static private Parameter YAmplitude = new Parameter("YAmplitude");
+        static private Parameter Pressure1 = new Parameter("Pressure1");
+        static private Parameter Pressure2 = new Parameter("Pressure2");
+        static private Parameter Pressure3 = new Parameter("Pressure3");
+        static private Parameter Pressure4 = new Parameter("Pressure4");
+        static private Parameter Pressure5 = new Parameter("Pressure5");
+        static private Parameter Pressure6 = new Parameter("Pressure6");
+        static private Parameter Pressure7 = new Parameter("Pressure7");
+        static private Parameter Pressure8 = new Parameter("Pressure8");
+
+        private SortedList<string, Parameter> ParameterDictionary = new SortedList<string, Parameter>()
+        {
+            {Flow.name, Flow},
+            {Current.name, Current},
+            {CurrentFrequency.name, CurrentFrequency },
+            {Voltage.name, Voltage},
+            {Torque.name, Torque},
+            {Power.name, Power},
+            {RPM.name, RPM},
+            {EngineLoad.name, EngineLoad},
+            {XAmplitude.name, XAmplitude},
+            {YAmplitude.name, YAmplitude},
+            {Pressure1.name, Pressure1},
+            {Pressure2.name, Pressure2},
+            {Pressure3.name, Pressure3},
+            {Pressure4.name, Pressure4},
+            {Pressure5.name, Pressure5},
+            {Pressure6.name, Pressure6},
+            {Pressure7.name, Pressure7},
+            {Pressure8.name, Pressure8}
+        };
+
         #endregion
         #region Utils
         internal void GetComPorts()
@@ -76,19 +120,31 @@ namespace Stand
             ValveComComboBox.Items.AddRange(SerialPort.GetPortNames());
             VibrationComComboBox.Items.AddRange(SerialPort.GetPortNames());
         }
-        internal void GetUnitsOfMeasure()
+        public void GetUnitsOfMeasure()
         {
-            PFlowСomboBox.Items.AddRange(Flow.UnitsOfMeasure);
-            PCurrentСomboBox.Items.AddRange(Current.UnitsOfMeasure);
-            PCurrentFreqСomboBox.Items.AddRange(CurrentFrequency.UnitsOfMeasure);
-            PVoltageСomboBox.Items.AddRange(Voltage.UnitsOfMeasure);
-            PTorqueСomboBox.Items.AddRange(Torque.UnitsOfMeasure);
-            PPowerСomboBox.Items.AddRange(Power.UnitsOfMeasure);
-            PRPMСomboBox.Items.AddRange(RPM.UnitsOfMeasure);
-            PLoadСomboBox.Items.AddRange(EngineLoad.UnitsOfMeasure);
-            PXAmplitudeСomboBox.Items.AddRange(XAmplitude.UnitsOfMeasure);
-            PYAmplitydeСomboBox.Items.AddRange(YAmplitude.UnitsOfMeasure);
-            PPressureСomboBox.Items.AddRange(Pressure1.UnitsOfMeasure);
+            PFlowСomboBox.Items.Clear();
+            PCurrentСomboBox.Items.Clear();
+            PCurrentFreqСomboBox.Items.Clear();
+            PVoltageСomboBox.Items.Clear();
+            PTorqueСomboBox.Items.Clear();
+            PPowerСomboBox.Items.Clear();
+            PRPMСomboBox.Items.Clear();
+            PLoadСomboBox.Items.Clear();
+            PXAmplitudeСomboBox.Items.Clear();
+            PYAmplitydeСomboBox.Items.Clear();
+            PPressureСomboBox.Items.Clear();
+
+            PFlowСomboBox.Items.AddRange(Flow.UnitsOfMeasure.Keys.ToArray());
+            PCurrentСomboBox.Items.AddRange(Current.UnitsOfMeasure.Keys.ToArray());
+            PCurrentFreqСomboBox.Items.AddRange(CurrentFrequency.UnitsOfMeasure.Keys.ToArray());
+            PVoltageСomboBox.Items.AddRange(Voltage.UnitsOfMeasure.Keys.ToArray());
+            PTorqueСomboBox.Items.AddRange(Torque.UnitsOfMeasure.Keys.ToArray());
+            PPowerСomboBox.Items.AddRange(Power.UnitsOfMeasure.Keys.ToArray());
+            PRPMСomboBox.Items.AddRange(RPM.UnitsOfMeasure.Keys.ToArray());
+            PLoadСomboBox.Items.AddRange(EngineLoad.UnitsOfMeasure.Keys.ToArray());
+            PXAmplitudeСomboBox.Items.AddRange(XAmplitude.UnitsOfMeasure.Keys.ToArray());
+            PYAmplitydeСomboBox.Items.AddRange(YAmplitude.UnitsOfMeasure.Keys.ToArray());
+            PPressureСomboBox.Items.AddRange(Pressure1.UnitsOfMeasure.Keys.ToArray());
         }
         internal void ParametersLoadXML()
         {
@@ -97,100 +153,120 @@ namespace Stand
             {
                 if (el.Attribute("Name").Value == "Flow")
                 {
-                    Flow.LoadXML(el, ref PFlowRegisterTextBox, ref PFlowСomboBox);
+                    Flow.LoadXML(el, ref PFlowRegisterTextBox, ref PFlowСomboBox, ref PFlowRegisterComboBox, ref PFlowTypeComboBox);
                 }
                 if (el.Attribute("Name").Value == "Current")
                 {
-                    Current.LoadXML(el, ref PCurrentTextBox, ref PCurrentСomboBox);
+                    Current.LoadXML(el, ref PCurrentTextBox, ref PCurrentСomboBox, ref PCurrentRegisterComboBox, ref PCurrentTypeComboBox);
                 }
                 if (el.Attribute("Name").Value == "CurrentFrequency")
                 {
-                    CurrentFrequency.LoadXML(el, ref PCurrentFreqTextBox, ref PCurrentFreqСomboBox);
+                    CurrentFrequency.LoadXML(el, ref PCurrentFreqTextBox, ref PCurrentFreqСomboBox, ref PFreqRegisterComboBox, ref PFreqTypeComboBox);
                 }
                 if (el.Attribute("Name").Value == "Voltage")
                 {
-                    Voltage.LoadXML(el, ref PVoltageTextBox, ref PVoltageСomboBox);
+                    Voltage.LoadXML(el, ref PVoltageTextBox, ref PVoltageСomboBox, ref PVoltageRegisterComboBox, ref PVoltageTypeComboBox);
                 }
                 if (el.Attribute("Name").Value == "Torque")
                 {
-                    Torque.LoadXML(el, ref PTorqueTextBox, ref PTorqueСomboBox);
+                    Torque.LoadXML(el, ref PTorqueTextBox, ref PTorqueСomboBox, ref PTorqueRegisterComboBox, ref PTorqueTypeComboBox);
                 }
                 if (el.Attribute("Name").Value == "Power")
                 {
-                    Power.LoadXML(el, ref PPowerTextBox, ref PPowerСomboBox);
+                    Power.LoadXML(el, ref PPowerTextBox, ref PPowerСomboBox,ref PPowerRegisterComboBox, ref PPowerTypeComboBox);
                 }
                 if (el.Attribute("Name").Value == "RPM")
                 {
-                    RPM.LoadXML(el, ref PRPMTextBox, ref PRPMСomboBox);
+                    RPM.LoadXML(el, ref PRPMTextBox, ref PRPMСomboBox, ref PRPMRegisterComboBox, ref PRPMTypeComboBox);
                 }
                 if (el.Attribute("Name").Value == "EngineLoad")
                 {
-                    EngineLoad.LoadXML(el, ref PLoadTextBox, ref PLoadСomboBox);
+                    EngineLoad.LoadXML(el, ref PLoadTextBox, ref PLoadСomboBox, ref PLoadRegisterComboBox, ref PLoadTypeComboBox);
                 }
                 if (el.Attribute("Name").Value == "XAmplitude")
                 {
-                    XAmplitude.LoadXML(el, ref PXAmplitudeTextBox, ref PXAmplitudeСomboBox);
+                    XAmplitude.LoadXML(el, ref PXAmplitudeTextBox, ref PXAmplitudeСomboBox, ref PXAmplitudeRegisterComboBox, ref PXAmplitudeTypeComboBox);
                 }
                 if (el.Attribute("Name").Value == "YAmplitude")
                 {
-                    YAmplitude.LoadXML(el, ref PYAmplitudeTextBox, ref PYAmplitydeСomboBox);
+                    YAmplitude.LoadXML(el, ref PYAmplitudeTextBox, ref PYAmplitydeСomboBox, ref PYAmplitudeRegisterComboBox, ref PYAmplitudeTypeComboBox);
                 }
                 if (el.Attribute("Name").Value == "Pressure1")
                 {
-                    Pressure1.LoadXML(el, ref PPressure1TextBox, ref PPressureСomboBox, ref PPressure1CheckBox);
+                    Pressure1.LoadXML(el, ref PPressure1TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure1CheckBox);
                 }
                 if (el.Attribute("Name").Value == "Pressure2")
                 {
-                    Pressure2.LoadXML(el, ref PPressure2TextBox, ref PPressureСomboBox, ref PPressure2CheckBox);
+                    Pressure2.LoadXML(el, ref PPressure2TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure2CheckBox);
                 }
                 if (el.Attribute("Name").Value == "Pressure3")
                 {
-                    Pressure3.LoadXML(el, ref PPressure3TextBox, ref PPressureСomboBox, ref PPressure3CheckBox);
+                    Pressure3.LoadXML(el, ref PPressure3TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure3CheckBox);
                 }
                 if (el.Attribute("Name").Value == "Pressure4")
                 {
-                    Pressure4.LoadXML(el, ref PPressure4TextBox, ref PPressureСomboBox, ref PPressure4CheckBox);
+                    Pressure4.LoadXML(el, ref PPressure4TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure4CheckBox);
                 }
                 if (el.Attribute("Name").Value == "Pressure5")
                 {
-                    Pressure5.LoadXML(el, ref PPressure5TextBox, ref PPressureСomboBox, ref PPressure5CheckBox);
+                    Pressure5.LoadXML(el, ref PPressure5TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure5CheckBox);
                 }
                 if (el.Attribute("Name").Value == "Pressure6")
                 {
-                    Pressure6.LoadXML(el, ref PPressure6TextBox, ref PPressureСomboBox, ref PPressure6CheckBox);
+                    Pressure6.LoadXML(el, ref PPressure6TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure6CheckBox);
                 }
                 if (el.Attribute("Name").Value == "Pressure7")
                 {
-                    Pressure7.LoadXML(el, ref PPressure7TextBox, ref PPressureСomboBox, ref PPressure7CheckBox);
+                    Pressure7.LoadXML(el, ref PPressure7TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure7CheckBox);
                 }
                 if (el.Attribute("Name").Value == "Pressure8")
                 {
-                    Pressure8.LoadXML(el, ref PPressure8TextBox, ref PPressureСomboBox, ref PPressure8CheckBox);
+                    Pressure8.LoadXML(el, ref PPressure8TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure8CheckBox);
                 }
             }
         }
         internal void ParametersSaveXML()
         {
-            Flow.SaveXML(ref PFlowRegisterTextBox, ref PFlowСomboBox);
-            Current.SaveXML(ref PCurrentTextBox, ref PCurrentСomboBox);
-            CurrentFrequency.SaveXML(ref PCurrentFreqTextBox, ref PCurrentFreqСomboBox);
-            Voltage.SaveXML(ref PVoltageTextBox, ref PVoltageСomboBox);
-            Torque.SaveXML(ref PTorqueTextBox, ref PTorqueСomboBox);
-            Power.SaveXML(ref PPowerTextBox, ref PPowerСomboBox);
-            RPM.SaveXML(ref PRPMTextBox, ref PRPMСomboBox);
-            EngineLoad.SaveXML(ref PLoadTextBox, ref PLoadСomboBox);
-            XAmplitude.SaveXML(ref PXAmplitudeTextBox, ref PXAmplitudeСomboBox);
-            YAmplitude.SaveXML(ref PYAmplitudeTextBox, ref PYAmplitydeСomboBox);
-            Pressure1.SaveXML(ref PPressure1TextBox, ref PPressureСomboBox, ref PPressure1CheckBox);
-            Pressure2.SaveXML(ref PPressure2TextBox, ref PPressureСomboBox, ref PPressure2CheckBox);
-            Pressure3.SaveXML(ref PPressure3TextBox, ref PPressureСomboBox, ref PPressure3CheckBox);
-            Pressure4.SaveXML(ref PPressure4TextBox, ref PPressureСomboBox, ref PPressure4CheckBox);
-            Pressure5.SaveXML(ref PPressure5TextBox, ref PPressureСomboBox, ref PPressure5CheckBox);
-            Pressure6.SaveXML(ref PPressure6TextBox, ref PPressureСomboBox, ref PPressure6CheckBox);
-            Pressure7.SaveXML(ref PPressure7TextBox, ref PPressureСomboBox, ref PPressure7CheckBox);
-            Pressure8.SaveXML(ref PPressure8TextBox, ref PPressureСomboBox, ref PPressure8CheckBox);
+            Flow.SaveXML(ref PFlowRegisterTextBox, ref PFlowСomboBox, ref PFlowRegisterComboBox, ref PFlowTypeComboBox);
+            Current.SaveXML(ref PCurrentTextBox, ref PCurrentСomboBox,ref PCurrentRegisterComboBox, ref PCurrentTypeComboBox);
+            CurrentFrequency.SaveXML(ref PCurrentFreqTextBox, ref PCurrentFreqСomboBox, ref PFreqRegisterComboBox, ref PFreqTypeComboBox);
+            Voltage.SaveXML(ref PVoltageTextBox, ref PVoltageСomboBox, ref PVoltageRegisterComboBox, ref PVoltageTypeComboBox);
+            Torque.SaveXML(ref PTorqueTextBox, ref PTorqueСomboBox, ref PTorqueRegisterComboBox, ref PTorqueTypeComboBox);
+            Power.SaveXML(ref PPowerTextBox, ref PPowerСomboBox,ref PPowerRegisterComboBox, ref PPowerTypeComboBox);
+            RPM.SaveXML(ref PRPMTextBox, ref PRPMСomboBox, ref PRPMRegisterComboBox, ref PRPMTypeComboBox);
+            EngineLoad.SaveXML(ref PLoadTextBox, ref PLoadСomboBox, ref PLoadRegisterComboBox, ref PLoadTypeComboBox);
+            XAmplitude.SaveXML(ref PXAmplitudeTextBox, ref PXAmplitudeСomboBox, ref PXAmplitudeRegisterComboBox
+                , ref PXAmplitudeTypeComboBox);
+            YAmplitude.SaveXML(ref PYAmplitudeTextBox, ref PYAmplitydeСomboBox, ref PYAmplitudeRegisterComboBox
+                , ref PYAmplitudeTypeComboBox);
+            Pressure1.SaveXML(ref PPressure1TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure1CheckBox);
+            Pressure2.SaveXML(ref PPressure2TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure2CheckBox);
+            Pressure3.SaveXML(ref PPressure3TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure3CheckBox);
+            Pressure4.SaveXML(ref PPressure4TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure4CheckBox);
+            Pressure5.SaveXML(ref PPressure5TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure5CheckBox);
+            Pressure6.SaveXML(ref PPressure6TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure6CheckBox);
+            Pressure7.SaveXML(ref PPressure7TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure7CheckBox);
+            Pressure8.SaveXML(ref PPressure8TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure8CheckBox);
 
             xSettings.Save("Defaults.xml");
+        }
+        internal void UnitLoadXML()
+        {
+            xSettings = xDefaultDoc.Element("settings");
+
+            foreach (XElement el in xSettings.Elements("unit"))
+            {
+                if (el.Attribute("Name").Value == "Flowmeter")
+                    FlowMeter.LoadSettingsXML(el, ref FlowComComboBox, ref FlowSpeedTextBox, ref FlowAddressTextBox);
+                if (el.Attribute("Name").Value == "FrequencyChanger")
+                    FrequencyChanger.LoadSettingsXML(el, ref FrequencyComComboBox, ref FrequencySpeedTextBox, ref FrequencyAddressTextBox);
+                if (el.Attribute("Name").Value == "PressureGauges")
+                    PressureGauges.LoadSettingsXML(el, ref PressureComComboBox, ref PressureSpeedTextBox, ref PressureAddressTextBox);
+                if (el.Attribute("Name").Value == "Valve")
+                    Valve.LoadSettingsXML(el, ref ValveComComboBox, ref ValveSpeedTextBox, ref ValveAddressTextBox);
+                if (el.Attribute("Name").Value == "Vibration")
+                    Vibration.LoadSettingsXML(el, ref VibrationComComboBox, ref VibrationSpeedTextBox, ref VibrationAddresTextBox);
+            }
         }
         #endregion
         #region COM Con/Discon Event
@@ -217,6 +293,7 @@ namespace Stand
                         if (dbh.dbch_devicetype == 0x00000003)
                         {
                             GetComPorts();
+                            UnitLoadXML();
                             MessageBox.Show("Подключено новое устройство");
                         }
                         break;
@@ -226,6 +303,7 @@ namespace Stand
                         if (dbh.dbch_devicetype == 0x00000003)
                         {
                             GetComPorts();
+                            UnitLoadXML();
                             MessageBox.Show("Устройство отключено");
                         }
                         break;
@@ -236,33 +314,18 @@ namespace Stand
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
             GetComPorts();
             GetUnitsOfMeasure();
 
             xDefaultDoc = XDocument.Load("Defaults.xml");
-            xSettings = xDefaultDoc.Element("settings");
             try
             {
+                UnitLoadXML();
                 ParametersLoadXML();
             }
             catch (Exception)
             {
-                MessageBox.Show("Ошибка в файле настроек (параметры)");
-            }
-
-            foreach (XElement el in xSettings.Elements("unit"))
-            {
-                if (el.Attribute("Name").Value == "Flowmeter")
-                    FlowMeter.LoadSettingsXML(el,ref FlowComComboBox, ref FlowSpeedTextBox, ref FlowAddressTextBox);
-                if (el.Attribute("Name").Value == "FrequencyChanger")
-                    FrequencyChanger.LoadSettingsXML(el, ref FrequencyComComboBox, ref FrequencySpeedTextBox,ref FrequencyAddressTextBox);
-                if (el.Attribute("Name").Value == "PressureGauges")
-                    PressureGauges.LoadSettingsXML(el, ref PressureComComboBox, ref PressureSpeedTextBox, ref PressureAddressTextBox);
-                if (el.Attribute("Name").Value == "Valve")
-                    Valve.LoadSettingsXML(el,ref ValveComComboBox, ref ValveSpeedTextBox,ref ValveAddressTextBox);
-                if (el.Attribute("Name").Value == "Vibration")
-                    Vibration.LoadSettingsXML(el,ref VibrationComComboBox,ref VibrationSpeedTextBox, ref VibrationAddresTextBox);
+                MessageBox.Show("Ошибка в файле настроек");
             }
             }
         #region Расходомер
@@ -503,8 +566,44 @@ namespace Stand
             }
         }
 
+        internal void TestChart(Unit un, ref Parameter par, int series)//, Unit un2, ref Parameter par2, 
+            //Unit un3, ref Parameter par3)
+        {
+            int wait = 1000;
+            var start = DateTime.Now;
+            while (true)
+            {
+                float fRegs = un.ComRead(ref par, 0);
+                Action read = () => VarTimeChart.Series[series+1].Points.AddXY((DateTime.Now - start).Seconds, fRegs);
+                Action add = () => VarTimeChart.Series[series].Points.AddXY((DateTime.Now - start).Seconds, fRegs);
+                Action clear = () => VarTimeChart.Series[series+1].Points.Clear();
+                if (InvokeRequired)
+                {
+                    Invoke(clear);
+                    Invoke(read);
+                }
+                else
+                {
+                    clear();
+                    read();
+                }
+                if (_stopper.WaitOne(wait, false))
+                {
+                    if (stopthread)
+                        break;
+                    par.SetMeasuredRegs(fRegs);
+                    if (InvokeRequired)
+                        Invoke(add);
+                    else
+                        add();
+                    _stopper.Reset();
+                }
+            }
+        }
+
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            stopthread = true;
             _stopper.Set();
         }
 
@@ -551,6 +650,34 @@ namespace Stand
             PLoadTextBox.Visible = IsRegistersAdditionalToggled;
             PXAmplitudeTextBox.Visible = IsRegistersAdditionalToggled;
             PYAmplitudeTextBox.Visible = IsRegistersAdditionalToggled;
+
+            RegTypeLabel.Visible = IsRegistersAdditionalToggled;
+            PFlowRegisterComboBox.Visible = IsRegistersAdditionalToggled;
+            PCurrentRegisterComboBox.Visible = IsRegistersAdditionalToggled;
+            PFreqRegisterComboBox.Visible = IsRegistersAdditionalToggled;
+            PVoltageRegisterComboBox.Visible = IsRegistersAdditionalToggled;
+            PTorqueRegisterComboBox.Visible = IsRegistersAdditionalToggled;
+            PPowerRegisterComboBox.Visible = IsRegistersAdditionalToggled;
+            PRPMRegisterComboBox.Visible = IsRegistersAdditionalToggled;
+            PLoadRegisterComboBox.Visible = IsRegistersAdditionalToggled;
+            PXAmplitudeRegisterComboBox.Visible = IsRegistersAdditionalToggled;
+            PYAmplitudeRegisterComboBox.Visible = IsRegistersAdditionalToggled;
+            PPressureRegisterComboBox.Visible = IsRegistersAdditionalToggled;
+
+            RegDataTypeLable.Visible = IsRegistersAdditionalToggled;
+            PFlowTypeComboBox.Visible = IsRegistersAdditionalToggled;
+            PCurrentTypeComboBox.Visible = IsRegistersAdditionalToggled;
+            PVoltageTypeComboBox.Visible = IsRegistersAdditionalToggled;
+            PFreqTypeComboBox.Visible = IsRegistersAdditionalToggled;
+            PTorqueTypeComboBox.Visible = IsRegistersAdditionalToggled;
+            PPowerTypeComboBox.Visible = IsRegistersAdditionalToggled;
+            PRPMTypeComboBox.Visible = IsRegistersAdditionalToggled;
+            PLoadTypeComboBox.Visible = IsRegistersAdditionalToggled;
+            PXAmplitudeTypeComboBox.Visible = IsRegistersAdditionalToggled;
+            PYAmplitudeTypeComboBox.Visible = IsRegistersAdditionalToggled;
+            PPressureTypeComboBox.Visible = IsRegistersAdditionalToggled;
+
+            UoMRedactorButton.Visible = IsRegistersAdditionalToggled;
         }
 
         private void SaveParametersButton_Click(object sender, EventArgs e)
@@ -568,7 +695,9 @@ namespace Stand
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            if (FlowMeter.isConnected)
+            _stopper.Reset();
+            stopthread = false;
+            /*if (FlowMeter.isConnected)
             {
                 //ushort address = 49161;
                 int offset = 0;
@@ -578,69 +707,126 @@ namespace Stand
                 { TestReadInput(FlowMeter, listBox1, ref Flow, isReversed, offset); });
                 var thread = new System.Threading.Thread(threadParameters);
                 thread.Start();
-            }
-            if (PressureGauges.isConnected)
+            }*/
+            if (FlowMeter.isConnected || true)
             {
-
-                //ushort address = 4; // регистры 4,10,16,22,28,34,40,46
-                int offset = 0;
-                bool isReversed = false;
-
-                if (Pressure1.CheckIfToggled())
-                {
-                    var threadParameters = new System.Threading.ThreadStart(delegate
-                    { TestReadInput(PressureGauges, listBox6, ref Pressure1, isReversed, offset); });
-                    var thread = new System.Threading.Thread(threadParameters);
-                    thread.Start();
-                }
-                if (Pressure8.CheckIfToggled())
-                {
-                    var threadParameters = new System.Threading.ThreadStart(delegate
-                    { TestReadInput(PressureGauges, listBox7, ref Pressure8, isReversed, offset); });
-                    var thread = new System.Threading.Thread(threadParameters);
-                    thread.Start();
-                }
+                //ushort address = 49161;
+                //int offset = 0;
+                //bool isReversed = false;
+                Flow.MeasuredRegs.Clear();
+                VarTimeChart.Series[0].Points.Clear();
+                string UoM = Flow.GetUoMstring();
+                VarTimeChart.Series[0].Name = UoM;
+                VarTimeChart.Series[1].Name = UoM+" мгновенный";
+                var threadParameters = new System.Threading.ThreadStart(delegate
+                { TestChart(FlowMeter,ref Flow, 0); });
+                var thread = new System.Threading.Thread(threadParameters);
+                thread.Start();
             }
-            if (FrequencyChanger.isConnected)
+            if (PressureGauges.isConnected || true)
             {
-                //ushort address = 16479; // N меню * 10 - 1
-                int offset = 1;
-                bool isReversed = true;
-                {
-                    var threadParameters = new System.Threading.ThreadStart(delegate
-                    { TestReadHolding(FrequencyChanger, listBox2, ref RPM, isReversed, offset); });
-                    var thread = new System.Threading.Thread(threadParameters);
-                    thread.Start();
-                }
-                {
-                    var threadParameters = new System.Threading.ThreadStart(delegate
-                    { TestReadHolding(FrequencyChanger, listBox3, ref Voltage, isReversed, offset); });
-                    var thread = new System.Threading.Thread(threadParameters);
-                    thread.Start();
-                }
-            }
-            if (Vibration.isConnected)
-            {
-                //ushort address = 16479;
-                int offset = 0;
-                bool isReversed = false;
-
-                {
-                    var threadParameters = new System.Threading.ThreadStart(delegate
-                    { TestReadInput(Vibration, listBox4, ref XAmplitude, isReversed, offset); });
-                    var thread = new System.Threading.Thread(threadParameters);
-                    thread.Start();
-                }
-                {
-                    var threadParameters = new System.Threading.ThreadStart(delegate
-                    { TestReadInput(Vibration, listBox5, ref YAmplitude, isReversed, offset); });
-                    var thread = new System.Threading.Thread(threadParameters);
-                    thread.Start();
-                }
+                //ushort address = 49161;
+                //int offset = 0;
+                //bool isReversed = false;
+                Pressure1.MeasuredRegs.Clear();
+                VarTimeChart.Series[1].Points.Clear();
+                string UoM = Pressure1.GetUoMstring();
+                VarTimeChart.Series[2].Name = UoM;
+                VarTimeChart.Series[3].Name = UoM + " мгновенный";
+                var threadParameters = new System.Threading.ThreadStart(delegate
+                { TestChart(PressureGauges, ref Pressure1, 2); });
+                var thread = new System.Threading.Thread(threadParameters);
+                thread.Start();
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
+        {
+            stopthread = true;
+            _stopper.Set();
+        }
+
+        private void UoMRedactorButton_Click(object sender, EventArgs e)
+        {
+            UoMRedactor UomRed = new UoMRedactor(ref ParameterDictionary,this);
+            UomRed.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            _stopper.Set();
+        }
+        internal void TEST()
+        {
+            while (true)
+            {
+                float flow = FlowMeter.ComRead(ref Flow, 0);
+                float p1 = PressureGauges.ComRead(ref Pressure1, 0);
+                float p8 = PressureGauges.ComRead(ref Pressure8, 0)+2;
+                float N = flow * (p8 - p1);
+                Action readdp = () => chart1.Series[1].Points.AddXY(flow, (p8 - p1));
+                Action readN = () => chart1.Series[3].Points.AddXY(flow, N);
+
+                Action cleardp = () => chart1.Series[1].Points.Clear();
+                Action clearN = () => chart1.Series[3].Points.Clear();
+
+                Action adddp = () => chart1.Series[0].Points.AddXY(flow, (p8 - p1));
+                Action addN = () => chart1.Series[2].Points.AddXY(flow, N);
+                if (InvokeRequired)
+                {
+                    Invoke(cleardp);
+                    Invoke(clearN);
+                    Invoke(readdp);
+                    Invoke(readN);
+                }
+                else
+                {
+                    readdp();
+                    readN();
+                    cleardp();
+                    clearN();
+                }
+                if (_stopper.WaitOne(1000, false))
+                {
+                    if (stopthread)
+                        break;
+                    Flow.SetMeasuredRegs(flow);
+                    Pressure1.SetMeasuredRegs(p1);
+                    Pressure1.SetMeasuredRegs(p8);
+                    if (InvokeRequired)
+                    {
+                        Invoke(adddp);
+                        Invoke(addN);
+                    }
+                    else
+                    {
+                        adddp();
+                        addN();
+                    }
+                    _stopper.Reset();
+                }
+            }
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            _stopper.Reset();
+            if (true || (FlowMeter.isConnected && PressureGauges.isConnected && FrequencyChanger.isConnected))//поменять
+            {
+                stopthread = false;
+                var threadParameters = new System.Threading.ThreadStart(delegate
+                { TEST(); });
+                var thread = new System.Threading.Thread(threadParameters);
+                thread.Start();
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            stopthread = true;
+            _stopper.Set();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
         {
             _stopper.Set();
         }
