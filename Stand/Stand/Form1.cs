@@ -708,7 +708,7 @@ namespace Stand
                 var thread = new System.Threading.Thread(threadParameters);
                 thread.Start();
             }*/
-            if (FlowMeter.isConnected || true)
+            /*if (FlowMeter.isConnected)
             {
                 //ushort address = 49161;
                 //int offset = 0;
@@ -722,14 +722,14 @@ namespace Stand
                 { TestChart(FlowMeter,ref Flow, 0); });
                 var thread = new System.Threading.Thread(threadParameters);
                 thread.Start();
-            }
-            if (PressureGauges.isConnected || true)
+            }*/
+            if (PressureGauges.isConnected)
             {
                 //ushort address = 49161;
                 //int offset = 0;
                 //bool isReversed = false;
                 Pressure1.MeasuredRegs.Clear();
-                VarTimeChart.Series[1].Points.Clear();
+                VarTimeChart.Series[2].Points.Clear();
                 string UoM = Pressure1.GetUoMstring();
                 VarTimeChart.Series[2].Name = UoM;
                 VarTimeChart.Series[3].Name = UoM + " мгновенный";
@@ -762,7 +762,7 @@ namespace Stand
             {
                 float flow = FlowMeter.ComRead(ref Flow, 0);
                 float p1 = PressureGauges.ComRead(ref Pressure1, 0);
-                float p8 = PressureGauges.ComRead(ref Pressure8, 0)+2;
+                float p8 = PressureGauges.ComRead(ref Pressure8, 0);
                 float N = flow * (p8 - p1);
                 Action readdp = () => chart1.Series[1].Points.AddXY(flow, (p8 - p1));
                 Action readN = () => chart1.Series[3].Points.AddXY(flow, N);
