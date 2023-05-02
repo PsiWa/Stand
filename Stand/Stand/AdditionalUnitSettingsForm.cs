@@ -35,7 +35,7 @@ namespace Stand
             string readtout = "";
             string writetout = "";
             string handshake = "";
-            un.GetParametersString(ref databits, ref parity, ref stopBits, ref dtr, ref rts, ref readtout, ref writetout,
+            un.GetComParametersString(ref databits, ref parity, ref stopBits, ref dtr, ref rts, ref readtout, ref writetout,
                 ref handshake);
 
             DataBitsTextBox.Text = databits;
@@ -51,7 +51,7 @@ namespace Stand
         {
             try
             {
-                un.SetParameters(Convert.ToInt32(DataBitsTextBox.Text), 
+                un.SetComParameters(Convert.ToInt32(DataBitsTextBox.Text), 
                     (Parity)Enum.Parse(typeof(Parity), ParityComboBox.Text),
                     (StopBits)Enum.Parse(typeof(StopBits), StopBitsComboBox.Text), 
                     Convert.ToBoolean(DtrComboBox.Text),

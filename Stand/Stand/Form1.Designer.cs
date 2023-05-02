@@ -41,7 +41,7 @@
             System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.Settings = new System.Windows.Forms.TabPage();
+            this.UnitSettings = new System.Windows.Forms.TabPage();
             this.VibrationAdditionalSettings = new System.Windows.Forms.Button();
             this.VibrationSaveButton = new System.Windows.Forms.Button();
             this.VibrationConnectButton = new System.Windows.Forms.Button();
@@ -197,104 +197,192 @@
             this.VarTimeChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.MainChart = new System.Windows.Forms.TabPage();
+            this.button8 = new System.Windows.Forms.Button();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.button7 = new System.Windows.Forms.Button();
+            this.YSizeTextBox = new System.Windows.Forms.TextBox();
+            this.XSizeTextBox = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.Settings = new System.Windows.Forms.TabPage();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.PIDLabel = new System.Windows.Forms.Label();
+            this.UIDLabel = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.ParameterReadableCheckBox = new System.Windows.Forms.CheckBox();
+            this.ParameterSaveButton = new System.Windows.Forms.Button();
+            this.ParameterDeleteButton = new System.Windows.Forms.Button();
+            this.ParameterAddButton = new System.Windows.Forms.Button();
+            this.RedactorUoMButton1 = new System.Windows.Forms.Button();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.ParameterNameTextBox = new System.Windows.Forms.TextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.ParameterTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.ParameterRegTypeComboBox = new System.Windows.Forms.ComboBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.ParameterRegAddressTextBox = new System.Windows.Forms.TextBox();
+            this.ParameterUoMComboBox = new System.Windows.Forms.ComboBox();
+            this.ParametersListBox = new System.Windows.Forms.ListBox();
+            this.UnitDeleteButton = new System.Windows.Forms.Button();
+            this.UnitAddButton = new System.Windows.Forms.Button();
+            this.label20 = new System.Windows.Forms.Label();
+            this.UnitAdditionalSettingsButton = new System.Windows.Forms.Button();
+            this.UnitSaveButton = new System.Windows.Forms.Button();
+            this.UnitConnectButton = new System.Windows.Forms.Button();
+            this.UnitStatusTextBox = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.UnitAddressTextBox = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.UnitBaudRateTextBox = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.UnitComComboBox = new System.Windows.Forms.ComboBox();
+            this.UnitNameTextBox = new System.Windows.Forms.TextBox();
+            this.UnitsListBox = new System.Windows.Forms.ListBox();
+            this.Schema = new System.Windows.Forms.TabPage();
+            this.SchemeNotSavedLabel = new System.Windows.Forms.Label();
+            this.SchemeDeleteButton = new System.Windows.Forms.Button();
+            this.SchemeSaveButton = new System.Windows.Forms.Button();
+            this.SchemeAddButton = new System.Windows.Forms.Button();
+            this.SchemaLabel = new System.Windows.Forms.Label();
+            this.SchemeComboBox = new System.Windows.Forms.ComboBox();
+            this.label47 = new System.Windows.Forms.Label();
+            this.FlowmeterParComboBox = new System.Windows.Forms.ComboBox();
+            this.FlowmeterUnitComboBox = new System.Windows.Forms.ComboBox();
+            this.label45 = new System.Windows.Forms.Label();
+            this.label46 = new System.Windows.Forms.Label();
+            this.ValveParComboBox = new System.Windows.Forms.ComboBox();
+            this.label41 = new System.Windows.Forms.Label();
+            this.ValveUnitComboBox = new System.Windows.Forms.ComboBox();
+            this.label42 = new System.Windows.Forms.Label();
+            this.label43 = new System.Windows.Forms.Label();
+            this.FCParComboBox = new System.Windows.Forms.ComboBox();
+            this.label40 = new System.Windows.Forms.Label();
+            this.FCUnitComboBox = new System.Windows.Forms.ComboBox();
+            this.label39 = new System.Windows.Forms.Label();
+            this.label38 = new System.Windows.Forms.Label();
+            this.PressureParComboBox1 = new System.Windows.Forms.ComboBox();
+            this.PressureParComboBox2 = new System.Windows.Forms.ComboBox();
+            this.PressureParComboBox3 = new System.Windows.Forms.ComboBox();
+            this.PressureParComboBox4 = new System.Windows.Forms.ComboBox();
+            this.PressureParComboBox5 = new System.Windows.Forms.ComboBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.PressureUnitСomboBox = new System.Windows.Forms.ComboBox();
+            this.label36 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.L4TextBox = new System.Windows.Forms.TextBox();
+            this.L3TextBox = new System.Windows.Forms.TextBox();
+            this.L2TextBox = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
+            this.L1TextBox = new System.Windows.Forms.TextBox();
+            this.DensityTextBox = new System.Windows.Forms.TextBox();
+            this.label44 = new System.Windows.Forms.Label();
+            this.SchemeNameTextBox = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
-            this.Settings.SuspendLayout();
+            this.UnitSettings.SuspendLayout();
             this.Parameters.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VarTimeChart)).BeginInit();
-            this.tabPage2.SuspendLayout();
+            this.MainChart.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.Settings.SuspendLayout();
+            this.Schema.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.Settings);
+            this.tabControl1.Controls.Add(this.UnitSettings);
             this.tabControl1.Controls.Add(this.Parameters);
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.MainChart);
+            this.tabControl1.Controls.Add(this.Settings);
+            this.tabControl1.Controls.Add(this.Schema);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(975, 598);
+            this.tabControl1.Size = new System.Drawing.Size(1202, 635);
             this.tabControl1.TabIndex = 0;
             // 
-            // Settings
+            // UnitSettings
             // 
-            this.Settings.Controls.Add(this.VibrationAdditionalSettings);
-            this.Settings.Controls.Add(this.VibrationSaveButton);
-            this.Settings.Controls.Add(this.VibrationConnectButton);
-            this.Settings.Controls.Add(this.VibrationStatusTextBox);
-            this.Settings.Controls.Add(this.VibrationStatusLabel);
-            this.Settings.Controls.Add(this.VibrationAddresTextBox);
-            this.Settings.Controls.Add(this.VibrationAddressLabel);
-            this.Settings.Controls.Add(this.VibrationSpeedTextBox);
-            this.Settings.Controls.Add(this.VibrationSpeedLabel);
-            this.Settings.Controls.Add(this.VibrationComLabel);
-            this.Settings.Controls.Add(this.VibrationComComboBox);
-            this.Settings.Controls.Add(this.VibrationLabel);
-            this.Settings.Controls.Add(this.PressureNOfGauges);
-            this.Settings.Controls.Add(this.ValveAdditionalButton);
-            this.Settings.Controls.Add(this.ValveSaveButton);
-            this.Settings.Controls.Add(this.ValveConnectButton);
-            this.Settings.Controls.Add(this.ValveStatusTextBox);
-            this.Settings.Controls.Add(this.ValveStatusLabel);
-            this.Settings.Controls.Add(this.ValveAddressTextBox);
-            this.Settings.Controls.Add(this.ValveAddressLabel);
-            this.Settings.Controls.Add(this.ValveSpeedTextBox);
-            this.Settings.Controls.Add(this.ValveSpeedLabel);
-            this.Settings.Controls.Add(this.ValveComLabel);
-            this.Settings.Controls.Add(this.ValveComComboBox);
-            this.Settings.Controls.Add(this.ValveSwitchLabel);
-            this.Settings.Controls.Add(this.PressureAdditionalButton);
-            this.Settings.Controls.Add(this.PressureSaveButton);
-            this.Settings.Controls.Add(this.PressureConnectButton);
-            this.Settings.Controls.Add(this.PressureStatusTextBox);
-            this.Settings.Controls.Add(this.PressureStatusLabel);
-            this.Settings.Controls.Add(this.PressureAddressTextBox);
-            this.Settings.Controls.Add(this.PressureAddressLabel);
-            this.Settings.Controls.Add(this.PressureSpeedTextBox);
-            this.Settings.Controls.Add(this.PressureSpeedLabel);
-            this.Settings.Controls.Add(this.PressureComLabel);
-            this.Settings.Controls.Add(this.PressureComComboBox);
-            this.Settings.Controls.Add(this.PressureGaugeLabel);
-            this.Settings.Controls.Add(this.FrequencyAdditionalSettings);
-            this.Settings.Controls.Add(this.FrequencySaveButton);
-            this.Settings.Controls.Add(this.FrequencyConnectButton);
-            this.Settings.Controls.Add(this.FrequencyStatusTextBox);
-            this.Settings.Controls.Add(this.FrequencyStatusLabel);
-            this.Settings.Controls.Add(this.FrequencyAddressTextBox);
-            this.Settings.Controls.Add(this.FrequencyAddressLabel);
-            this.Settings.Controls.Add(this.FrequencySpeedTextBox);
-            this.Settings.Controls.Add(this.FrequencySpeedLabel);
-            this.Settings.Controls.Add(this.FrequencyComLabel);
-            this.Settings.Controls.Add(this.FrequencyComComboBox);
-            this.Settings.Controls.Add(this.FerquencyChangerLabel);
-            this.Settings.Controls.Add(this.FlowAdditionalButton);
-            this.Settings.Controls.Add(this.FlowSaveButton);
-            this.Settings.Controls.Add(this.FlowConnectButton);
-            this.Settings.Controls.Add(this.FlowStatusTextBox);
-            this.Settings.Controls.Add(this.FlowStatusLabel);
-            this.Settings.Controls.Add(this.FlowAddressTextBox);
-            this.Settings.Controls.Add(this.FlowAddressLabel);
-            this.Settings.Controls.Add(this.FlowSpeedTextBox);
-            this.Settings.Controls.Add(this.FlowSpeedLabel);
-            this.Settings.Controls.Add(this.FlowComLabel);
-            this.Settings.Controls.Add(this.FlowComComboBox);
-            this.Settings.Controls.Add(this.FlowmeterLabel);
-            this.Settings.Location = new System.Drawing.Point(4, 22);
-            this.Settings.Name = "Settings";
-            this.Settings.Padding = new System.Windows.Forms.Padding(3);
-            this.Settings.Size = new System.Drawing.Size(967, 572);
-            this.Settings.TabIndex = 0;
-            this.Settings.Text = "Настройки приборов";
-            this.Settings.UseVisualStyleBackColor = true;
+            this.UnitSettings.Controls.Add(this.VibrationAdditionalSettings);
+            this.UnitSettings.Controls.Add(this.VibrationSaveButton);
+            this.UnitSettings.Controls.Add(this.VibrationConnectButton);
+            this.UnitSettings.Controls.Add(this.VibrationStatusTextBox);
+            this.UnitSettings.Controls.Add(this.VibrationStatusLabel);
+            this.UnitSettings.Controls.Add(this.VibrationAddresTextBox);
+            this.UnitSettings.Controls.Add(this.VibrationAddressLabel);
+            this.UnitSettings.Controls.Add(this.VibrationSpeedTextBox);
+            this.UnitSettings.Controls.Add(this.VibrationSpeedLabel);
+            this.UnitSettings.Controls.Add(this.VibrationComLabel);
+            this.UnitSettings.Controls.Add(this.VibrationComComboBox);
+            this.UnitSettings.Controls.Add(this.VibrationLabel);
+            this.UnitSettings.Controls.Add(this.PressureNOfGauges);
+            this.UnitSettings.Controls.Add(this.ValveAdditionalButton);
+            this.UnitSettings.Controls.Add(this.ValveSaveButton);
+            this.UnitSettings.Controls.Add(this.ValveConnectButton);
+            this.UnitSettings.Controls.Add(this.ValveStatusTextBox);
+            this.UnitSettings.Controls.Add(this.ValveStatusLabel);
+            this.UnitSettings.Controls.Add(this.ValveAddressTextBox);
+            this.UnitSettings.Controls.Add(this.ValveAddressLabel);
+            this.UnitSettings.Controls.Add(this.ValveSpeedTextBox);
+            this.UnitSettings.Controls.Add(this.ValveSpeedLabel);
+            this.UnitSettings.Controls.Add(this.ValveComLabel);
+            this.UnitSettings.Controls.Add(this.ValveComComboBox);
+            this.UnitSettings.Controls.Add(this.ValveSwitchLabel);
+            this.UnitSettings.Controls.Add(this.PressureAdditionalButton);
+            this.UnitSettings.Controls.Add(this.PressureSaveButton);
+            this.UnitSettings.Controls.Add(this.PressureConnectButton);
+            this.UnitSettings.Controls.Add(this.PressureStatusTextBox);
+            this.UnitSettings.Controls.Add(this.PressureStatusLabel);
+            this.UnitSettings.Controls.Add(this.PressureAddressTextBox);
+            this.UnitSettings.Controls.Add(this.PressureAddressLabel);
+            this.UnitSettings.Controls.Add(this.PressureSpeedTextBox);
+            this.UnitSettings.Controls.Add(this.PressureSpeedLabel);
+            this.UnitSettings.Controls.Add(this.PressureComLabel);
+            this.UnitSettings.Controls.Add(this.PressureComComboBox);
+            this.UnitSettings.Controls.Add(this.PressureGaugeLabel);
+            this.UnitSettings.Controls.Add(this.FrequencyAdditionalSettings);
+            this.UnitSettings.Controls.Add(this.FrequencySaveButton);
+            this.UnitSettings.Controls.Add(this.FrequencyConnectButton);
+            this.UnitSettings.Controls.Add(this.FrequencyStatusTextBox);
+            this.UnitSettings.Controls.Add(this.FrequencyStatusLabel);
+            this.UnitSettings.Controls.Add(this.FrequencyAddressTextBox);
+            this.UnitSettings.Controls.Add(this.FrequencyAddressLabel);
+            this.UnitSettings.Controls.Add(this.FrequencySpeedTextBox);
+            this.UnitSettings.Controls.Add(this.FrequencySpeedLabel);
+            this.UnitSettings.Controls.Add(this.FrequencyComLabel);
+            this.UnitSettings.Controls.Add(this.FrequencyComComboBox);
+            this.UnitSettings.Controls.Add(this.FerquencyChangerLabel);
+            this.UnitSettings.Controls.Add(this.FlowAdditionalButton);
+            this.UnitSettings.Controls.Add(this.FlowSaveButton);
+            this.UnitSettings.Controls.Add(this.FlowConnectButton);
+            this.UnitSettings.Controls.Add(this.FlowStatusTextBox);
+            this.UnitSettings.Controls.Add(this.FlowStatusLabel);
+            this.UnitSettings.Controls.Add(this.FlowAddressTextBox);
+            this.UnitSettings.Controls.Add(this.FlowAddressLabel);
+            this.UnitSettings.Controls.Add(this.FlowSpeedTextBox);
+            this.UnitSettings.Controls.Add(this.FlowSpeedLabel);
+            this.UnitSettings.Controls.Add(this.FlowComLabel);
+            this.UnitSettings.Controls.Add(this.FlowComComboBox);
+            this.UnitSettings.Controls.Add(this.FlowmeterLabel);
+            this.UnitSettings.Location = new System.Drawing.Point(4, 22);
+            this.UnitSettings.Name = "UnitSettings";
+            this.UnitSettings.Padding = new System.Windows.Forms.Padding(3);
+            this.UnitSettings.Size = new System.Drawing.Size(1194, 609);
+            this.UnitSettings.TabIndex = 0;
+            this.UnitSettings.Text = "Настройки приборов (старые)";
+            this.UnitSettings.UseVisualStyleBackColor = true;
             // 
             // VibrationAdditionalSettings
             // 
@@ -973,9 +1061,9 @@
             this.Parameters.Location = new System.Drawing.Point(4, 22);
             this.Parameters.Name = "Parameters";
             this.Parameters.Padding = new System.Windows.Forms.Padding(3);
-            this.Parameters.Size = new System.Drawing.Size(967, 572);
+            this.Parameters.Size = new System.Drawing.Size(1194, 609);
             this.Parameters.TabIndex = 1;
-            this.Parameters.Text = "Настройки параметров";
+            this.Parameters.Text = "Настройки параметров (старые)";
             this.Parameters.UseVisualStyleBackColor = true;
             // 
             // UoMRedactorButton
@@ -1932,7 +2020,7 @@
             this.tabPage1.Controls.Add(this.button1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(967, 572);
+            this.tabPage1.Size = new System.Drawing.Size(1194, 609);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -2003,25 +2091,85 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
-            // tabPage2
+            // MainChart
             // 
-            this.tabPage2.Controls.Add(this.button6);
-            this.tabPage2.Controls.Add(this.button5);
-            this.tabPage2.Controls.Add(this.button4);
-            this.tabPage2.Controls.Add(this.chart1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(967, 572);
-            this.tabPage2.TabIndex = 3;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.MainChart.Controls.Add(this.button8);
+            this.MainChart.Controls.Add(this.label30);
+            this.MainChart.Controls.Add(this.label29);
+            this.MainChart.Controls.Add(this.button7);
+            this.MainChart.Controls.Add(this.YSizeTextBox);
+            this.MainChart.Controls.Add(this.XSizeTextBox);
+            this.MainChart.Controls.Add(this.button6);
+            this.MainChart.Controls.Add(this.button5);
+            this.MainChart.Controls.Add(this.button4);
+            this.MainChart.Controls.Add(this.chart1);
+            this.MainChart.Location = new System.Drawing.Point(4, 22);
+            this.MainChart.Name = "MainChart";
+            this.MainChart.Padding = new System.Windows.Forms.Padding(3);
+            this.MainChart.Size = new System.Drawing.Size(1194, 609);
+            this.MainChart.TabIndex = 3;
+            this.MainChart.Text = "РНХ";
+            this.MainChart.UseVisualStyleBackColor = true;
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(885, 478);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(132, 35);
+            this.button8.TabIndex = 9;
+            this.button8.Text = "ToExcel";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(882, 98);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(12, 13);
+            this.label30.TabIndex = 8;
+            this.label30.Text = "y";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(882, 52);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(12, 13);
+            this.label29.TabIndex = 7;
+            this.label29.Text = "x";
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(882, 140);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(135, 35);
+            this.button7.TabIndex = 6;
+            this.button7.Text = "Изменить";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // YSizeTextBox
+            // 
+            this.YSizeTextBox.Location = new System.Drawing.Point(882, 114);
+            this.YSizeTextBox.Name = "YSizeTextBox";
+            this.YSizeTextBox.Size = new System.Drawing.Size(135, 20);
+            this.YSizeTextBox.TabIndex = 5;
+            this.YSizeTextBox.Text = "100";
+            // 
+            // XSizeTextBox
+            // 
+            this.XSizeTextBox.Location = new System.Drawing.Point(882, 68);
+            this.XSizeTextBox.Name = "XSizeTextBox";
+            this.XSizeTextBox.Size = new System.Drawing.Size(135, 20);
+            this.XSizeTextBox.TabIndex = 4;
+            this.XSizeTextBox.Text = "100";
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(572, 460);
+            this.button6.Location = new System.Drawing.Point(885, 365);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(116, 35);
+            this.button6.Size = new System.Drawing.Size(132, 35);
             this.button6.TabIndex = 3;
             this.button6.Text = "add";
             this.button6.UseVisualStyleBackColor = true;
@@ -2029,9 +2177,9 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(768, 515);
+            this.button5.Location = new System.Drawing.Point(882, 276);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(116, 35);
+            this.button5.Size = new System.Drawing.Size(135, 35);
             this.button5.TabIndex = 2;
             this.button5.Text = "stop";
             this.button5.UseVisualStyleBackColor = true;
@@ -2039,9 +2187,9 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(768, 460);
+            this.button4.Location = new System.Drawing.Point(882, 235);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(116, 35);
+            this.button4.Size = new System.Drawing.Size(135, 35);
             this.button4.TabIndex = 1;
             this.button4.Text = "start";
             this.button4.UseVisualStyleBackColor = true;
@@ -2049,6 +2197,14 @@
             // 
             // chart1
             // 
+            chartArea4.AxisX.Maximum = 100D;
+            chartArea4.AxisX.Minimum = 0D;
+            chartArea4.AxisX2.Maximum = 100D;
+            chartArea4.AxisX2.Minimum = 0D;
+            chartArea4.AxisY.Maximum = 100D;
+            chartArea4.AxisY.Minimum = 0D;
+            chartArea4.AxisY2.Maximum = 100D;
+            chartArea4.AxisY2.Minimum = 0D;
             chartArea4.Name = "ChartArea1";
             this.chart1.ChartAreas.Add(chartArea4);
             legend4.Name = "Legend1";
@@ -2079,38 +2235,907 @@
             this.chart1.Series.Add(series14);
             this.chart1.Series.Add(series15);
             this.chart1.Series.Add(series16);
-            this.chart1.Size = new System.Drawing.Size(950, 446);
+            this.chart1.Size = new System.Drawing.Size(868, 490);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
             // 
-            // tabPage3
+            // Settings
             // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(967, 572);
-            this.tabPage3.TabIndex = 4;
-            this.tabPage3.Text = "tabPage3";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.Settings.Controls.Add(this.label32);
+            this.Settings.Controls.Add(this.label31);
+            this.Settings.Controls.Add(this.PIDLabel);
+            this.Settings.Controls.Add(this.UIDLabel);
+            this.Settings.Controls.Add(this.label28);
+            this.Settings.Controls.Add(this.label27);
+            this.Settings.Controls.Add(this.label26);
+            this.Settings.Controls.Add(this.ParameterReadableCheckBox);
+            this.Settings.Controls.Add(this.ParameterSaveButton);
+            this.Settings.Controls.Add(this.ParameterDeleteButton);
+            this.Settings.Controls.Add(this.ParameterAddButton);
+            this.Settings.Controls.Add(this.RedactorUoMButton1);
+            this.Settings.Controls.Add(this.label25);
+            this.Settings.Controls.Add(this.label24);
+            this.Settings.Controls.Add(this.ParameterNameTextBox);
+            this.Settings.Controls.Add(this.label21);
+            this.Settings.Controls.Add(this.ParameterTypeComboBox);
+            this.Settings.Controls.Add(this.label22);
+            this.Settings.Controls.Add(this.ParameterRegTypeComboBox);
+            this.Settings.Controls.Add(this.label23);
+            this.Settings.Controls.Add(this.ParameterRegAddressTextBox);
+            this.Settings.Controls.Add(this.ParameterUoMComboBox);
+            this.Settings.Controls.Add(this.ParametersListBox);
+            this.Settings.Controls.Add(this.UnitDeleteButton);
+            this.Settings.Controls.Add(this.UnitAddButton);
+            this.Settings.Controls.Add(this.label20);
+            this.Settings.Controls.Add(this.UnitAdditionalSettingsButton);
+            this.Settings.Controls.Add(this.UnitSaveButton);
+            this.Settings.Controls.Add(this.UnitConnectButton);
+            this.Settings.Controls.Add(this.UnitStatusTextBox);
+            this.Settings.Controls.Add(this.label16);
+            this.Settings.Controls.Add(this.UnitAddressTextBox);
+            this.Settings.Controls.Add(this.label17);
+            this.Settings.Controls.Add(this.UnitBaudRateTextBox);
+            this.Settings.Controls.Add(this.label18);
+            this.Settings.Controls.Add(this.label19);
+            this.Settings.Controls.Add(this.UnitComComboBox);
+            this.Settings.Controls.Add(this.UnitNameTextBox);
+            this.Settings.Controls.Add(this.UnitsListBox);
+            this.Settings.Location = new System.Drawing.Point(4, 22);
+            this.Settings.Name = "Settings";
+            this.Settings.Size = new System.Drawing.Size(1194, 609);
+            this.Settings.TabIndex = 4;
+            this.Settings.Text = "Настройки соединения";
+            this.Settings.UseVisualStyleBackColor = true;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.label32.Location = new System.Drawing.Point(900, 21);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(18, 13);
+            this.label32.TabIndex = 154;
+            this.label32.Text = "ID";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.label31.Location = new System.Drawing.Point(382, 21);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(18, 13);
+            this.label31.TabIndex = 153;
+            this.label31.Text = "ID";
+            // 
+            // PIDLabel
+            // 
+            this.PIDLabel.AutoSize = true;
+            this.PIDLabel.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.PIDLabel.Location = new System.Drawing.Point(924, 21);
+            this.PIDLabel.Name = "PIDLabel";
+            this.PIDLabel.Size = new System.Drawing.Size(41, 13);
+            this.PIDLabel.TabIndex = 152;
+            this.PIDLabel.Text = "label31";
+            // 
+            // UIDLabel
+            // 
+            this.UIDLabel.AutoSize = true;
+            this.UIDLabel.ForeColor = System.Drawing.SystemColors.ControlDark;
+            this.UIDLabel.Location = new System.Drawing.Point(406, 21);
+            this.UIDLabel.Name = "UIDLabel";
+            this.UIDLabel.Size = new System.Drawing.Size(41, 13);
+            this.UIDLabel.TabIndex = 151;
+            this.UIDLabel.Text = "label31";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label28.Location = new System.Drawing.Point(539, 12);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(245, 25);
+            this.label28.TabIndex = 150;
+            this.label28.Text = "Параметры устройства";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label27.Location = new System.Drawing.Point(8, 12);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(126, 25);
+            this.label27.TabIndex = 149;
+            this.label27.Text = "Устройства";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label26.Location = new System.Drawing.Point(770, 206);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(91, 20);
+            this.label26.TabIndex = 148;
+            this.label26.Text = "Состояние";
+            // 
+            // ParameterReadableCheckBox
+            // 
+            this.ParameterReadableCheckBox.AutoSize = true;
+            this.ParameterReadableCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.ParameterReadableCheckBox.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.ParameterReadableCheckBox.Location = new System.Drawing.Point(903, 205);
+            this.ParameterReadableCheckBox.Name = "ParameterReadableCheckBox";
+            this.ParameterReadableCheckBox.Size = new System.Drawing.Size(130, 24);
+            this.ParameterReadableCheckBox.TabIndex = 147;
+            this.ParameterReadableCheckBox.Text = "Считывается";
+            this.ParameterReadableCheckBox.UseVisualStyleBackColor = true;
+            // 
+            // ParameterSaveButton
+            // 
+            this.ParameterSaveButton.Location = new System.Drawing.Point(774, 452);
+            this.ParameterSaveButton.Name = "ParameterSaveButton";
+            this.ParameterSaveButton.Size = new System.Drawing.Size(292, 34);
+            this.ParameterSaveButton.TabIndex = 146;
+            this.ParameterSaveButton.Text = "Сохранить настройки параметра";
+            this.ParameterSaveButton.UseVisualStyleBackColor = true;
+            this.ParameterSaveButton.Click += new System.EventHandler(this.ParameterSaveButton_Click);
+            // 
+            // ParameterDeleteButton
+            // 
+            this.ParameterDeleteButton.Location = new System.Drawing.Point(544, 532);
+            this.ParameterDeleteButton.Name = "ParameterDeleteButton";
+            this.ParameterDeleteButton.Size = new System.Drawing.Size(220, 34);
+            this.ParameterDeleteButton.TabIndex = 145;
+            this.ParameterDeleteButton.Text = "Удалить параметр";
+            this.ParameterDeleteButton.UseVisualStyleBackColor = true;
+            this.ParameterDeleteButton.Click += new System.EventHandler(this.ParameterDeleteButton_Click);
+            // 
+            // ParameterAddButton
+            // 
+            this.ParameterAddButton.Location = new System.Drawing.Point(544, 492);
+            this.ParameterAddButton.Name = "ParameterAddButton";
+            this.ParameterAddButton.Size = new System.Drawing.Size(220, 34);
+            this.ParameterAddButton.TabIndex = 144;
+            this.ParameterAddButton.Text = "Добавить параметр";
+            this.ParameterAddButton.UseVisualStyleBackColor = true;
+            this.ParameterAddButton.Click += new System.EventHandler(this.ParameterAddButton_Click);
+            // 
+            // RedactorUoMButton1
+            // 
+            this.RedactorUoMButton1.Location = new System.Drawing.Point(903, 90);
+            this.RedactorUoMButton1.Name = "RedactorUoMButton1";
+            this.RedactorUoMButton1.Size = new System.Drawing.Size(153, 25);
+            this.RedactorUoMButton1.TabIndex = 143;
+            this.RedactorUoMButton1.Text = "Редактор ед. измерения";
+            this.RedactorUoMButton1.UseVisualStyleBackColor = true;
+            this.RedactorUoMButton1.Click += new System.EventHandler(this.RedactorUoMButton1_Click);
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label25.Location = new System.Drawing.Point(770, 67);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(121, 20);
+            this.label25.TabIndex = 141;
+            this.label25.Text = "Ед. измерения";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label24.Location = new System.Drawing.Point(770, 40);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(83, 20);
+            this.label24.TabIndex = 140;
+            this.label24.Text = "Название";
+            // 
+            // ParameterNameTextBox
+            // 
+            this.ParameterNameTextBox.Location = new System.Drawing.Point(903, 40);
+            this.ParameterNameTextBox.Name = "ParameterNameTextBox";
+            this.ParameterNameTextBox.Size = new System.Drawing.Size(153, 20);
+            this.ParameterNameTextBox.TabIndex = 139;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label21.Location = new System.Drawing.Point(770, 176);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(96, 20);
+            this.label21.TabIndex = 138;
+            this.label21.Text = "Тип данных";
+            // 
+            // ParameterTypeComboBox
+            // 
+            this.ParameterTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ParameterTypeComboBox.FormattingEnabled = true;
+            this.ParameterTypeComboBox.Items.AddRange(new object[] {
+            "Single",
+            "Float AB",
+            "Float BA"});
+            this.ParameterTypeComboBox.Location = new System.Drawing.Point(903, 175);
+            this.ParameterTypeComboBox.Name = "ParameterTypeComboBox";
+            this.ParameterTypeComboBox.Size = new System.Drawing.Size(153, 21);
+            this.ParameterTypeComboBox.TabIndex = 137;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label22.Location = new System.Drawing.Point(770, 147);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(109, 20);
+            this.label22.TabIndex = 136;
+            this.label22.Text = "Тип регистра";
+            // 
+            // ParameterRegTypeComboBox
+            // 
+            this.ParameterRegTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ParameterRegTypeComboBox.FormattingEnabled = true;
+            this.ParameterRegTypeComboBox.Items.AddRange(new object[] {
+            "Input Register",
+            "Holding Register"});
+            this.ParameterRegTypeComboBox.Location = new System.Drawing.Point(903, 146);
+            this.ParameterRegTypeComboBox.Name = "ParameterRegTypeComboBox";
+            this.ParameterRegTypeComboBox.Size = new System.Drawing.Size(153, 21);
+            this.ParameterRegTypeComboBox.TabIndex = 135;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label23.Location = new System.Drawing.Point(770, 121);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(130, 20);
+            this.label23.TabIndex = 134;
+            this.label23.Text = "Адрес регистра";
+            // 
+            // ParameterRegAddressTextBox
+            // 
+            this.ParameterRegAddressTextBox.Location = new System.Drawing.Point(903, 121);
+            this.ParameterRegAddressTextBox.Name = "ParameterRegAddressTextBox";
+            this.ParameterRegAddressTextBox.Size = new System.Drawing.Size(153, 20);
+            this.ParameterRegAddressTextBox.TabIndex = 133;
+            // 
+            // ParameterUoMComboBox
+            // 
+            this.ParameterUoMComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ParameterUoMComboBox.FormattingEnabled = true;
+            this.ParameterUoMComboBox.Location = new System.Drawing.Point(903, 66);
+            this.ParameterUoMComboBox.Name = "ParameterUoMComboBox";
+            this.ParameterUoMComboBox.Size = new System.Drawing.Size(153, 21);
+            this.ParameterUoMComboBox.TabIndex = 132;
+            // 
+            // ParametersListBox
+            // 
+            this.ParametersListBox.FormattingEnabled = true;
+            this.ParametersListBox.Location = new System.Drawing.Point(544, 40);
+            this.ParametersListBox.Name = "ParametersListBox";
+            this.ParametersListBox.Size = new System.Drawing.Size(220, 446);
+            this.ParametersListBox.TabIndex = 26;
+            this.ParametersListBox.SelectedIndexChanged += new System.EventHandler(this.ParametersListBox_SelectedIndexChanged);
+            // 
+            // UnitDeleteButton
+            // 
+            this.UnitDeleteButton.Location = new System.Drawing.Point(12, 532);
+            this.UnitDeleteButton.Name = "UnitDeleteButton";
+            this.UnitDeleteButton.Size = new System.Drawing.Size(220, 34);
+            this.UnitDeleteButton.TabIndex = 25;
+            this.UnitDeleteButton.Text = "Удалить устройство";
+            this.UnitDeleteButton.UseVisualStyleBackColor = true;
+            this.UnitDeleteButton.Click += new System.EventHandler(this.UnitDeleteButton_Click);
+            // 
+            // UnitAddButton
+            // 
+            this.UnitAddButton.Location = new System.Drawing.Point(12, 492);
+            this.UnitAddButton.Name = "UnitAddButton";
+            this.UnitAddButton.Size = new System.Drawing.Size(220, 34);
+            this.UnitAddButton.TabIndex = 24;
+            this.UnitAddButton.Text = "Добавить устройство";
+            this.UnitAddButton.UseVisualStyleBackColor = true;
+            this.UnitAddButton.Click += new System.EventHandler(this.UnitAddButton_Click);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label20.Location = new System.Drawing.Point(238, 40);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(83, 20);
+            this.label20.TabIndex = 23;
+            this.label20.Text = "Название";
+            // 
+            // UnitAdditionalSettingsButton
+            // 
+            this.UnitAdditionalSettingsButton.Location = new System.Drawing.Point(417, 171);
+            this.UnitAdditionalSettingsButton.Name = "UnitAdditionalSettingsButton";
+            this.UnitAdditionalSettingsButton.Size = new System.Drawing.Size(121, 23);
+            this.UnitAdditionalSettingsButton.TabIndex = 22;
+            this.UnitAdditionalSettingsButton.Text = "Доп. настройки";
+            this.UnitAdditionalSettingsButton.UseVisualStyleBackColor = true;
+            this.UnitAdditionalSettingsButton.Click += new System.EventHandler(this.UnitAdditionalSettingsButton_Click);
+            // 
+            // UnitSaveButton
+            // 
+            this.UnitSaveButton.Location = new System.Drawing.Point(242, 452);
+            this.UnitSaveButton.Name = "UnitSaveButton";
+            this.UnitSaveButton.Size = new System.Drawing.Size(292, 34);
+            this.UnitSaveButton.TabIndex = 21;
+            this.UnitSaveButton.Text = "Сохранить настройки устройства";
+            this.UnitSaveButton.UseVisualStyleBackColor = true;
+            this.UnitSaveButton.Click += new System.EventHandler(this.UnitSaveButton_Click);
+            // 
+            // UnitConnectButton
+            // 
+            this.UnitConnectButton.Location = new System.Drawing.Point(238, 200);
+            this.UnitConnectButton.Name = "UnitConnectButton";
+            this.UnitConnectButton.Size = new System.Drawing.Size(296, 34);
+            this.UnitConnectButton.TabIndex = 20;
+            this.UnitConnectButton.Text = "Подключиться";
+            this.UnitConnectButton.UseVisualStyleBackColor = true;
+            this.UnitConnectButton.Click += new System.EventHandler(this.UnitConnectButton_Click);
+            // 
+            // UnitStatusTextBox
+            // 
+            this.UnitStatusTextBox.BackColor = System.Drawing.Color.Red;
+            this.UnitStatusTextBox.Enabled = false;
+            this.UnitStatusTextBox.Location = new System.Drawing.Point(385, 145);
+            this.UnitStatusTextBox.Name = "UnitStatusTextBox";
+            this.UnitStatusTextBox.Size = new System.Drawing.Size(153, 20);
+            this.UnitStatusTextBox.TabIndex = 19;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label16.Location = new System.Drawing.Point(238, 145);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(62, 20);
+            this.label16.TabIndex = 18;
+            this.label16.Text = "Статус";
+            // 
+            // UnitAddressTextBox
+            // 
+            this.UnitAddressTextBox.Location = new System.Drawing.Point(385, 119);
+            this.UnitAddressTextBox.Name = "UnitAddressTextBox";
+            this.UnitAddressTextBox.Size = new System.Drawing.Size(153, 20);
+            this.UnitAddressTextBox.TabIndex = 17;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label17.Location = new System.Drawing.Point(238, 119);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(147, 20);
+            this.label17.TabIndex = 16;
+            this.label17.Text = "Адрес устройства";
+            // 
+            // UnitBaudRateTextBox
+            // 
+            this.UnitBaudRateTextBox.Location = new System.Drawing.Point(385, 93);
+            this.UnitBaudRateTextBox.Name = "UnitBaudRateTextBox";
+            this.UnitBaudRateTextBox.Size = new System.Drawing.Size(153, 20);
+            this.UnitBaudRateTextBox.TabIndex = 15;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label18.Location = new System.Drawing.Point(238, 93);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(141, 20);
+            this.label18.TabIndex = 14;
+            this.label18.Text = "Скорость обмена";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label19.Location = new System.Drawing.Point(238, 67);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(85, 20);
+            this.label19.TabIndex = 13;
+            this.label19.Text = "COM порт";
+            // 
+            // UnitComComboBox
+            // 
+            this.UnitComComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.UnitComComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.UnitComComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.UnitComComboBox.FormattingEnabled = true;
+            this.UnitComComboBox.Location = new System.Drawing.Point(385, 66);
+            this.UnitComComboBox.Name = "UnitComComboBox";
+            this.UnitComComboBox.Size = new System.Drawing.Size(153, 21);
+            this.UnitComComboBox.Sorted = true;
+            this.UnitComComboBox.TabIndex = 12;
+            // 
+            // UnitNameTextBox
+            // 
+            this.UnitNameTextBox.Location = new System.Drawing.Point(385, 40);
+            this.UnitNameTextBox.Name = "UnitNameTextBox";
+            this.UnitNameTextBox.Size = new System.Drawing.Size(153, 20);
+            this.UnitNameTextBox.TabIndex = 1;
+            // 
+            // UnitsListBox
+            // 
+            this.UnitsListBox.FormattingEnabled = true;
+            this.UnitsListBox.Location = new System.Drawing.Point(12, 40);
+            this.UnitsListBox.Name = "UnitsListBox";
+            this.UnitsListBox.Size = new System.Drawing.Size(220, 446);
+            this.UnitsListBox.TabIndex = 0;
+            this.UnitsListBox.SelectedIndexChanged += new System.EventHandler(this.UnitsListBox_SelectedIndexChanged);
+            // 
+            // Schema
+            // 
+            this.Schema.BackgroundImage = global::Stand.Properties.Resources.Схема;
+            this.Schema.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Schema.Controls.Add(this.SchemeNameTextBox);
+            this.Schema.Controls.Add(this.label44);
+            this.Schema.Controls.Add(this.SchemeNotSavedLabel);
+            this.Schema.Controls.Add(this.SchemeDeleteButton);
+            this.Schema.Controls.Add(this.SchemeSaveButton);
+            this.Schema.Controls.Add(this.SchemeAddButton);
+            this.Schema.Controls.Add(this.SchemaLabel);
+            this.Schema.Controls.Add(this.SchemeComboBox);
+            this.Schema.Controls.Add(this.label47);
+            this.Schema.Controls.Add(this.FlowmeterParComboBox);
+            this.Schema.Controls.Add(this.FlowmeterUnitComboBox);
+            this.Schema.Controls.Add(this.label45);
+            this.Schema.Controls.Add(this.label46);
+            this.Schema.Controls.Add(this.ValveParComboBox);
+            this.Schema.Controls.Add(this.label41);
+            this.Schema.Controls.Add(this.ValveUnitComboBox);
+            this.Schema.Controls.Add(this.label42);
+            this.Schema.Controls.Add(this.label43);
+            this.Schema.Controls.Add(this.FCParComboBox);
+            this.Schema.Controls.Add(this.label40);
+            this.Schema.Controls.Add(this.FCUnitComboBox);
+            this.Schema.Controls.Add(this.label39);
+            this.Schema.Controls.Add(this.label38);
+            this.Schema.Controls.Add(this.PressureParComboBox1);
+            this.Schema.Controls.Add(this.PressureParComboBox2);
+            this.Schema.Controls.Add(this.PressureParComboBox3);
+            this.Schema.Controls.Add(this.PressureParComboBox4);
+            this.Schema.Controls.Add(this.PressureParComboBox5);
+            this.Schema.Controls.Add(this.label37);
+            this.Schema.Controls.Add(this.PressureUnitСomboBox);
+            this.Schema.Controls.Add(this.label36);
+            this.Schema.Controls.Add(this.label35);
+            this.Schema.Controls.Add(this.label34);
+            this.Schema.Controls.Add(this.L4TextBox);
+            this.Schema.Controls.Add(this.L3TextBox);
+            this.Schema.Controls.Add(this.L2TextBox);
+            this.Schema.Controls.Add(this.label33);
+            this.Schema.Controls.Add(this.L1TextBox);
+            this.Schema.Controls.Add(this.DensityTextBox);
+            this.Schema.Location = new System.Drawing.Point(4, 22);
+            this.Schema.Name = "Schema";
+            this.Schema.Size = new System.Drawing.Size(1194, 609);
+            this.Schema.TabIndex = 5;
+            this.Schema.Text = "Схема стенда";
+            this.Schema.UseVisualStyleBackColor = true;
+            // 
+            // SchemeNotSavedLabel
+            // 
+            this.SchemeNotSavedLabel.AutoSize = true;
+            this.SchemeNotSavedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SchemeNotSavedLabel.ForeColor = System.Drawing.Color.Red;
+            this.SchemeNotSavedLabel.Location = new System.Drawing.Point(973, 75);
+            this.SchemeNotSavedLabel.Name = "SchemeNotSavedLabel";
+            this.SchemeNotSavedLabel.Size = new System.Drawing.Size(173, 16);
+            this.SchemeNotSavedLabel.TabIndex = 177;
+            this.SchemeNotSavedLabel.Text = "Настройки не сохранены!";
+            this.SchemeNotSavedLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.SchemeNotSavedLabel.Visible = false;
+            // 
+            // SchemeDeleteButton
+            // 
+            this.SchemeDeleteButton.Location = new System.Drawing.Point(976, 201);
+            this.SchemeDeleteButton.Name = "SchemeDeleteButton";
+            this.SchemeDeleteButton.Size = new System.Drawing.Size(166, 23);
+            this.SchemeDeleteButton.TabIndex = 175;
+            this.SchemeDeleteButton.Text = "Удалить";
+            this.SchemeDeleteButton.UseVisualStyleBackColor = true;
+            // 
+            // SchemeSaveButton
+            // 
+            this.SchemeSaveButton.Location = new System.Drawing.Point(976, 172);
+            this.SchemeSaveButton.Name = "SchemeSaveButton";
+            this.SchemeSaveButton.Size = new System.Drawing.Size(166, 23);
+            this.SchemeSaveButton.TabIndex = 174;
+            this.SchemeSaveButton.Text = "Сохранить";
+            this.SchemeSaveButton.UseVisualStyleBackColor = true;
+            this.SchemeSaveButton.Click += new System.EventHandler(this.SchemaSaveButton_Click);
+            // 
+            // SchemeAddButton
+            // 
+            this.SchemeAddButton.Location = new System.Drawing.Point(976, 143);
+            this.SchemeAddButton.Name = "SchemeAddButton";
+            this.SchemeAddButton.Size = new System.Drawing.Size(166, 23);
+            this.SchemeAddButton.TabIndex = 173;
+            this.SchemeAddButton.Text = "Добавить";
+            this.SchemeAddButton.UseVisualStyleBackColor = true;
+            this.SchemeAddButton.Click += new System.EventHandler(this.SchemaAddButton_Click);
+            // 
+            // SchemaLabel
+            // 
+            this.SchemaLabel.AutoSize = true;
+            this.SchemaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SchemaLabel.Location = new System.Drawing.Point(972, 28);
+            this.SchemaLabel.Name = "SchemaLabel";
+            this.SchemaLabel.Size = new System.Drawing.Size(170, 20);
+            this.SchemaLabel.TabIndex = 172;
+            this.SchemaLabel.Text = "Конфигурация схемы";
+            this.SchemaLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // SchemeComboBox
+            // 
+            this.SchemeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.SchemeComboBox.FormattingEnabled = true;
+            this.SchemeComboBox.Location = new System.Drawing.Point(976, 51);
+            this.SchemeComboBox.Name = "SchemeComboBox";
+            this.SchemeComboBox.Size = new System.Drawing.Size(166, 21);
+            this.SchemeComboBox.TabIndex = 171;
+            this.SchemeComboBox.SelectedIndexChanged += new System.EventHandler(this.SchemeComboBox_SelectedIndexChanged);
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label47.Location = new System.Drawing.Point(503, 561);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(187, 16);
+            this.label47.TabIndex = 170;
+            this.label47.Text = "Контролируемый параметр";
+            this.label47.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // FlowmeterParComboBox
+            // 
+            this.FlowmeterParComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.FlowmeterParComboBox.FormattingEnabled = true;
+            this.FlowmeterParComboBox.Location = new System.Drawing.Point(540, 580);
+            this.FlowmeterParComboBox.Name = "FlowmeterParComboBox";
+            this.FlowmeterParComboBox.Size = new System.Drawing.Size(121, 21);
+            this.FlowmeterParComboBox.TabIndex = 169;
+            this.FlowmeterParComboBox.SelectedIndexChanged += new System.EventHandler(this.PressureParComboBox5_SelectedIndexChanged);
+            // 
+            // FlowmeterUnitComboBox
+            // 
+            this.FlowmeterUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.FlowmeterUnitComboBox.FormattingEnabled = true;
+            this.FlowmeterUnitComboBox.Location = new System.Drawing.Point(540, 537);
+            this.FlowmeterUnitComboBox.Name = "FlowmeterUnitComboBox";
+            this.FlowmeterUnitComboBox.Size = new System.Drawing.Size(121, 21);
+            this.FlowmeterUnitComboBox.TabIndex = 167;
+            this.FlowmeterUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.FlowmeterUnitComboBox_SelectedIndexChanged);
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label45.Location = new System.Drawing.Point(560, 518);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(84, 16);
+            this.label45.TabIndex = 166;
+            this.label45.Text = "Устройство";
+            this.label45.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label46.Location = new System.Drawing.Point(550, 498);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(101, 20);
+            this.label46.TabIndex = 165;
+            this.label46.Text = "Расходомер";
+            this.label46.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // ValveParComboBox
+            // 
+            this.ValveParComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ValveParComboBox.FormattingEnabled = true;
+            this.ValveParComboBox.Location = new System.Drawing.Point(651, 132);
+            this.ValveParComboBox.Name = "ValveParComboBox";
+            this.ValveParComboBox.Size = new System.Drawing.Size(121, 21);
+            this.ValveParComboBox.TabIndex = 164;
+            this.ValveParComboBox.SelectedIndexChanged += new System.EventHandler(this.PressureParComboBox5_SelectedIndexChanged);
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label41.Location = new System.Drawing.Point(631, 113);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(158, 16);
+            this.label41.TabIndex = 163;
+            this.label41.Text = "Изменяемый параметр";
+            this.label41.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // ValveUnitComboBox
+            // 
+            this.ValveUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ValveUnitComboBox.FormattingEnabled = true;
+            this.ValveUnitComboBox.Location = new System.Drawing.Point(651, 89);
+            this.ValveUnitComboBox.Name = "ValveUnitComboBox";
+            this.ValveUnitComboBox.Size = new System.Drawing.Size(121, 21);
+            this.ValveUnitComboBox.TabIndex = 162;
+            this.ValveUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.ValveUnitComboBox_SelectedIndexChanged);
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label42.Location = new System.Drawing.Point(670, 70);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(84, 16);
+            this.label42.TabIndex = 161;
+            this.label42.Text = "Устройство";
+            this.label42.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label43.Location = new System.Drawing.Point(669, 49);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(86, 20);
+            this.label43.TabIndex = 160;
+            this.label43.Text = "Задвижка";
+            this.label43.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // FCParComboBox
+            // 
+            this.FCParComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.FCParComboBox.FormattingEnabled = true;
+            this.FCParComboBox.Location = new System.Drawing.Point(535, 336);
+            this.FCParComboBox.Name = "FCParComboBox";
+            this.FCParComboBox.Size = new System.Drawing.Size(121, 21);
+            this.FCParComboBox.TabIndex = 159;
+            this.FCParComboBox.SelectedIndexChanged += new System.EventHandler(this.PressureParComboBox5_SelectedIndexChanged);
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label40.Location = new System.Drawing.Point(515, 317);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(158, 16);
+            this.label40.TabIndex = 158;
+            this.label40.Text = "Изменяемый параметр";
+            this.label40.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // FCUnitComboBox
+            // 
+            this.FCUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.FCUnitComboBox.FormattingEnabled = true;
+            this.FCUnitComboBox.Location = new System.Drawing.Point(535, 293);
+            this.FCUnitComboBox.Name = "FCUnitComboBox";
+            this.FCUnitComboBox.Size = new System.Drawing.Size(121, 21);
+            this.FCUnitComboBox.TabIndex = 157;
+            this.FCUnitComboBox.SelectedIndexChanged += new System.EventHandler(this.FCUnitComboBox_SelectedIndexChanged);
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label39.Location = new System.Drawing.Point(553, 274);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(84, 16);
+            this.label39.TabIndex = 156;
+            this.label39.Text = "Устройство";
+            this.label39.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label38.Location = new System.Drawing.Point(480, 254);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(233, 20);
+            this.label38.TabIndex = 155;
+            this.label38.Text = "Частотный преобразователь";
+            this.label38.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // PressureParComboBox1
+            // 
+            this.PressureParComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PressureParComboBox1.FormattingEnabled = true;
+            this.PressureParComboBox1.Location = new System.Drawing.Point(211, 554);
+            this.PressureParComboBox1.Name = "PressureParComboBox1";
+            this.PressureParComboBox1.Size = new System.Drawing.Size(121, 21);
+            this.PressureParComboBox1.TabIndex = 154;
+            this.PressureParComboBox1.SelectedIndexChanged += new System.EventHandler(this.PressureParComboBox5_SelectedIndexChanged);
+            // 
+            // PressureParComboBox2
+            // 
+            this.PressureParComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PressureParComboBox2.FormattingEnabled = true;
+            this.PressureParComboBox2.Location = new System.Drawing.Point(211, 454);
+            this.PressureParComboBox2.Name = "PressureParComboBox2";
+            this.PressureParComboBox2.Size = new System.Drawing.Size(121, 21);
+            this.PressureParComboBox2.TabIndex = 153;
+            this.PressureParComboBox2.SelectedIndexChanged += new System.EventHandler(this.PressureParComboBox5_SelectedIndexChanged);
+            // 
+            // PressureParComboBox3
+            // 
+            this.PressureParComboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PressureParComboBox3.FormattingEnabled = true;
+            this.PressureParComboBox3.Location = new System.Drawing.Point(211, 350);
+            this.PressureParComboBox3.Name = "PressureParComboBox3";
+            this.PressureParComboBox3.Size = new System.Drawing.Size(121, 21);
+            this.PressureParComboBox3.TabIndex = 152;
+            this.PressureParComboBox3.SelectedIndexChanged += new System.EventHandler(this.PressureParComboBox5_SelectedIndexChanged);
+            // 
+            // PressureParComboBox4
+            // 
+            this.PressureParComboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PressureParComboBox4.FormattingEnabled = true;
+            this.PressureParComboBox4.Location = new System.Drawing.Point(211, 243);
+            this.PressureParComboBox4.Name = "PressureParComboBox4";
+            this.PressureParComboBox4.Size = new System.Drawing.Size(121, 21);
+            this.PressureParComboBox4.TabIndex = 151;
+            this.PressureParComboBox4.SelectedIndexChanged += new System.EventHandler(this.PressureParComboBox5_SelectedIndexChanged);
+            // 
+            // PressureParComboBox5
+            // 
+            this.PressureParComboBox5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PressureParComboBox5.FormattingEnabled = true;
+            this.PressureParComboBox5.Location = new System.Drawing.Point(211, 145);
+            this.PressureParComboBox5.Name = "PressureParComboBox5";
+            this.PressureParComboBox5.Size = new System.Drawing.Size(121, 21);
+            this.PressureParComboBox5.TabIndex = 150;
+            this.PressureParComboBox5.SelectedIndexChanged += new System.EventHandler(this.PressureParComboBox5_SelectedIndexChanged);
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label37.Location = new System.Drawing.Point(183, 89);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(187, 16);
+            this.label37.TabIndex = 149;
+            this.label37.Text = "Контролируемый параметр";
+            this.label37.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // PressureUnitСomboBox
+            // 
+            this.PressureUnitСomboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.PressureUnitСomboBox.FormattingEnabled = true;
+            this.PressureUnitСomboBox.Location = new System.Drawing.Point(211, 51);
+            this.PressureUnitСomboBox.Name = "PressureUnitСomboBox";
+            this.PressureUnitСomboBox.Size = new System.Drawing.Size(121, 21);
+            this.PressureUnitСomboBox.TabIndex = 148;
+            this.PressureUnitСomboBox.SelectedIndexChanged += new System.EventHandler(this.PressureUnitСomboBox_SelectedIndexChanged);
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label36.Location = new System.Drawing.Point(228, 32);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(84, 16);
+            this.label36.TabIndex = 147;
+            this.label36.Text = "Устройство";
+            this.label36.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label35.Location = new System.Drawing.Point(192, 10);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(153, 20);
+            this.label35.TabIndex = 146;
+            this.label35.Text = "Датчики давления";
+            this.label35.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label34.Location = new System.Drawing.Point(27, 10);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(126, 60);
+            this.label34.TabIndex = 145;
+            this.label34.Text = "Разница высот \r\nточек замера \r\nдавлений [м]";
+            this.label34.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // L4TextBox
+            // 
+            this.L4TextBox.Location = new System.Drawing.Point(48, 158);
+            this.L4TextBox.Name = "L4TextBox";
+            this.L4TextBox.Size = new System.Drawing.Size(85, 20);
+            this.L4TextBox.TabIndex = 144;
+            this.L4TextBox.Text = "0";
+            // 
+            // L3TextBox
+            // 
+            this.L3TextBox.Location = new System.Drawing.Point(48, 263);
+            this.L3TextBox.Name = "L3TextBox";
+            this.L3TextBox.Size = new System.Drawing.Size(85, 20);
+            this.L3TextBox.TabIndex = 143;
+            this.L3TextBox.Text = "0";
+            // 
+            // L2TextBox
+            // 
+            this.L2TextBox.Location = new System.Drawing.Point(48, 367);
+            this.L2TextBox.Name = "L2TextBox";
+            this.L2TextBox.Size = new System.Drawing.Size(85, 20);
+            this.L2TextBox.TabIndex = 142;
+            this.L2TextBox.Text = "0";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label33.Location = new System.Drawing.Point(828, 301);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(140, 20);
+            this.label33.TabIndex = 141;
+            this.label33.Text = "Плотность [кг/м³]";
+            // 
+            // L1TextBox
+            // 
+            this.L1TextBox.Location = new System.Drawing.Point(48, 474);
+            this.L1TextBox.Name = "L1TextBox";
+            this.L1TextBox.Size = new System.Drawing.Size(85, 20);
+            this.L1TextBox.TabIndex = 1;
+            this.L1TextBox.Text = "1";
+            // 
+            // DensityTextBox
+            // 
+            this.DensityTextBox.Location = new System.Drawing.Point(832, 324);
+            this.DensityTextBox.Name = "DensityTextBox";
+            this.DensityTextBox.Size = new System.Drawing.Size(136, 20);
+            this.DensityTextBox.TabIndex = 0;
+            this.DensityTextBox.Text = "998,2";
+            this.DensityTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label44.Location = new System.Drawing.Point(972, 91);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(83, 20);
+            this.label44.TabIndex = 178;
+            this.label44.Text = "Название";
+            this.label44.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // SchemeNameTextBox
+            // 
+            this.SchemeNameTextBox.Location = new System.Drawing.Point(976, 114);
+            this.SchemeNameTextBox.Name = "SchemeNameTextBox";
+            this.SchemeNameTextBox.Size = new System.Drawing.Size(166, 20);
+            this.SchemeNameTextBox.TabIndex = 179;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(974, 597);
+            this.ClientSize = new System.Drawing.Size(1199, 633);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
-            this.Settings.ResumeLayout(false);
-            this.Settings.PerformLayout();
+            this.UnitSettings.ResumeLayout(false);
+            this.UnitSettings.PerformLayout();
             this.Parameters.ResumeLayout(false);
             this.Parameters.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.VarTimeChart)).EndInit();
-            this.tabPage2.ResumeLayout(false);
+            this.MainChart.ResumeLayout(false);
+            this.MainChart.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.Settings.ResumeLayout(false);
+            this.Settings.PerformLayout();
+            this.Schema.ResumeLayout(false);
+            this.Schema.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2118,7 +3143,7 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage Settings;
+        private System.Windows.Forms.TabPage UnitSettings;
         private System.Windows.Forms.TabPage Parameters;
         private System.Windows.Forms.Label FlowmeterLabel;
         private System.Windows.Forms.ComboBox FlowComComboBox;
@@ -2272,14 +3297,99 @@
         private System.Windows.Forms.Label RegDataTypeLable;
         private System.Windows.Forms.ComboBox PFlowTypeComboBox;
         private System.Windows.Forms.Button UoMRedactorButton;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage MainChart;
         private System.Windows.Forms.DataVisualization.Charting.Chart VarTimeChart;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage Settings;
+        private System.Windows.Forms.Button UnitAddButton;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Button UnitAdditionalSettingsButton;
+        private System.Windows.Forms.Button UnitSaveButton;
+        private System.Windows.Forms.Button UnitConnectButton;
+        private System.Windows.Forms.TextBox UnitStatusTextBox;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox UnitAddressTextBox;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.TextBox UnitBaudRateTextBox;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ComboBox UnitComComboBox;
+        private System.Windows.Forms.TextBox UnitNameTextBox;
+        private System.Windows.Forms.ListBox UnitsListBox;
+        private System.Windows.Forms.Button UnitDeleteButton;
+        private System.Windows.Forms.ListBox ParametersListBox;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox ParameterNameTextBox;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.ComboBox ParameterTypeComboBox;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.ComboBox ParameterRegTypeComboBox;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox ParameterRegAddressTextBox;
+        private System.Windows.Forms.ComboBox ParameterUoMComboBox;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Button RedactorUoMButton1;
+        private System.Windows.Forms.Button ParameterDeleteButton;
+        private System.Windows.Forms.Button ParameterAddButton;
+        private System.Windows.Forms.Button ParameterSaveButton;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.CheckBox ParameterReadableCheckBox;
+        private System.Windows.Forms.TextBox XSizeTextBox;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.TextBox YSizeTextBox;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.TabPage Schema;
+        private System.Windows.Forms.TextBox L1TextBox;
+        private System.Windows.Forms.TextBox DensityTextBox;
+        private System.Windows.Forms.Label UIDLabel;
+        private System.Windows.Forms.Label PIDLabel;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.TextBox L4TextBox;
+        private System.Windows.Forms.TextBox L3TextBox;
+        private System.Windows.Forms.TextBox L2TextBox;
+        private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.ComboBox FlowmeterParComboBox;
+        private System.Windows.Forms.ComboBox FlowmeterUnitComboBox;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.ComboBox ValveParComboBox;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.ComboBox ValveUnitComboBox;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.ComboBox FCParComboBox;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.ComboBox FCUnitComboBox;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.ComboBox PressureParComboBox1;
+        private System.Windows.Forms.ComboBox PressureParComboBox2;
+        private System.Windows.Forms.ComboBox PressureParComboBox3;
+        private System.Windows.Forms.ComboBox PressureParComboBox4;
+        private System.Windows.Forms.ComboBox PressureParComboBox5;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.ComboBox PressureUnitСomboBox;
+        private System.Windows.Forms.Label SchemaLabel;
+        private System.Windows.Forms.ComboBox SchemeComboBox;
+        private System.Windows.Forms.Button SchemeSaveButton;
+        private System.Windows.Forms.Button SchemeAddButton;
+        private System.Windows.Forms.Button SchemeDeleteButton;
+        private System.Windows.Forms.Label SchemeNotSavedLabel;
+        private System.Windows.Forms.TextBox SchemeNameTextBox;
+        private System.Windows.Forms.Label label44;
     }
 }
 

@@ -21,13 +21,18 @@ using System.Reflection.Emit;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Windows.Forms.DataVisualization.Charting;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
+using System.IO;
+using Application = System.Windows.Forms.Application;
+using Spire.Xls;
 
 namespace Stand
 {
     public partial class Form1 : Form
     {
         private static ManualResetEvent _stopper = new ManualResetEvent(false);
-        private bool stopthread= false;
+        private bool stopthread = false;
         public Form1()
         {
             InitializeComponent();
@@ -35,14 +40,18 @@ namespace Stand
 
         private XDocument xDefaultDoc = new XDocument();
         public static XElement xSettings = new XElement("settings");
-        internal bool IsRegistersAdditionalToggled = false;
+        private bool IsRegistersAdditionalToggled = false;
 
         #region Инициализация устройств и параметров
-        static public Unit FlowMeter = new Unit("Flowmeter");
-        static public Unit FrequencyChanger = new Unit("FrequencyChanger");
-        static public Unit PressureGauges = new Unit("PressureGauges");
-        static public Unit Valve = new Unit("Valve");
-        static public Unit Vibration = new Unit("Vibration");
+        public List<Unit> UnitsList = new List<Unit>();
+        public List<Scheme> SchemasList = new List<Scheme>();
+
+        //static public Unit FlowMeter = new Unit("Flowmeter");
+        //static public Unit FrequencyChanger = new Unit("FrequencyChanger");
+        //static public Unit PressureGauges = new Unit("PressureGauges");
+        //static public Unit Valve = new Unit("Valve");
+        //static public Unit Vibration = new Unit("Vibration");
+
 
         /*static private Parameter Flow = new Parameter("Flow", new string[] { "л/ч", "л/сут", "м3/час", "м3/сут" });
         static private Parameter Current = new Parameter("Current", new string[] { "А" });
@@ -63,7 +72,7 @@ namespace Stand
         static private Parameter Pressure7 = new Parameter("Pressure7", new string[] { "Па", "кПа", "МПа", "атм" });
         static private Parameter Pressure8 = new Parameter("Pressure8", new string[] { "Па", "кПа", "МПа", "атм" });*/
 
-        static private Parameter Flow = new Parameter("Flow");
+        /*static private Parameter Flow = new Parameter("Flow");
         static private Parameter Current = new Parameter("Current");
         static private Parameter CurrentFrequency = new Parameter("CurrentFrequency");
         static private Parameter Voltage = new Parameter("Voltage");
@@ -84,43 +93,169 @@ namespace Stand
 
         private SortedList<string, Parameter> ParameterDictionary = new SortedList<string, Parameter>()
         {
-            {Flow.name, Flow},
-            {Current.name, Current},
-            {CurrentFrequency.name, CurrentFrequency },
-            {Voltage.name, Voltage},
-            {Torque.name, Torque},
-            {Power.name, Power},
-            {RPM.name, RPM},
-            {EngineLoad.name, EngineLoad},
-            {XAmplitude.name, XAmplitude},
-            {YAmplitude.name, YAmplitude},
-            {Pressure1.name, Pressure1},
-            {Pressure2.name, Pressure2},
-            {Pressure3.name, Pressure3},
-            {Pressure4.name, Pressure4},
-            {Pressure5.name, Pressure5},
-            {Pressure6.name, Pressure6},
-            {Pressure7.name, Pressure7},
-            {Pressure8.name, Pressure8}
-        };
+            {Flow.GetName(), Flow},
+            {Current.GetName(), Current},
+            {CurrentFrequency.GetName(), CurrentFrequency },
+            {Voltage.GetName(), Voltage},
+            {Torque.GetName(), Torque},
+            {Power.GetName(), Power},
+            {RPM.GetName(), RPM},
+            {EngineLoad.GetName(), EngineLoad},
+            {XAmplitude.GetName(), XAmplitude},
+            {YAmplitude.GetName(), YAmplitude},
+            {Pressure1.GetName(), Pressure1},
+            {Pressure2.GetName(), Pressure2},
+            {Pressure3.GetName(), Pressure3},
+            {Pressure4.GetName(), Pressure4},
+            {Pressure5.GetName(), Pressure5},
+            {Pressure6.GetName(), Pressure6},
+            {Pressure7.GetName(), Pressure7},
+            {Pressure8.GetName(), Pressure8}
+        };*/
 
         #endregion
         #region Utils
-        internal void GetComPorts()
+        private void UpdateUnitsList(int selected)
+        {
+            UnitsListBox.Items.Clear();
+            foreach (Unit un in UnitsList)
+            {
+                if (un.isConnected)
+                    UnitsListBox.Items.Add($"{un.GetName()} (подключено)");
+                else
+                    UnitsListBox.Items.Add($"{un.GetName()} (отключено)");
+            }
+            UnitsListBox.SelectedIndex = selected;
+            UpdateSelectedUnit();
+        }
+        private void UpdateSelectedUnit()
+        {
+            Unit un = UnitsList[UnitsListBox.SelectedIndex];
+            UnitNameTextBox.Text = un.GetName();
+            UnitComComboBox.SelectedIndex = UnitComComboBox.FindString(un.GetComPortName());
+            UnitBaudRateTextBox.Text = un.GetBaud().ToString();
+            UnitAddressTextBox.Text = un.GetAddress().ToString();
+            if (un.isConnected)
+            {
+                UnitStatusTextBox.BackColor = Color.Green;
+                UnitConnectButton.Text = "Отключиться";
+            }
+            else
+            {
+                UnitStatusTextBox.BackColor = Color.Red;
+                UnitConnectButton.Text = "Подключиться";
+            }
+            UIDLabel.Text = "-";
+            UIDLabel.Text = un.id.ToString();
+
+            ParametersListBox.Items.Clear();
+            ParameterNameTextBox.Clear();
+            ParameterUoMComboBox.Items.Clear();
+            ParameterRegAddressTextBox.Clear();
+            ParameterReadableCheckBox.Checked = false;
+            PIDLabel.Text = "----";
+            foreach (Parameter par in un.GetParametersList())
+            {
+                ParametersListBox.Items.Add(par.GetName());
+                ParametersListBox.SelectedIndex = 0;
+            }
+        }
+        public void UpdateSelectedParameter()
+        {
+            Unit un = UnitsList[UnitsListBox.SelectedIndex];
+            Parameter par = un.GetParametersList()[ParametersListBox.SelectedIndex];
+            ParameterNameTextBox.Text = par.GetName();
+            ParameterRegAddressTextBox.Text = par.GetRegisterAddress().ToString();
+            ParameterRegTypeComboBox.SelectedIndex = (int)par.GetRegType();
+            ParameterTypeComboBox.SelectedIndex = (int)par.GetDataType();
+            ParameterReadableCheckBox.Checked = par.CheckIfToggled();
+            ParameterUoMComboBox.Items.Clear();
+            ParameterUoMComboBox.Items.AddRange(par.GetUoMs().Keys.ToArray());
+            if (ParameterUoMComboBox.Items.Count >0)
+                ParameterUoMComboBox.SelectedIndex = par.GetSelectedUoM();
+            PIDLabel.Text = par.id.ToString();
+        }
+        public void UpdateSchemeOptions()
+        {
+            PressureUnitСomboBox.Items.Clear();
+            PressureUnitСomboBox.Items.Add("---");
+            PressureParComboBox1.Items.Clear();
+            PressureParComboBox1.Items.Add("---");
+            PressureParComboBox2.Items.Clear();
+            PressureParComboBox2.Items.Add("---");
+            PressureParComboBox3.Items.Clear();
+            PressureParComboBox3.Items.Add("---");
+            PressureParComboBox4.Items.Clear();
+            PressureParComboBox4.Items.Add("---");
+            PressureParComboBox5.Items.Clear();
+            PressureParComboBox5.Items.Add("---");
+
+            ValveUnitComboBox.Items.Clear();
+            ValveUnitComboBox.Items.Add("---");
+            ValveParComboBox.Items.Clear();
+            ValveParComboBox.Items.Add("---");
+
+            FCUnitComboBox.Items.Clear();
+            FCUnitComboBox.Items.Add("---");
+            FCParComboBox.Items.Clear();
+            FCParComboBox.Items.Add("---");
+
+            FlowmeterUnitComboBox.Items.Clear();
+            FlowmeterUnitComboBox.Items.Add("---");
+            FlowmeterParComboBox.Items.Clear();
+            FlowmeterParComboBox.Items.Add("---");
+
+            foreach (var un in UnitsList)
+            {
+                PressureUnitСomboBox.Items.Add(un.GetName());
+                ValveUnitComboBox.Items.Add(un.GetName());
+                FCUnitComboBox.Items.Add(un.GetName());
+                FlowmeterUnitComboBox.Items.Add(un.GetName());
+            }
+        }
+        public void LoadScheme()
+        {
+            SchemeComboBox.Items.Clear();
+            foreach (XElement sc in xSettings.Elements("scheme"))
+            {
+                SchemasList.Add(new Scheme(sc));
+                SchemeComboBox.Items.Add(SchemasList.Last().name);
+            }
+            SchemasList.OrderBy(x => x.SchemeN);
+            SchemeComboBox.SelectedIndex = 0;
+        }
+        public void SaveScheme()
+        {
+            if (SchemeComboBox.SelectedIndex != -1)
+            {
+                SchemasList[SchemeComboBox.SelectedIndex].SaveXML(ref UnitsList, SchemeNameTextBox, 
+                    SchemeComboBox, PressureUnitСomboBox, PressureParComboBox1, PressureParComboBox2, 
+                    PressureParComboBox3, PressureParComboBox4, PressureParComboBox5, FlowmeterUnitComboBox, 
+                    FlowmeterParComboBox, FCUnitComboBox, FCParComboBox, ValveUnitComboBox, ValveParComboBox, 
+                    DensityTextBox, L1TextBox, L2TextBox, L3TextBox, L4TextBox);
+                SchemeNotSavedLabel.Visible = false;
+            }
+            SchemeComboBox.Items.Clear();
+            foreach (var sc in SchemasList)
+                SchemeComboBox.Items.Add(sc.name);
+        }
+        private void GetComPorts()
         {
             FlowComComboBox.Items.Clear();
             FrequencyComComboBox.Items.Clear();
             PressureComComboBox.Items.Clear();
             ValveComComboBox.Items.Clear();
             VibrationComComboBox.Items.Clear();
+            UnitComComboBox.Items.Clear();
 
             FlowComComboBox.Items.AddRange(SerialPort.GetPortNames());
             FrequencyComComboBox.Items.AddRange(SerialPort.GetPortNames());
             PressureComComboBox.Items.AddRange(SerialPort.GetPortNames());
             ValveComComboBox.Items.AddRange(SerialPort.GetPortNames());
             VibrationComComboBox.Items.AddRange(SerialPort.GetPortNames());
+            UnitComComboBox.Items.AddRange(SerialPort.GetPortNames());
         }
-        public void GetUnitsOfMeasure()
+        /*public void GetUnitsOfMeasure()
         {
             PFlowСomboBox.Items.Clear();
             PCurrentСomboBox.Items.Clear();
@@ -145,8 +280,8 @@ namespace Stand
             PXAmplitudeСomboBox.Items.AddRange(XAmplitude.UnitsOfMeasure.Keys.ToArray());
             PYAmplitydeСomboBox.Items.AddRange(YAmplitude.UnitsOfMeasure.Keys.ToArray());
             PPressureСomboBox.Items.AddRange(Pressure1.UnitsOfMeasure.Keys.ToArray());
-        }
-        internal void ParametersLoadXML()
+        }*/
+        /*internal void ParametersLoadXML()
         {
             xSettings = xDefaultDoc.Element("settings");
             foreach (XElement el in xSettings.Elements("parameter"))
@@ -224,8 +359,8 @@ namespace Stand
                     Pressure8.LoadXML(el, ref PPressure8TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure8CheckBox);
                 }
             }
-        }
-        internal void ParametersSaveXML()
+        }*/
+        /*internal void ParametersSaveXML()
         {
             Flow.SaveXML(ref PFlowRegisterTextBox, ref PFlowСomboBox, ref PFlowRegisterComboBox, ref PFlowTypeComboBox);
             Current.SaveXML(ref PCurrentTextBox, ref PCurrentСomboBox,ref PCurrentRegisterComboBox, ref PCurrentTypeComboBox);
@@ -249,23 +384,24 @@ namespace Stand
             Pressure8.SaveXML(ref PPressure8TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure8CheckBox);
 
             xSettings.Save("Defaults.xml");
-        }
+        }*/
         internal void UnitLoadXML()
         {
             xSettings = xDefaultDoc.Element("settings");
-
-            foreach (XElement el in xSettings.Elements("unit"))
+            IEnumerable<XElement> pars = xSettings.Elements("parameter");
+            foreach (XElement un in xSettings.Elements("unit"))
             {
-                if (el.Attribute("Name").Value == "Flowmeter")
-                    FlowMeter.LoadSettingsXML(el, ref FlowComComboBox, ref FlowSpeedTextBox, ref FlowAddressTextBox);
-                if (el.Attribute("Name").Value == "FrequencyChanger")
-                    FrequencyChanger.LoadSettingsXML(el, ref FrequencyComComboBox, ref FrequencySpeedTextBox, ref FrequencyAddressTextBox);
-                if (el.Attribute("Name").Value == "PressureGauges")
-                    PressureGauges.LoadSettingsXML(el, ref PressureComComboBox, ref PressureSpeedTextBox, ref PressureAddressTextBox);
-                if (el.Attribute("Name").Value == "Valve")
-                    Valve.LoadSettingsXML(el, ref ValveComComboBox, ref ValveSpeedTextBox, ref ValveAddressTextBox);
-                if (el.Attribute("Name").Value == "Vibration")
-                    Vibration.LoadSettingsXML(el, ref VibrationComComboBox, ref VibrationSpeedTextBox, ref VibrationAddresTextBox);
+                UnitsList.Add(new Unit(un, pars));
+                /*if (un.Attribute("Name").Value == "Flowmeter")
+                    FlowMeter.LoadSettingsXML(un, ref FlowComComboBox, ref FlowSpeedTextBox, ref FlowAddressTextBox);
+                if (un.Attribute("Name").Value == "FrequencyChanger")
+                    FrequencyChanger.LoadSettingsXML(un, ref FrequencyComComboBox, ref FrequencySpeedTextBox, ref FrequencyAddressTextBox);
+                if (un.Attribute("Name").Value == "PressureGauges")
+                    PressureGauges.LoadSettingsXML(un, ref PressureComComboBox, ref PressureSpeedTextBox, ref PressureAddressTextBox);
+                if (un.Attribute("Name").Value == "Valve")
+                    Valve.LoadSettingsXML(un, ref ValveComComboBox, ref ValveSpeedTextBox, ref ValveAddressTextBox);
+                if (un.Attribute("Name").Value == "Vibration")
+                    Vibration.LoadSettingsXML(un, ref VibrationComComboBox, ref VibrationSpeedTextBox, ref VibrationAddresTextBox);*/
             }
         }
         #endregion
@@ -315,25 +451,31 @@ namespace Stand
         private void Form1_Load(object sender, EventArgs e)
         {
             GetComPorts();
-            GetUnitsOfMeasure();
-
-            xDefaultDoc = XDocument.Load("Defaults.xml");
+            //GetUnitsOfMeasure();
+            if (!File.Exists($"{Application.StartupPath}/Defaults.xml"))
+                File.Create($"{Application.StartupPath}/Defaults.xml");
             try
             {
+                xDefaultDoc = XDocument.Load("Defaults.xml");
                 UnitLoadXML();
-                ParametersLoadXML();
+                //ParametersLoadXML();
+                UpdateUnitsList(0);
+                UpdateSchemeOptions();
+                LoadScheme();
             }
             catch (Exception)
             {
-                MessageBox.Show("Ошибка в файле настроек");
+                MessageBox.Show("Ошибка в файле настроек или файл настроек отсутствует");
             }
-            }
+        }
+        
         #region Расходомер
         private void FlowSaveButton_Click(object sender, EventArgs e)
         {
+            /*
             try
             {
-                FlowMeter.SetParameters(FlowComComboBox.Text, Convert.ToInt32(FlowSpeedTextBox.Text),
+                FlowMeter.SetComParameters(FlowComComboBox.Text, Convert.ToInt32(FlowSpeedTextBox.Text),
                     Convert.ToInt32(FlowAddressTextBox.Text));
                 FlowMeter.SaveSettingsXML();
                 MessageBox.Show("Настройки успешно сохранены");
@@ -342,16 +484,19 @@ namespace Stand
             {
                 MessageBox.Show("Не удалось сохранить настройки");
             }
+            */
         }
 
         private void FlowAdditionalButton_Click(object sender, EventArgs e)
         {
+            /*
             AdditionalUnitSettingsForm addsett = new AdditionalUnitSettingsForm(ref FlowMeter);
-            addsett.Show();
+            addsett.Show();*/
         }
 
         private void FlowConnectButton_Click(object sender, EventArgs e)
         {
+            /*
             if (FlowMeter.isConnected)
             {
                 FlowMeter.Disconnect();
@@ -365,22 +510,24 @@ namespace Stand
                     FlowConnectButton.Text = "Отключиться";
                     FlowStatusTextBox.BackColor = Color.Green;
                 }
-            }
+            }*/
         }
 
         #endregion
         #region Частотник
         private void FrequencyAdditionalSettings_Click(object sender, EventArgs e)
         {
+            /*
             AdditionalUnitSettingsForm addsett = new AdditionalUnitSettingsForm(ref FrequencyChanger);
-            addsett.Show();
+            addsett.Show();*/
         }
 
         private void FrequencySaveButton_Click(object sender, EventArgs e)
         {
+            /*
             try
             {
-                FrequencyChanger.SetParameters(FrequencyComComboBox.Text, Convert.ToInt32(FrequencySpeedTextBox.Text),
+                FrequencyChanger.SetComParameters(FrequencyComComboBox.Text, Convert.ToInt32(FrequencySpeedTextBox.Text),
                     Convert.ToInt32(FrequencyAddressTextBox.Text));
                 FrequencyChanger.SaveSettingsXML();
                 MessageBox.Show("Настройки успешно сохранены");
@@ -388,11 +535,12 @@ namespace Stand
             catch (Exception)
             {
                 MessageBox.Show("Не удалось сохранить настройки");
-            }
+            }*/
         }
 
         private void FrequencyConnectButton_Click(object sender, EventArgs e)
         {
+            /*
             if (FrequencyChanger.isConnected)
             {
                 FrequencyChanger.Disconnect();
@@ -406,18 +554,20 @@ namespace Stand
                     FrequencyConnectButton.Text = "Отключиться";
                     FrequencyStatusTextBox.BackColor = Color.Green;
                 }
-            }
+            }*/
         }
         #endregion
         #region Датчик давления
         private void PressureAdditionalButton_Click(object sender, EventArgs e)
         {
+            /*
             AdditionalUnitSettingsForm addsett = new AdditionalUnitSettingsForm(ref PressureGauges);
-            addsett.Show();
+            addsett.Show();*/
         }
 
         private void PressureConnectButton_Click(object sender, EventArgs e)
         {
+            /*
             if (PressureGauges.isConnected)
             {
                 PressureGauges.Disconnect();
@@ -431,14 +581,15 @@ namespace Stand
                     PressureConnectButton.Text = "Отключиться";
                     PressureStatusTextBox.BackColor = Color.Green;
                 }
-            }
+            }*/
         }
 
         private void PressureSaveButton_Click(object sender, EventArgs e)
         {
+            /*
             try
             {
-                PressureGauges.SetParameters(PressureComComboBox.Text, Convert.ToInt32(PressureSpeedTextBox.Text),
+                PressureGauges.SetComParameters(PressureComComboBox.Text, Convert.ToInt32(PressureSpeedTextBox.Text),
                     Convert.ToInt32(PressureAddressTextBox.Text));
                 PressureGauges.SaveSettingsXML();
                 MessageBox.Show("Настройки успешно сохранены");
@@ -446,18 +597,19 @@ namespace Stand
             catch (Exception)
             {
                 MessageBox.Show("Не удалось сохранить настройки");
-            }
+            }*/
         }
 
         #endregion
         #region Задвижка
         private void ValveAdditionalButton_Click(object sender, EventArgs e)
         {
-            AdditionalUnitSettingsForm addsett = new AdditionalUnitSettingsForm(ref Valve);
-            addsett.Show();
+            //AdditionalUnitSettingsForm addsett = new AdditionalUnitSettingsForm(ref Valve);
+            //addsett.Show();
         }
         private void ValveConnectButton_Click(object sender, EventArgs e)
         {
+            /*
             if (Valve.isConnected)
             {
                 Valve.Disconnect();
@@ -471,13 +623,14 @@ namespace Stand
                     ValveConnectButton.Text = "Отключиться";
                     ValveStatusTextBox.BackColor = Color.Green;
                 }
-            }
+            }*/
         }
         private void ValveSaveButton_Click(object sender, EventArgs e)
         {
+            /*
             try
             {
-                Valve.SetParameters(ValveComComboBox.Text, Convert.ToInt32(ValveSpeedTextBox.Text),
+                Valve.SetComParameters(ValveComComboBox.Text, Convert.ToInt32(ValveSpeedTextBox.Text),
                     Convert.ToInt32(ValveAddressTextBox.Text));
                 Valve.SaveSettingsXML();
                 MessageBox.Show("Настройки успешно сохранены");
@@ -485,18 +638,19 @@ namespace Stand
             catch (Exception)
             {
                 MessageBox.Show("Не удалось сохранить настройки");
-            }
+            }*/
         }
         #endregion
         #region Датчик вибрации
         private void VibrationAdditionalSettings_Click(object sender, EventArgs e)
         {
-            AdditionalUnitSettingsForm addsett = new AdditionalUnitSettingsForm(ref Vibration);
-            addsett.Show();
+            //AdditionalUnitSettingsForm addsett = new AdditionalUnitSettingsForm(ref Vibration);
+            //addsett.Show();
         }
 
         private void VibrationConnectButton_Click(object sender, EventArgs e)
         {
+            /*
             if (Vibration.isConnected)
             {
                 Vibration.Disconnect();
@@ -510,14 +664,15 @@ namespace Stand
                     VibrationConnectButton.Text = "Отключиться";
                     VibrationStatusTextBox.BackColor = Color.Green;
                 }
-            }
+            }*/
         }
 
         private void VibrationSaveButton_Click(object sender, EventArgs e)
         {
+            /*
             try
             {
-                Vibration.SetParameters(VibrationComComboBox.Text, Convert.ToInt32(VibrationSpeedTextBox.Text),
+                Vibration.SetComParameters(VibrationComComboBox.Text, Convert.ToInt32(VibrationSpeedTextBox.Text),
                     Convert.ToInt32(VibrationAddresTextBox.Text));
                 Vibration.SaveSettingsXML();
                 MessageBox.Show("Настройки успешно сохранены");
@@ -525,10 +680,9 @@ namespace Stand
             catch (Exception)
             {
                 MessageBox.Show("Не удалось сохранить настройки");
-            }
+            }*/
         }
         #endregion
-
         internal void TestReadHolding(Unit un, ListBox l, ref Parameter par, bool isReversed, int offset)
         {
             int wait = 1000;
@@ -573,7 +727,7 @@ namespace Stand
             var start = DateTime.Now;
             while (true)
             {
-                float fRegs = un.ComRead(ref par, 0);
+                float fRegs = un.ComRead(par, 0);
                 Action read = () => VarTimeChart.Series[series+1].Points.AddXY((DateTime.Now - start).Seconds, fRegs);
                 Action add = () => VarTimeChart.Series[series].Points.AddXY((DateTime.Now - start).Seconds, fRegs);
                 Action clear = () => VarTimeChart.Series[series+1].Points.Clear();
@@ -684,7 +838,7 @@ namespace Stand
         {
             try
             {
-                ParametersSaveXML();
+                //ParametersSaveXML();
                 MessageBox.Show("Настройки параметров успешно сохранены");
             }
             catch (Exception)
@@ -722,13 +876,13 @@ namespace Stand
                 { TestChart(FlowMeter,ref Flow, 0); });
                 var thread = new System.Threading.Thread(threadParameters);
                 thread.Start();
-            }*/
+            }
             if (PressureGauges.isConnected)
             {
                 //ushort address = 49161;
                 //int offset = 0;
                 //bool isReversed = false;
-                Pressure1.MeasuredRegs.Clear();
+                Pressure1.ClearMeasuredRegs();
                 VarTimeChart.Series[2].Points.Clear();
                 string UoM = Pressure1.GetUoMstring();
                 VarTimeChart.Series[2].Name = UoM;
@@ -737,7 +891,7 @@ namespace Stand
                 { TestChart(PressureGauges, ref Pressure1, 2); });
                 var thread = new System.Threading.Thread(threadParameters);
                 thread.Start();
-            }
+            }*/
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -748,21 +902,22 @@ namespace Stand
 
         private void UoMRedactorButton_Click(object sender, EventArgs e)
         {
-            UoMRedactor UomRed = new UoMRedactor(ref ParameterDictionary,this);
-            UomRed.Show();
+            //UoMRedactor UomRed = new UoMRedactor(ref ParameterDictionary,this);
+            //UomRed.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             _stopper.Set();
         }
-        internal void TEST()
+        /*
+        private void TEST()
         {
             while (true)
             {
-                float flow = FlowMeter.ComRead(ref Flow, 0);
-                float p1 = PressureGauges.ComRead(ref Pressure1, 0);
-                float p8 = PressureGauges.ComRead(ref Pressure8, 0);
+                float flow = FlowMeter.ComRead(Flow, 0);
+                float p1 = PressureGauges.ComRead(Pressure1, 0);
+                float p8 = PressureGauges.ComRead(Pressure8, 0);
                 float N = flow * (p8 - p1);
                 Action readdp = () => chart1.Series[1].Points.AddXY(flow, (p8 - p1));
                 Action readN = () => chart1.Series[3].Points.AddXY(flow, N);
@@ -806,18 +961,96 @@ namespace Stand
                     _stopper.Reset();
                 }
             }
+        }*/
+        ManualResetEvent StartReadingEvent = new ManualResetEvent(false);
+        ManualResetEvent AddEvent = new ManualResetEvent(false);
+        private void TEST2(Unit un)
+        {
+            while (!stopthread)
+            {
+                StartReadingEvent.WaitOne();
+                un.ReadAllParams();
+                StartReadingEvent.Reset();
+            }
         }
+        private void TEST3()
+        {
+            StartReadingEvent.Set();
+            Thread.Sleep(1000);
+            while (true)
+            {
+                float pressure1 = UnitsList.Find(un => un.GetName() == "ОВЕН").GetParametersList()
+                .Find(par => par.GetName() == "Давление 1").GetLastMeasuredRegs();
+                float pressure8 = UnitsList.Find(un => un.GetName() == "ОВЕН").GetParametersList()
+                    .Find(par => par.GetName() == "Давление 8").GetLastMeasuredRegs();
+                float flow = UnitsList.Find(un => un.GetName() == "Расходомер").GetParametersList()
+                    .Find(par => par.GetName() == "Расход").GetLastMeasuredRegs();
+
+                Action readp = () => chart1.Series[1].Points.AddXY(flow, pressure1);
+                Action readN = () => chart1.Series[3].Points.AddXY(flow, pressure8);
+
+                Action cleardp = () => chart1.Series[1].Points.Clear();
+                Action clearN = () => chart1.Series[3].Points.Clear();
+
+                Action adddp = () => chart1.Series[0].Points.AddXY(flow, pressure1);
+                Action addN = () => chart1.Series[2].Points.AddXY(flow, pressure8);
+                if (InvokeRequired)
+                {
+                    Invoke(cleardp);
+                    Invoke(clearN);
+                    Invoke(readp);
+                    Invoke(readN);
+                }
+                else
+                {
+                    readp();
+                    readN();
+                    cleardp();
+                    clearN();
+                }
+                StartReadingEvent.Set();
+                if (_stopper.WaitOne(1000, false))
+                {
+                    if (stopthread)
+                        break;
+                    if (InvokeRequired)
+                    {
+                        Invoke(adddp);
+                        Invoke(addN);
+                    }
+                    else
+                    {
+                        adddp();
+                        addN();
+                    }
+                    _stopper.Reset();
+                }
+            }
+        }
+
         private void button4_Click(object sender, EventArgs e)
         {
+            stopthread = false;
             _stopper.Reset();
-            if (true || (FlowMeter.isConnected && PressureGauges.isConnected && FrequencyChanger.isConnected))//поменять
+            foreach (Unit un in UnitsList)
+            {
+                var threadParameters = new System.Threading.ThreadStart(delegate
+                { TEST2(un); });
+                var thread = new System.Threading.Thread(threadParameters);
+                thread.Start();
+            }
+            var threadParameters1 = new System.Threading.ThreadStart(delegate
+            { TEST3(); });
+            var thread1 = new System.Threading.Thread(threadParameters1);
+            thread1.Start();
+            /*if (true || (FlowMeter.isConnected && PressureGauges.isConnected && FrequencyChanger.isConnected))//поменять
             {
                 stopthread = false;
                 var threadParameters = new System.Threading.ThreadStart(delegate
                 { TEST(); });
                 var thread = new System.Threading.Thread(threadParameters);
                 thread.Start();
-            }
+            }*/
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -830,5 +1063,378 @@ namespace Stand
         {
             _stopper.Set();
         }
+        #region Настройки соединения
+        private void UnitAddButton_Click(object sender, EventArgs e)
+        {
+            Unit un = new Unit();
+            UnitsList.Add(un);
+            un.SaveSettingsXML();
+            
+            UpdateUnitsList(UnitsList.Count-1);
+        }
+
+        
+        private void UnitsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSelectedUnit();
+        }
+
+        private void UnitSaveButton_Click(object sender, EventArgs e)
+        {
+            int selected = UnitsListBox.SelectedIndex;
+            Unit un = UnitsList[selected];
+            try
+            {
+                un.SetComParameters(UnitNameTextBox.Text, UnitComComboBox.Text,
+                    int.Parse(UnitBaudRateTextBox.Text), int.Parse(UnitAddressTextBox.Text));
+                un.SaveSettingsXML();
+                UpdateUnitsList(selected);
+                MessageBox.Show("Настройки успешно сохранены");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Введены некорректные параметры");
+            }
+        }
+
+        private void UnitConnectButton_Click(object sender, EventArgs e)
+        {
+            int selected = UnitsListBox.SelectedIndex;
+            Unit un = UnitsList[selected];
+            if (un.isConnected)
+                un.Disconnect();
+            else
+                un.TryToConnect();
+
+            UpdateUnitsList(selected);
+            UpdateSelectedUnit();
+        }
+
+        private void UnitDeleteButton_Click(object sender, EventArgs e)
+        {
+            int selected = UnitsListBox.SelectedIndex;
+            string Name = UnitsList[selected].GetName();
+            DialogResult result = MessageBox.Show($"Вы точно хотите удалить устройство {Name}", 
+                "Удаление устройства", MessageBoxButtons.YesNo);
+            switch (result)
+            {
+                case DialogResult.Yes:
+                    UnitsList.ElementAt(selected).Dispose();
+                    UnitsList.RemoveAt(selected);
+                    UpdateUnitsList(0);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void UnitAdditionalSettingsButton_Click(object sender, EventArgs e)
+        {
+            Unit un = UnitsList[UnitsListBox.SelectedIndex];
+            AdditionalUnitSettingsForm addsett = new AdditionalUnitSettingsForm(ref un);
+            addsett.Show();
+        }
+
+        private void ParametersListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSelectedParameter();
+        }
+
+        private void RedactorUoMButton1_Click(object sender, EventArgs e)
+        {
+            if (UnitsListBox.SelectedIndex >= 0 && ParametersListBox.SelectedIndex >= 0)
+            {
+                Parameter par = UnitsList[UnitsListBox.SelectedIndex]
+                .GetParametersList()[ParametersListBox.SelectedIndex];
+                UoMRedactor UoMred = new UoMRedactor(ref par, 
+                    UnitsList[UnitsListBox.SelectedIndex].GetName(), this);
+                UoMred.Show();
+            }
+        }
+
+        private void ParameterAddButton_Click(object sender, EventArgs e)
+        {
+            Unit un = UnitsList[UnitsListBox.SelectedIndex];
+            un.AddParameter();
+            un.SaveSettingsXML();
+            UpdateSelectedUnit();
+        }
+
+        private void ParameterDeleteButton_Click(object sender, EventArgs e)
+        {
+            int selected = ParametersListBox.SelectedIndex;
+            string Name = ParametersListBox.SelectedItem.ToString();
+            DialogResult result = MessageBox.Show($"Вы точно хотите удалить параметр {Name}",
+                "Удаление устройства", MessageBoxButtons.YesNo);
+            switch (result)
+            {
+                case DialogResult.Yes:
+                    UnitsList[UnitsListBox.SelectedIndex].DeleteSelectedParameter(selected);
+                    try
+                    {
+                        File.Delete($"{Application.StartupPath}/UoM/" +
+                            $"{UnitsList[UnitsListBox.SelectedIndex].GetName()}/{Name}.dat");
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Параметр успешно удален, но не удалось удалить файл с настройками единиц измерения. Попробуйте удалить его в ручную");
+                    }
+                    UpdateUnitsList(UnitsListBox.SelectedIndex);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void ParameterSaveButton_Click(object sender, EventArgs e)
+        {
+            int selected = UnitsListBox.SelectedIndex;
+            Unit un = UnitsList[selected];
+            try
+            {
+                Parameter par = un.GetParametersList()[ParametersListBox.SelectedIndex];
+                par.SetParameters(ParameterNameTextBox.Text, Convert.ToUInt16(ParameterRegAddressTextBox.Text),
+                    ParameterUoMComboBox.SelectedIndex, ParameterReadableCheckBox.Checked,
+                    (RegType)ParameterRegTypeComboBox.SelectedIndex,(DataType)ParameterTypeComboBox.SelectedIndex);
+                par.SaveXML();
+                xSettings.Save("Defaults.xml");
+                UpdateUnitsList(selected);
+                MessageBox.Show("Настройки успешно сохранены");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Введены некорректные параметры");
+            }
+        }
+        #endregion
+
+        // изменение масштаба
+        private void button7_Click(object sender, EventArgs e)
+        {
+            chart1.ChartAreas[0].AxisX.Maximum = Convert.ToInt32(XSizeTextBox.Text);
+            chart1.ChartAreas[0].AxisX2.Maximum = Convert.ToInt32(XSizeTextBox.Text);
+            chart1.ChartAreas[0].AxisY.Maximum = Convert.ToInt32(YSizeTextBox.Text);
+            chart1.ChartAreas[0].AxisY2.Maximum = Convert.ToInt32(XSizeTextBox.Text);
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Workbook workbook = new Workbook();
+            
+            workbook.Worksheets.Clear();
+            Worksheet worksheet = workbook.Worksheets.Add("TEST");
+
+            
+            int j = 1;
+            foreach(var un in UnitsList)
+            {
+                int i = 1;
+                worksheet.Range[i++, j].Value = un.GetName();
+                foreach (var par in un.GetParametersList())
+                {
+                    worksheet.Range[i, j].Value = par.GetName();
+                    foreach (var reg in par.GetAllMeasuredRegs())
+                        worksheet.Range[i++, j].Value = reg.ToString();
+                    j++;
+                }
+            }
+            worksheet.AllocatedRange.AutoFitColumns();
+            workbook.SaveToFile("TEST.xlsx", ExcelVersion.Version2016);
+        }
+
+        #region Схема
+        private void SchemaAddButton_Click(object sender, EventArgs e)
+        {
+            SchemasList.Add(new Scheme());
+            SchemeComboBox.Items.Add(SchemasList.Last().name);
+            SchemeComboBox.SelectedIndex = SchemasList.Count - 1;
+        }
+
+        private void SchemaSaveButton_Click(object sender, EventArgs e)
+        {
+            if (SchemeComboBox.SelectedIndex != -1)
+            {
+                try
+                {
+                    SaveScheme();
+                    MessageBox.Show("Настройки сохранены");
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Введены некорректные параметры");
+                }
+            }
+        }
+
+        private void PressureParComboBox5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SchemeComboBox.SelectedIndex != -1)
+                SchemeNotSavedLabel.Visible = true;
+        }
+
+        private void PressureUnitСomboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SchemeComboBox.SelectedIndex != -1)
+                SchemeNotSavedLabel.Visible = true;
+            if (PressureUnitСomboBox.SelectedIndex > 0)
+            {
+                PressureParComboBox1.Items.Clear();
+                PressureParComboBox1.Items.Add("---");
+                PressureParComboBox2.Items.Clear();
+                PressureParComboBox2.Items.Add("---");
+                PressureParComboBox3.Items.Clear();
+                PressureParComboBox3.Items.Add("---");
+                PressureParComboBox4.Items.Clear();
+                PressureParComboBox4.Items.Add("---");
+                PressureParComboBox5.Items.Clear();
+                PressureParComboBox5.Items.Add("---");
+                var parlist = UnitsList.Find(un => un.GetName() == PressureUnitСomboBox.Text).GetParametersList();
+                parlist.ForEach(par => PressureParComboBox1.Items.Add(par.GetName()));
+                parlist.ForEach(par => PressureParComboBox2.Items.Add(par.GetName()));
+                parlist.ForEach(par => PressureParComboBox3.Items.Add(par.GetName()));
+                parlist.ForEach(par => PressureParComboBox4.Items.Add(par.GetName()));
+                parlist.ForEach(par => PressureParComboBox5.Items.Add(par.GetName()));
+            }
+            //UpdateSchemeParametersForUnits();
+        }
+
+        private void FCUnitComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SchemeComboBox.SelectedIndex != -1)
+                SchemeNotSavedLabel.Visible = true;
+            if (FCUnitComboBox.SelectedIndex > 0)
+            {
+                FCParComboBox.Items.Clear();
+                FCParComboBox.Items.Add("---");
+               var parlist = UnitsList.Find(un => un.GetName() == FCUnitComboBox.Text).GetParametersList();
+                parlist.ForEach(par => FCParComboBox.Items.Add(par.GetName()));
+            }
+        }
+
+        private void ValveUnitComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SchemeComboBox.SelectedIndex != -1)
+                SchemeNotSavedLabel.Visible = true;
+            if (ValveUnitComboBox.SelectedIndex > 0)
+            {
+                ValveParComboBox.Items.Clear();
+                ValveParComboBox.Items.Add("---");
+                var parlist = UnitsList.Find(un => un.GetName() == ValveUnitComboBox.Text).GetParametersList();
+                parlist.ForEach(par => ValveParComboBox.Items.Add(par.GetName()));
+            }
+        }
+
+        private void FlowmeterUnitComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SchemeComboBox.SelectedIndex != -1)
+                SchemeNotSavedLabel.Visible = true;
+            if (FlowmeterUnitComboBox.SelectedIndex > 0)
+            {
+                FlowmeterParComboBox.Items.Clear();
+                FlowmeterParComboBox.Items.Add("---");
+                var parlist = UnitsList.Find(un => un.GetName() == FlowmeterUnitComboBox.Text).GetParametersList();
+                parlist.ForEach(par => FlowmeterParComboBox.Items.Add(par.GetName()));
+            }
+        }
+
+        private void SchemeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var scheme = SchemasList.Find(sc => sc.SchemeN == SchemeComboBox.SelectedIndex);
+            if (scheme != null)
+            {
+                SchemeNameTextBox.Text = scheme.name;
+                DensityTextBox.Text = scheme.Density.ToString();
+                L1TextBox.Text = scheme.L1.ToString();
+                L2TextBox.Text = scheme.L2.ToString();
+                L3TextBox.Text = scheme.L3.ToString();
+                L4TextBox.Text = scheme.L4.ToString();
+
+                if (scheme.PressureUID != -1)
+                {
+                    var unit = UnitsList.Find(un => un.id == scheme.PressureUID);
+                    PressureUnitСomboBox.SelectedIndex = PressureUnitСomboBox.Items
+                        .IndexOf(unit.GetName());
+                    if (scheme.PressureP1ID != -1)
+                        PressureParComboBox1.SelectedIndex = PressureParComboBox1.Items
+                            .IndexOf(unit.GetParametersList().Find(par => par.id == scheme.PressureP1ID).GetName());
+                    else
+                        PressureParComboBox1.SelectedIndex = 0;
+                    if (scheme.PressureP2ID != -1)
+                        PressureParComboBox2.SelectedIndex = PressureParComboBox1.Items
+                            .IndexOf(unit.GetParametersList().Find(par => par.id == scheme.PressureP2ID).GetName());
+                    else
+                        PressureParComboBox2.SelectedIndex = 0;
+                    if (scheme.PressureP3ID != -1)
+                        PressureParComboBox3.SelectedIndex = PressureParComboBox1.Items
+                            .IndexOf(unit.GetParametersList().Find(par => par.id == scheme.PressureP3ID).GetName());
+                    else
+                        PressureParComboBox3.SelectedIndex = 0;
+                    if (scheme.PressureP4ID != -1)
+                        PressureParComboBox4.SelectedIndex = PressureParComboBox1.Items
+                            .IndexOf(unit.GetParametersList().Find(par => par.id == scheme.PressureP4ID).GetName());
+                    else
+                        PressureParComboBox4.SelectedIndex = 0;
+                    if (scheme.PressureP5ID != -1)
+                        PressureParComboBox5.SelectedIndex = PressureParComboBox1.Items
+                            .IndexOf(unit.GetParametersList().Find(par => par.id == scheme.PressureP5ID).GetName());
+                    else
+                        PressureParComboBox5.SelectedIndex = 0;
+                }
+                else
+                {
+                    PressureUnitСomboBox.SelectedIndex = 0;
+                    PressureParComboBox1.SelectedIndex = 0;
+                    PressureParComboBox2.SelectedIndex = 0;
+                    PressureParComboBox3.SelectedIndex = 0;
+                    PressureParComboBox4.SelectedIndex = 0;
+                    PressureParComboBox5.SelectedIndex = 0;
+                }
+                if (scheme.FCUID != -1)
+                {
+                    var unit = UnitsList.Find(un => un.id == scheme.FCUID);
+                    FCUnitComboBox.SelectedIndex = FCUnitComboBox.Items
+                        .IndexOf(unit.GetName());
+                    FCParComboBox.SelectedIndex = FCParComboBox.Items
+                        .IndexOf(unit.GetParametersList().Find(par => par.id == scheme.FCPID).GetName());
+                }
+                else
+                {
+                    FCUnitComboBox.SelectedIndex = 0;
+                    FCParComboBox.SelectedIndex = 0;
+                }
+                if (scheme.FlowUID != -1)
+                {
+                    var unit = UnitsList.Find(un => un.id == scheme.FlowUID);
+                    FlowmeterUnitComboBox.SelectedIndex = FlowmeterUnitComboBox.Items
+                        .IndexOf(unit.GetName());
+                    FlowmeterParComboBox.SelectedIndex = FlowmeterParComboBox.Items
+                        .IndexOf(unit.GetParametersList().Find(par => par.id == scheme.FlowPID).GetName());
+                }
+                else 
+                {
+                    FlowmeterUnitComboBox.SelectedIndex = 0;
+                    FlowmeterParComboBox.SelectedIndex = 0;
+                }
+                if (scheme.ValveUID != -1)
+                {
+                    var unit = UnitsList.Find(un => un.id == scheme.ValveUID);
+                    ValveUnitComboBox.SelectedIndex = ValveUnitComboBox.Items
+                        .IndexOf(unit.GetName());
+                    ValveParComboBox.SelectedIndex = ValveParComboBox.Items
+                        .IndexOf(unit.GetParametersList().Find(par => par.id == scheme.ValvePID).GetName());
+                }
+                else
+                {
+
+                    ValveUnitComboBox.SelectedIndex = 0;
+                    ValveParComboBox.SelectedIndex = 0;
+                }
+
+                SchemeNotSavedLabel.Visible = false;
+            }
+        }
+        #endregion
+
+
     }
 }

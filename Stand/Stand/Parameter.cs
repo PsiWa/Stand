@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using System.Xml.Linq;
 
 namespace Stand
@@ -22,23 +24,42 @@ namespace Stand
     };
     public class Parameter
     {
-        public string name;
-        public ushort RegisterAddress;
+        private static int ParameterNum=1;
+        public int id;
+        private string name;
+        private string ParentUnitName;
+        private ushort RegisterAddress;
         public SortedList<string,float> UnitsOfMeasure = new SortedList<string, float>();
         private int SelectedIndex;
         private bool IsConnected;
         private RegType RegType;
         private DataType DataType;
-        public List<float> MeasuredRegs = new List<float> { };
+        private List<float> MeasuredRegs = new List<float> { };
 
-        public Parameter(string name)
+        #region Constructors
+        public Parameter(string name, string ParentUnitName)
         {
             this.name = name;
         }
-
+        public Parameter(XElement el, int ParentID)
+        {
+            LoadXML(el, ParentID);
+        }
+        public Parameter(string ParentUnitName, int ParentID)
+        {
+            this.id = ParameterNum + 1000*ParentID;
+            this.ParentUnitName= ParentUnitName;
+            this.name = $"Параметр {ParameterNum++}";
+            UnitsOfMeasure.Add("ед. изм.", 1);
+            SelectedIndex = 0;
+        }
+        #endregion
+        #region Save/Load
+        //рудимент
         public void LoadXML(XElement el, ref TextBox RegTB, ref ComboBox UofMCB, ref ComboBox RegTypeCB, 
             ref ComboBox DTCB)
         {
+            name = el.Attribute("Name").Value;
             RegisterAddress = Convert.ToUInt16(el.Attribute("Register").Value);
             IsConnected = true;
             SelectedIndex = Convert.ToInt32(el.Attribute("UnitOfMeasure").Value);
@@ -76,9 +97,11 @@ namespace Stand
             UofMCB.Items.AddRange(UnitsOfMeasure.Keys.ToArray());
             UofMCB.SelectedIndex = SelectedIndex;
         }
+        //рудимент
         public void LoadXML(XElement el, ref TextBox RegTB, ref ComboBox UofMCB, ref ComboBox RegTypeCB, 
             ref ComboBox DTCB, ref CheckBox IsConnectedChB)
         {
+            name = el.Attribute("Name").Value;
             RegisterAddress = Convert.ToUInt16(el.Attribute("Register").Value);
             IsConnected = Convert.ToBoolean(el.Attribute("IsConnected").Value);
             SelectedIndex = Convert.ToInt32(el.Attribute("UnitOfMeasure").Value);
@@ -89,7 +112,7 @@ namespace Stand
             RegTypeCB.SelectedIndex = (int)this.RegType;
             DTCB.SelectedIndex = (int)this.DataType;
             UnitsOfMeasure.Clear();
-            if (name.Contains("Pressure"))
+            if (name.Contains("Pressure") || name.Contains("Давление"))
             {
                 using (StreamReader sr = new StreamReader($"{Application.StartupPath}/UoM/Pressure.dat"))
                 {
@@ -116,6 +139,43 @@ namespace Stand
             UofMCB.Items.Clear();
             UofMCB.Items.AddRange(UnitsOfMeasure.Keys.ToArray());
             UofMCB.SelectedIndex = SelectedIndex;
+        }
+
+        public void LoadXML(XElement el, int ParentID=1)
+        {
+            try
+            {
+                this.id = Convert.ToInt32(el.Attribute("Id").Value);
+                ParameterNum++;
+            }
+            catch (Exception)
+            {
+                this.id = ParentID*1000+ParameterNum++;
+            }
+            name = el.Attribute("Name").Value;
+            RegisterAddress = Convert.ToUInt16(el.Attribute("Register").Value);
+            IsConnected = Convert.ToBoolean(el.Attribute("IsConnected").Value);
+            SelectedIndex = Convert.ToInt32(el.Attribute("UnitOfMeasure").Value);
+            this.RegType = (RegType)Convert.ToInt32(el.Attribute("RegType").Value);
+            this.DataType = (DataType)Convert.ToInt32(el.Attribute("DataType").Value);
+            ParentUnitName = el.Attribute("UnitName").Value;
+            UnitsOfMeasure.Clear();
+            try
+            {
+                using (StreamReader sr = new StreamReader($"{Application.StartupPath}/UoM/{ParentUnitName}/{name}.dat"))
+                {
+                    while (!sr.EndOfStream)
+                    {
+                        string[] par = sr.ReadLine().Split('$');
+                        UnitsOfMeasure.Add(par[0], float.Parse(par[1]));
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                UnitsOfMeasure.Add("ед. изм.", 1);
+                SelectedIndex = 0;
+            }
         }
 
         public void SaveXML(ref TextBox RegTB, ref ComboBox UofMCB, ref ComboBox RegTypeCB, ref ComboBox DTCB)
@@ -194,6 +254,34 @@ namespace Stand
                 }
             }
         }
+
+        public void SaveXML()
+        {
+            Form1.xSettings.Elements("parameter").Where(p => p.Attribute("Name").Value == name).Remove();
+            XAttribute xIdAttr = new XAttribute("Id", id);
+            XElement xParameter = new XElement("parameter");
+            XAttribute xNameAttr = new XAttribute("Name", name);
+            XAttribute xConnected = new XAttribute("IsConnected", IsConnected);
+            XAttribute xRegister = new XAttribute("Register", RegisterAddress);
+            XAttribute xRegType = new XAttribute("RegType", (int)this.RegType);
+            XAttribute xDataType = new XAttribute("DataType", (int)this.DataType);
+            XAttribute xUnitOfMeasure = new XAttribute("UnitOfMeasure", SelectedIndex);
+            XAttribute xUnitName = new XAttribute("UnitName", ParentUnitName);
+            xParameter.Add(xIdAttr ,xNameAttr, xConnected, xRegister, xRegType, xDataType, xUnitOfMeasure, xUnitName);
+            Form1.xSettings.Add(xParameter);
+            bool exists = Directory.Exists($"{Application.StartupPath}/UoM/{ParentUnitName}");
+            if (!exists)
+                System.IO.Directory.CreateDirectory($"{Application.StartupPath}/UoM/{ParentUnitName}");
+            using (StreamWriter sw = new StreamWriter($"{Application.StartupPath}/UoM/{ParentUnitName}/{name}.dat"))
+            {
+                foreach (var UoM in UnitsOfMeasure)
+                {
+                    sw.WriteLine(UoM.Key + "$" + UoM.Value);
+                }
+            }
+        }
+        #endregion
+        #region Get/Set params
         public string GetUoMstring()
         {
             return UnitsOfMeasure.ElementAt(SelectedIndex).Key;
@@ -214,5 +302,55 @@ namespace Stand
         {
             MeasuredRegs.Add(reg * UnitsOfMeasure.Values[SelectedIndex]);
         }
+        public string GetName()
+        {
+            return name;
+        }
+        public ushort GetRegisterAddress()
+        {
+            return RegisterAddress;
+        }
+        public SortedList<string, float> GetUoMs()
+        {
+            return UnitsOfMeasure;
+        }
+        public int GetSelectedUoM()
+        {
+            return SelectedIndex;
+        }
+        public void SetParameters(string name, ushort RegisterAddress, int SelectedIndex, bool IsConnected, 
+            RegType RegType, DataType DataType)
+        {
+            if (name != this.name)
+            {
+                Form1.xSettings.Elements("parameter").Where(p => p.Attribute("Name").Value == this.name).Remove();
+                if (File.Exists($"{Application.StartupPath}/UoM/{ParentUnitName}/{this.name}.dat"))
+                    File.Delete($"{Application.StartupPath}/UoM/{ParentUnitName}/{this.name}.dat");
+            }
+            this.name = name;
+            this.RegisterAddress = RegisterAddress;
+            this.SelectedIndex = SelectedIndex;
+            this.IsConnected = IsConnected;
+            this.RegType = RegType;
+            this.DataType = DataType;
+        }
+        public void SetParentName(string ParentName)
+        {
+            ParentUnitName = ParentName;
+        }
+        public void ClearMeasuredRegs()
+        {
+            MeasuredRegs.Clear();
+        }
+        public float GetLastMeasuredRegs()
+        {
+            return MeasuredRegs.Last();
+        }
+        public List<float> GetAllMeasuredRegs()
+        {
+            return MeasuredRegs;
+        }
     }
+        #endregion
 }
+
