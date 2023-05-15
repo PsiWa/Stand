@@ -350,7 +350,7 @@ namespace Stand
             catch (Exception)
             {
                 //MessageBox.Show("Ошибка чтения регистра");
-                return 0;
+                return float.NaN;
             }
             if (offset == 0)
             {
@@ -394,7 +394,7 @@ namespace Stand
             return par.GetLastMeasuredRegs();
         }
 
-        public float ComRead(Parameter par, ushort offset)
+        public void ComRead(Parameter par, ushort offset)
         {
             float fRegs = 0;
             byte _slaveStationAddr = Convert.ToByte(this.address);
@@ -439,7 +439,6 @@ namespace Stand
                     fRegs = GetFloatFromRegs(usRegs[0], usRegs[1]);
             }
             par.SetMeasuredRegs(fRegs);
-            return par.GetLastMeasuredRegs();// Убрать сделать void
         }
 
         static private Single GetFloatFromRegs(ushort _reg1, ushort _reg0)
@@ -472,15 +471,26 @@ namespace Stand
             return (usRegs[0]).ToString();//GetFloatFromRegs(usRegs[1], usRegs[0]).ToString();
 
         }
-        public void ReadAllParams()
+        public void ClearMeasuredRegs()
         {
-            ushort offset = 0;
             foreach (Parameter par in parameters)
                 par.ClearMeasuredRegs();
+        }
+        public void ReadAllParams()
+        {
+            Random rnd = new Random();
+            ushort offset = 0;
             if (isConnected)
-                foreach(Parameter par in parameters)
+                foreach (Parameter par in parameters)
                     if (par.CheckIfToggled())
                         ComRead(par, offset);
+                    else
+                        foreach (Parameter par1 in parameters)
+                            par1.SetMeasuredRegs(rnd.Next(1, 100));
+            else
+                foreach (Parameter par1 in parameters)
+                    par1.SetMeasuredRegs(rnd.Next(1, 100));
+
         }
     }
 }

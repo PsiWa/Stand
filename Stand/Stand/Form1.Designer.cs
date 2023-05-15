@@ -28,18 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.UnitSettings = new System.Windows.Forms.TabPage();
             this.VibrationAdditionalSettings = new System.Windows.Forms.Button();
@@ -198,6 +198,23 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.MainChart = new System.Windows.Forms.TabPage();
+            this.PerformanceTestStartButton = new System.Windows.Forms.Button();
+            this.PowerCustomTextBox = new System.Windows.Forms.TextBox();
+            this.PowerCustomLabel = new System.Windows.Forms.Label();
+            this.PowerSITextBox = new System.Windows.Forms.TextBox();
+            this.PowerSILabel = new System.Windows.Forms.Label();
+            this.label55 = new System.Windows.Forms.Label();
+            this.PressureCustomTextBox = new System.Windows.Forms.TextBox();
+            this.PressureCustomLabel = new System.Windows.Forms.Label();
+            this.PressureSITextBox = new System.Windows.Forms.TextBox();
+            this.PressureSILabel = new System.Windows.Forms.Label();
+            this.FlowCustomTextBox = new System.Windows.Forms.TextBox();
+            this.FlowCustomLabel = new System.Windows.Forms.Label();
+            this.FlowSITextBox = new System.Windows.Forms.TextBox();
+            this.FlowSILabel = new System.Windows.Forms.Label();
+            this.label52 = new System.Windows.Forms.Label();
+            this.label51 = new System.Windows.Forms.Label();
+            this.label50 = new System.Windows.Forms.Label();
             this.button8 = new System.Windows.Forms.Button();
             this.label30 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
@@ -249,6 +266,12 @@
             this.UnitNameTextBox = new System.Windows.Forms.TextBox();
             this.UnitsListBox = new System.Windows.Forms.ListBox();
             this.Schema = new System.Windows.Forms.TabPage();
+            this.label48 = new System.Windows.Forms.Label();
+            this.DiameterTextBox = new System.Windows.Forms.TextBox();
+            this.FCParPowerComboBox = new System.Windows.Forms.ComboBox();
+            this.label49 = new System.Windows.Forms.Label();
+            this.SchemeNameTextBox = new System.Windows.Forms.TextBox();
+            this.label44 = new System.Windows.Forms.Label();
             this.SchemeNotSavedLabel = new System.Windows.Forms.Label();
             this.SchemeDeleteButton = new System.Windows.Forms.Button();
             this.SchemeSaveButton = new System.Windows.Forms.Button();
@@ -286,8 +309,6 @@
             this.label33 = new System.Windows.Forms.Label();
             this.L1TextBox = new System.Windows.Forms.TextBox();
             this.DensityTextBox = new System.Windows.Forms.TextBox();
-            this.label44 = new System.Windows.Forms.Label();
-            this.SchemeNameTextBox = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.UnitSettings.SuspendLayout();
             this.Parameters.SuspendLayout();
@@ -307,11 +328,13 @@
             this.tabControl1.Controls.Add(this.MainChart);
             this.tabControl1.Controls.Add(this.Settings);
             this.tabControl1.Controls.Add(this.Schema);
+            this.tabControl1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(1202, 635);
             this.tabControl1.TabIndex = 0;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // UnitSettings
             // 
@@ -2037,36 +2060,36 @@
             // 
             // VarTimeChart
             // 
-            chartArea3.Name = "ChartArea1";
-            this.VarTimeChart.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.VarTimeChart.Legends.Add(legend3);
+            chartArea1.Name = "ChartArea1";
+            this.VarTimeChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.VarTimeChart.Legends.Add(legend1);
             this.VarTimeChart.Location = new System.Drawing.Point(83, 34);
             this.VarTimeChart.Name = "VarTimeChart";
-            series9.ChartArea = "ChartArea1";
-            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series9.Color = System.Drawing.Color.Red;
-            series9.Legend = "Legend1";
-            series9.Name = "Series1";
-            series10.ChartArea = "ChartArea1";
-            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series10.Color = System.Drawing.Color.Red;
-            series10.Legend = "Legend1";
-            series10.Name = "Series2";
-            series11.ChartArea = "ChartArea1";
-            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series11.Color = System.Drawing.Color.Blue;
-            series11.Legend = "Legend1";
-            series11.Name = "Series3";
-            series12.ChartArea = "ChartArea1";
-            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series12.Color = System.Drawing.Color.Blue;
-            series12.Legend = "Legend1";
-            series12.Name = "Series4";
-            this.VarTimeChart.Series.Add(series9);
-            this.VarTimeChart.Series.Add(series10);
-            this.VarTimeChart.Series.Add(series11);
-            this.VarTimeChart.Series.Add(series12);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Color = System.Drawing.Color.Red;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series2.Color = System.Drawing.Color.Red;
+            series2.Legend = "Legend1";
+            series2.Name = "Series2";
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Color = System.Drawing.Color.Blue;
+            series3.Legend = "Legend1";
+            series3.Name = "Series3";
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series4.Color = System.Drawing.Color.Blue;
+            series4.Legend = "Legend1";
+            series4.Name = "Series4";
+            this.VarTimeChart.Series.Add(series1);
+            this.VarTimeChart.Series.Add(series2);
+            this.VarTimeChart.Series.Add(series3);
+            this.VarTimeChart.Series.Add(series4);
             this.VarTimeChart.Size = new System.Drawing.Size(795, 383);
             this.VarTimeChart.TabIndex = 96;
             this.VarTimeChart.Text = "VarTimeChart";
@@ -2093,6 +2116,23 @@
             // 
             // MainChart
             // 
+            this.MainChart.Controls.Add(this.PerformanceTestStartButton);
+            this.MainChart.Controls.Add(this.PowerCustomTextBox);
+            this.MainChart.Controls.Add(this.PowerCustomLabel);
+            this.MainChart.Controls.Add(this.PowerSITextBox);
+            this.MainChart.Controls.Add(this.PowerSILabel);
+            this.MainChart.Controls.Add(this.label55);
+            this.MainChart.Controls.Add(this.PressureCustomTextBox);
+            this.MainChart.Controls.Add(this.PressureCustomLabel);
+            this.MainChart.Controls.Add(this.PressureSITextBox);
+            this.MainChart.Controls.Add(this.PressureSILabel);
+            this.MainChart.Controls.Add(this.FlowCustomTextBox);
+            this.MainChart.Controls.Add(this.FlowCustomLabel);
+            this.MainChart.Controls.Add(this.FlowSITextBox);
+            this.MainChart.Controls.Add(this.FlowSILabel);
+            this.MainChart.Controls.Add(this.label52);
+            this.MainChart.Controls.Add(this.label51);
+            this.MainChart.Controls.Add(this.label50);
             this.MainChart.Controls.Add(this.button8);
             this.MainChart.Controls.Add(this.label30);
             this.MainChart.Controls.Add(this.label29);
@@ -2111,9 +2151,167 @@
             this.MainChart.Text = "РНХ";
             this.MainChart.UseVisualStyleBackColor = true;
             // 
+            // PerformanceTestStartButton
+            // 
+            this.PerformanceTestStartButton.Location = new System.Drawing.Point(899, 188);
+            this.PerformanceTestStartButton.Name = "PerformanceTestStartButton";
+            this.PerformanceTestStartButton.Size = new System.Drawing.Size(135, 35);
+            this.PerformanceTestStartButton.TabIndex = 167;
+            this.PerformanceTestStartButton.Text = "Старт";
+            this.PerformanceTestStartButton.UseVisualStyleBackColor = true;
+            this.PerformanceTestStartButton.Click += new System.EventHandler(this.PerformanceTestStartButton_Click);
+            // 
+            // PowerCustomTextBox
+            // 
+            this.PowerCustomTextBox.Location = new System.Drawing.Point(1007, 146);
+            this.PowerCustomTextBox.Name = "PowerCustomTextBox";
+            this.PowerCustomTextBox.Size = new System.Drawing.Size(53, 20);
+            this.PowerCustomTextBox.TabIndex = 166;
+            this.PowerCustomTextBox.Text = "1";
+            // 
+            // PowerCustomLabel
+            // 
+            this.PowerCustomLabel.AutoSize = true;
+            this.PowerCustomLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.PowerCustomLabel.Location = new System.Drawing.Point(1066, 146);
+            this.PowerCustomLabel.Name = "PowerCustomLabel";
+            this.PowerCustomLabel.Size = new System.Drawing.Size(29, 20);
+            this.PowerCustomLabel.TabIndex = 165;
+            this.PowerCustomLabel.Text = "Вт";
+            // 
+            // PowerSITextBox
+            // 
+            this.PowerSITextBox.Location = new System.Drawing.Point(899, 146);
+            this.PowerSITextBox.Name = "PowerSITextBox";
+            this.PowerSITextBox.Size = new System.Drawing.Size(53, 20);
+            this.PowerSITextBox.TabIndex = 164;
+            this.PowerSITextBox.Text = "1";
+            // 
+            // PowerSILabel
+            // 
+            this.PowerSILabel.AutoSize = true;
+            this.PowerSILabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.PowerSILabel.Location = new System.Drawing.Point(958, 146);
+            this.PowerSILabel.Name = "PowerSILabel";
+            this.PowerSILabel.Size = new System.Drawing.Size(42, 20);
+            this.PowerSILabel.TabIndex = 163;
+            this.PowerSILabel.Text = "Вт =";
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label55.Location = new System.Drawing.Point(895, 123);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(158, 20);
+            this.label55.TabIndex = 162;
+            this.label55.Text = "Перевод мощности";
+            // 
+            // PressureCustomTextBox
+            // 
+            this.PressureCustomTextBox.Location = new System.Drawing.Point(1007, 54);
+            this.PressureCustomTextBox.Name = "PressureCustomTextBox";
+            this.PressureCustomTextBox.Size = new System.Drawing.Size(53, 20);
+            this.PressureCustomTextBox.TabIndex = 161;
+            this.PressureCustomTextBox.Text = "1";
+            // 
+            // PressureCustomLabel
+            // 
+            this.PressureCustomLabel.AutoSize = true;
+            this.PressureCustomLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.PressureCustomLabel.Location = new System.Drawing.Point(1066, 54);
+            this.PressureCustomLabel.Name = "PressureCustomLabel";
+            this.PressureCustomLabel.Size = new System.Drawing.Size(43, 20);
+            this.PressureCustomLabel.TabIndex = 160;
+            this.PressureCustomLabel.Text = "МПа";
+            // 
+            // PressureSITextBox
+            // 
+            this.PressureSITextBox.Location = new System.Drawing.Point(899, 54);
+            this.PressureSITextBox.Name = "PressureSITextBox";
+            this.PressureSITextBox.Size = new System.Drawing.Size(53, 20);
+            this.PressureSITextBox.TabIndex = 159;
+            this.PressureSITextBox.Text = "1000000";
+            // 
+            // PressureSILabel
+            // 
+            this.PressureSILabel.AutoSize = true;
+            this.PressureSILabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.PressureSILabel.Location = new System.Drawing.Point(958, 54);
+            this.PressureSILabel.Name = "PressureSILabel";
+            this.PressureSILabel.Size = new System.Drawing.Size(43, 20);
+            this.PressureSILabel.TabIndex = 158;
+            this.PressureSILabel.Text = "Па =";
+            // 
+            // FlowCustomTextBox
+            // 
+            this.FlowCustomTextBox.Location = new System.Drawing.Point(1007, 100);
+            this.FlowCustomTextBox.Name = "FlowCustomTextBox";
+            this.FlowCustomTextBox.Size = new System.Drawing.Size(53, 20);
+            this.FlowCustomTextBox.TabIndex = 157;
+            this.FlowCustomTextBox.Text = "86400";
+            // 
+            // FlowCustomLabel
+            // 
+            this.FlowCustomLabel.AutoSize = true;
+            this.FlowCustomLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FlowCustomLabel.Location = new System.Drawing.Point(1066, 100);
+            this.FlowCustomLabel.Name = "FlowCustomLabel";
+            this.FlowCustomLabel.Size = new System.Drawing.Size(53, 20);
+            this.FlowCustomLabel.TabIndex = 156;
+            this.FlowCustomLabel.Text = "м³/сут";
+            // 
+            // FlowSITextBox
+            // 
+            this.FlowSITextBox.Location = new System.Drawing.Point(899, 100);
+            this.FlowSITextBox.Name = "FlowSITextBox";
+            this.FlowSITextBox.Size = new System.Drawing.Size(53, 20);
+            this.FlowSITextBox.TabIndex = 155;
+            this.FlowSITextBox.Text = "1";
+            // 
+            // FlowSILabel
+            // 
+            this.FlowSILabel.AutoSize = true;
+            this.FlowSILabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FlowSILabel.Location = new System.Drawing.Point(958, 100);
+            this.FlowSILabel.Name = "FlowSILabel";
+            this.FlowSILabel.Size = new System.Drawing.Size(50, 20);
+            this.FlowSILabel.TabIndex = 154;
+            this.FlowSILabel.Text = "м³/с =";
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label52.Location = new System.Drawing.Point(895, 77);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(143, 20);
+            this.label52.TabIndex = 153;
+            this.label52.Text = "Перевод расхода";
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label51.Location = new System.Drawing.Point(895, 31);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(156, 20);
+            this.label51.TabIndex = 152;
+            this.label51.Text = "Перевод давления";
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label50.Location = new System.Drawing.Point(3, 3);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(452, 25);
+            this.label50.TabIndex = 151;
+            this.label50.Text = "Расходно-напорная характеристика насоса";
+            // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(885, 478);
+            this.button8.Location = new System.Drawing.Point(8, 542);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(132, 35);
             this.button8.TabIndex = 9;
@@ -2124,7 +2322,7 @@
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(882, 98);
+            this.label30.Location = new System.Drawing.Point(1048, 527);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(12, 13);
             this.label30.TabIndex = 8;
@@ -2133,7 +2331,7 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(882, 52);
+            this.label29.Location = new System.Drawing.Point(1048, 481);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(12, 13);
             this.label29.TabIndex = 7;
@@ -2141,7 +2339,7 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(882, 140);
+            this.button7.Location = new System.Drawing.Point(1048, 569);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(135, 35);
             this.button7.TabIndex = 6;
@@ -2151,7 +2349,7 @@
             // 
             // YSizeTextBox
             // 
-            this.YSizeTextBox.Location = new System.Drawing.Point(882, 114);
+            this.YSizeTextBox.Location = new System.Drawing.Point(1048, 543);
             this.YSizeTextBox.Name = "YSizeTextBox";
             this.YSizeTextBox.Size = new System.Drawing.Size(135, 20);
             this.YSizeTextBox.TabIndex = 5;
@@ -2159,7 +2357,7 @@
             // 
             // XSizeTextBox
             // 
-            this.XSizeTextBox.Location = new System.Drawing.Point(882, 68);
+            this.XSizeTextBox.Location = new System.Drawing.Point(1048, 497);
             this.XSizeTextBox.Name = "XSizeTextBox";
             this.XSizeTextBox.Size = new System.Drawing.Size(135, 20);
             this.XSizeTextBox.TabIndex = 4;
@@ -2167,7 +2365,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(885, 365);
+            this.button6.Location = new System.Drawing.Point(880, 481);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(132, 35);
             this.button6.TabIndex = 3;
@@ -2177,7 +2375,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(882, 276);
+            this.button5.Location = new System.Drawing.Point(880, 440);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(135, 35);
             this.button5.TabIndex = 2;
@@ -2187,7 +2385,8 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(882, 235);
+            this.button4.Enabled = false;
+            this.button4.Location = new System.Drawing.Point(880, 399);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(135, 35);
             this.button4.TabIndex = 1;
@@ -2197,44 +2396,45 @@
             // 
             // chart1
             // 
-            chartArea4.AxisX.Maximum = 100D;
-            chartArea4.AxisX.Minimum = 0D;
-            chartArea4.AxisX2.Maximum = 100D;
-            chartArea4.AxisX2.Minimum = 0D;
-            chartArea4.AxisY.Maximum = 100D;
-            chartArea4.AxisY.Minimum = 0D;
-            chartArea4.AxisY2.Maximum = 100D;
-            chartArea4.AxisY2.Minimum = 0D;
-            chartArea4.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            this.chart1.Legends.Add(legend4);
-            this.chart1.Location = new System.Drawing.Point(8, 8);
+            this.chart1.CausesValidation = false;
+            chartArea2.AxisX.Maximum = 100D;
+            chartArea2.AxisX.Minimum = 0D;
+            chartArea2.AxisX2.Maximum = 100D;
+            chartArea2.AxisX2.Minimum = 0D;
+            chartArea2.AxisY.Maximum = 100D;
+            chartArea2.AxisY.Minimum = 0D;
+            chartArea2.AxisY2.Maximum = 100D;
+            chartArea2.AxisY2.Minimum = 0D;
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
+            this.chart1.Location = new System.Drawing.Point(6, 31);
             this.chart1.Name = "chart1";
-            series13.ChartArea = "ChartArea1";
-            series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series13.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            series13.Legend = "Legend1";
-            series13.Name = "dP";
-            series14.ChartArea = "ChartArea1";
-            series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series14.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            series14.Legend = "Legend1";
-            series14.Name = "dP мгновенная";
-            series15.ChartArea = "ChartArea1";
-            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series15.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            series15.Legend = "Legend1";
-            series15.Name = "N";
-            series16.ChartArea = "ChartArea1";
-            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series16.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            series16.Legend = "Legend1";
-            series16.Name = "N мгновенная";
-            this.chart1.Series.Add(series13);
-            this.chart1.Series.Add(series14);
-            this.chart1.Series.Add(series15);
-            this.chart1.Series.Add(series16);
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series5.Color = System.Drawing.Color.Fuchsia;
+            series5.Legend = "Legend1";
+            series5.Name = "dP";
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series6.Color = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            series6.Legend = "Legend1";
+            series6.Name = "dP мгновенная";
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series7.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            series7.Legend = "Legend1";
+            series7.Name = "N";
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series8.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            series8.Legend = "Legend1";
+            series8.Name = "N мгновенная";
+            this.chart1.Series.Add(series5);
+            this.chart1.Series.Add(series6);
+            this.chart1.Series.Add(series7);
+            this.chart1.Series.Add(series8);
             this.chart1.Size = new System.Drawing.Size(868, 490);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -2671,6 +2871,10 @@
             // 
             this.Schema.BackgroundImage = global::Stand.Properties.Resources.Схема;
             this.Schema.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.Schema.Controls.Add(this.label48);
+            this.Schema.Controls.Add(this.DiameterTextBox);
+            this.Schema.Controls.Add(this.FCParPowerComboBox);
+            this.Schema.Controls.Add(this.label49);
             this.Schema.Controls.Add(this.SchemeNameTextBox);
             this.Schema.Controls.Add(this.label44);
             this.Schema.Controls.Add(this.SchemeNotSavedLabel);
@@ -2716,6 +2920,64 @@
             this.Schema.TabIndex = 5;
             this.Schema.Text = "Схема стенда";
             this.Schema.UseVisualStyleBackColor = true;
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label48.Location = new System.Drawing.Point(940, 459);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(149, 20);
+            this.label48.TabIndex = 184;
+            this.label48.Text = "Диаметр трубы [м]";
+            // 
+            // DiameterTextBox
+            // 
+            this.DiameterTextBox.Location = new System.Drawing.Point(943, 481);
+            this.DiameterTextBox.Name = "DiameterTextBox";
+            this.DiameterTextBox.Size = new System.Drawing.Size(136, 20);
+            this.DiameterTextBox.TabIndex = 183;
+            this.DiameterTextBox.Text = "0,1";
+            this.DiameterTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // FCParPowerComboBox
+            // 
+            this.FCParPowerComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.FCParPowerComboBox.FormattingEnabled = true;
+            this.FCParPowerComboBox.Location = new System.Drawing.Point(517, 379);
+            this.FCParPowerComboBox.Name = "FCParPowerComboBox";
+            this.FCParPowerComboBox.Size = new System.Drawing.Size(121, 21);
+            this.FCParPowerComboBox.TabIndex = 182;
+            this.FCParPowerComboBox.SelectedIndexChanged += new System.EventHandler(this.FCParPowerComboBox_SelectedIndexChanged);
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label49.Location = new System.Drawing.Point(485, 360);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(187, 16);
+            this.label49.TabIndex = 181;
+            this.label49.Text = "Контролируемый параметр";
+            this.label49.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // SchemeNameTextBox
+            // 
+            this.SchemeNameTextBox.Location = new System.Drawing.Point(976, 114);
+            this.SchemeNameTextBox.Name = "SchemeNameTextBox";
+            this.SchemeNameTextBox.Size = new System.Drawing.Size(166, 20);
+            this.SchemeNameTextBox.TabIndex = 179;
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label44.Location = new System.Drawing.Point(972, 91);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(83, 20);
+            this.label44.TabIndex = 178;
+            this.label44.Text = "Название";
+            this.label44.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // SchemeNotSavedLabel
             // 
@@ -2784,7 +3046,7 @@
             // 
             this.label47.AutoSize = true;
             this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label47.Location = new System.Drawing.Point(503, 561);
+            this.label47.Location = new System.Drawing.Point(480, 561);
             this.label47.Name = "label47";
             this.label47.Size = new System.Drawing.Size(187, 16);
             this.label47.TabIndex = 170;
@@ -2795,17 +3057,17 @@
             // 
             this.FlowmeterParComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FlowmeterParComboBox.FormattingEnabled = true;
-            this.FlowmeterParComboBox.Location = new System.Drawing.Point(540, 580);
+            this.FlowmeterParComboBox.Location = new System.Drawing.Point(517, 580);
             this.FlowmeterParComboBox.Name = "FlowmeterParComboBox";
             this.FlowmeterParComboBox.Size = new System.Drawing.Size(121, 21);
             this.FlowmeterParComboBox.TabIndex = 169;
-            this.FlowmeterParComboBox.SelectedIndexChanged += new System.EventHandler(this.PressureParComboBox5_SelectedIndexChanged);
+            this.FlowmeterParComboBox.SelectedIndexChanged += new System.EventHandler(this.FlowmeterParComboBox_SelectedIndexChanged);
             // 
             // FlowmeterUnitComboBox
             // 
             this.FlowmeterUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FlowmeterUnitComboBox.FormattingEnabled = true;
-            this.FlowmeterUnitComboBox.Location = new System.Drawing.Point(540, 537);
+            this.FlowmeterUnitComboBox.Location = new System.Drawing.Point(517, 537);
             this.FlowmeterUnitComboBox.Name = "FlowmeterUnitComboBox";
             this.FlowmeterUnitComboBox.Size = new System.Drawing.Size(121, 21);
             this.FlowmeterUnitComboBox.TabIndex = 167;
@@ -2815,7 +3077,7 @@
             // 
             this.label45.AutoSize = true;
             this.label45.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label45.Location = new System.Drawing.Point(560, 518);
+            this.label45.Location = new System.Drawing.Point(537, 518);
             this.label45.Name = "label45";
             this.label45.Size = new System.Drawing.Size(84, 16);
             this.label45.TabIndex = 166;
@@ -2826,7 +3088,7 @@
             // 
             this.label46.AutoSize = true;
             this.label46.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label46.Location = new System.Drawing.Point(550, 498);
+            this.label46.Location = new System.Drawing.Point(527, 498);
             this.label46.Name = "label46";
             this.label46.Size = new System.Drawing.Size(101, 20);
             this.label46.TabIndex = 165;
@@ -2837,17 +3099,16 @@
             // 
             this.ValveParComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ValveParComboBox.FormattingEnabled = true;
-            this.ValveParComboBox.Location = new System.Drawing.Point(651, 132);
+            this.ValveParComboBox.Location = new System.Drawing.Point(625, 132);
             this.ValveParComboBox.Name = "ValveParComboBox";
             this.ValveParComboBox.Size = new System.Drawing.Size(121, 21);
             this.ValveParComboBox.TabIndex = 164;
-            this.ValveParComboBox.SelectedIndexChanged += new System.EventHandler(this.PressureParComboBox5_SelectedIndexChanged);
             // 
             // label41
             // 
             this.label41.AutoSize = true;
             this.label41.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label41.Location = new System.Drawing.Point(631, 113);
+            this.label41.Location = new System.Drawing.Point(605, 113);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(158, 16);
             this.label41.TabIndex = 163;
@@ -2858,7 +3119,7 @@
             // 
             this.ValveUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ValveUnitComboBox.FormattingEnabled = true;
-            this.ValveUnitComboBox.Location = new System.Drawing.Point(651, 89);
+            this.ValveUnitComboBox.Location = new System.Drawing.Point(625, 89);
             this.ValveUnitComboBox.Name = "ValveUnitComboBox";
             this.ValveUnitComboBox.Size = new System.Drawing.Size(121, 21);
             this.ValveUnitComboBox.TabIndex = 162;
@@ -2868,7 +3129,7 @@
             // 
             this.label42.AutoSize = true;
             this.label42.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label42.Location = new System.Drawing.Point(670, 70);
+            this.label42.Location = new System.Drawing.Point(644, 70);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(84, 16);
             this.label42.TabIndex = 161;
@@ -2879,7 +3140,7 @@
             // 
             this.label43.AutoSize = true;
             this.label43.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label43.Location = new System.Drawing.Point(669, 49);
+            this.label43.Location = new System.Drawing.Point(643, 49);
             this.label43.Name = "label43";
             this.label43.Size = new System.Drawing.Size(86, 20);
             this.label43.TabIndex = 160;
@@ -2890,17 +3151,16 @@
             // 
             this.FCParComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FCParComboBox.FormattingEnabled = true;
-            this.FCParComboBox.Location = new System.Drawing.Point(535, 336);
+            this.FCParComboBox.Location = new System.Drawing.Point(517, 336);
             this.FCParComboBox.Name = "FCParComboBox";
             this.FCParComboBox.Size = new System.Drawing.Size(121, 21);
             this.FCParComboBox.TabIndex = 159;
-            this.FCParComboBox.SelectedIndexChanged += new System.EventHandler(this.PressureParComboBox5_SelectedIndexChanged);
             // 
             // label40
             // 
             this.label40.AutoSize = true;
             this.label40.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label40.Location = new System.Drawing.Point(515, 317);
+            this.label40.Location = new System.Drawing.Point(497, 317);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(158, 16);
             this.label40.TabIndex = 158;
@@ -2911,7 +3171,7 @@
             // 
             this.FCUnitComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.FCUnitComboBox.FormattingEnabled = true;
-            this.FCUnitComboBox.Location = new System.Drawing.Point(535, 293);
+            this.FCUnitComboBox.Location = new System.Drawing.Point(517, 293);
             this.FCUnitComboBox.Name = "FCUnitComboBox";
             this.FCUnitComboBox.Size = new System.Drawing.Size(121, 21);
             this.FCUnitComboBox.TabIndex = 157;
@@ -2921,7 +3181,7 @@
             // 
             this.label39.AutoSize = true;
             this.label39.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label39.Location = new System.Drawing.Point(553, 274);
+            this.label39.Location = new System.Drawing.Point(535, 274);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(84, 16);
             this.label39.TabIndex = 156;
@@ -2932,7 +3192,7 @@
             // 
             this.label38.AutoSize = true;
             this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label38.Location = new System.Drawing.Point(480, 254);
+            this.label38.Location = new System.Drawing.Point(462, 254);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(233, 20);
             this.label38.TabIndex = 155;
@@ -2943,57 +3203,53 @@
             // 
             this.PressureParComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.PressureParComboBox1.FormattingEnabled = true;
-            this.PressureParComboBox1.Location = new System.Drawing.Point(211, 554);
+            this.PressureParComboBox1.Location = new System.Drawing.Point(206, 554);
             this.PressureParComboBox1.Name = "PressureParComboBox1";
             this.PressureParComboBox1.Size = new System.Drawing.Size(121, 21);
             this.PressureParComboBox1.TabIndex = 154;
-            this.PressureParComboBox1.SelectedIndexChanged += new System.EventHandler(this.PressureParComboBox5_SelectedIndexChanged);
+            this.PressureParComboBox1.SelectedIndexChanged += new System.EventHandler(this.PressureParComboBox1_SelectedIndexChanged);
             // 
             // PressureParComboBox2
             // 
             this.PressureParComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.PressureParComboBox2.FormattingEnabled = true;
-            this.PressureParComboBox2.Location = new System.Drawing.Point(211, 454);
+            this.PressureParComboBox2.Location = new System.Drawing.Point(206, 454);
             this.PressureParComboBox2.Name = "PressureParComboBox2";
             this.PressureParComboBox2.Size = new System.Drawing.Size(121, 21);
             this.PressureParComboBox2.TabIndex = 153;
-            this.PressureParComboBox2.SelectedIndexChanged += new System.EventHandler(this.PressureParComboBox5_SelectedIndexChanged);
             // 
             // PressureParComboBox3
             // 
             this.PressureParComboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.PressureParComboBox3.FormattingEnabled = true;
-            this.PressureParComboBox3.Location = new System.Drawing.Point(211, 350);
+            this.PressureParComboBox3.Location = new System.Drawing.Point(206, 350);
             this.PressureParComboBox3.Name = "PressureParComboBox3";
             this.PressureParComboBox3.Size = new System.Drawing.Size(121, 21);
             this.PressureParComboBox3.TabIndex = 152;
-            this.PressureParComboBox3.SelectedIndexChanged += new System.EventHandler(this.PressureParComboBox5_SelectedIndexChanged);
             // 
             // PressureParComboBox4
             // 
             this.PressureParComboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.PressureParComboBox4.FormattingEnabled = true;
-            this.PressureParComboBox4.Location = new System.Drawing.Point(211, 243);
+            this.PressureParComboBox4.Location = new System.Drawing.Point(206, 243);
             this.PressureParComboBox4.Name = "PressureParComboBox4";
             this.PressureParComboBox4.Size = new System.Drawing.Size(121, 21);
             this.PressureParComboBox4.TabIndex = 151;
-            this.PressureParComboBox4.SelectedIndexChanged += new System.EventHandler(this.PressureParComboBox5_SelectedIndexChanged);
             // 
             // PressureParComboBox5
             // 
             this.PressureParComboBox5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.PressureParComboBox5.FormattingEnabled = true;
-            this.PressureParComboBox5.Location = new System.Drawing.Point(211, 145);
+            this.PressureParComboBox5.Location = new System.Drawing.Point(206, 145);
             this.PressureParComboBox5.Name = "PressureParComboBox5";
             this.PressureParComboBox5.Size = new System.Drawing.Size(121, 21);
             this.PressureParComboBox5.TabIndex = 150;
-            this.PressureParComboBox5.SelectedIndexChanged += new System.EventHandler(this.PressureParComboBox5_SelectedIndexChanged);
             // 
             // label37
             // 
             this.label37.AutoSize = true;
             this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label37.Location = new System.Drawing.Point(183, 89);
+            this.label37.Location = new System.Drawing.Point(178, 89);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(187, 16);
             this.label37.TabIndex = 149;
@@ -3004,7 +3260,7 @@
             // 
             this.PressureUnitСomboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.PressureUnitСomboBox.FormattingEnabled = true;
-            this.PressureUnitСomboBox.Location = new System.Drawing.Point(211, 51);
+            this.PressureUnitСomboBox.Location = new System.Drawing.Point(206, 51);
             this.PressureUnitСomboBox.Name = "PressureUnitСomboBox";
             this.PressureUnitСomboBox.Size = new System.Drawing.Size(121, 21);
             this.PressureUnitСomboBox.TabIndex = 148;
@@ -3014,7 +3270,7 @@
             // 
             this.label36.AutoSize = true;
             this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label36.Location = new System.Drawing.Point(228, 32);
+            this.label36.Location = new System.Drawing.Point(223, 32);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(84, 16);
             this.label36.TabIndex = 147;
@@ -3025,7 +3281,7 @@
             // 
             this.label35.AutoSize = true;
             this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label35.Location = new System.Drawing.Point(192, 10);
+            this.label35.Location = new System.Drawing.Point(187, 10);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(153, 20);
             this.label35.TabIndex = 146;
@@ -3071,7 +3327,7 @@
             // 
             this.label33.AutoSize = true;
             this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label33.Location = new System.Drawing.Point(828, 301);
+            this.label33.Location = new System.Drawing.Point(808, 301);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(140, 20);
             this.label33.TabIndex = 141;
@@ -3087,36 +3343,18 @@
             // 
             // DensityTextBox
             // 
-            this.DensityTextBox.Location = new System.Drawing.Point(832, 324);
+            this.DensityTextBox.Location = new System.Drawing.Point(812, 324);
             this.DensityTextBox.Name = "DensityTextBox";
             this.DensityTextBox.Size = new System.Drawing.Size(136, 20);
             this.DensityTextBox.TabIndex = 0;
             this.DensityTextBox.Text = "998,2";
             this.DensityTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label44.Location = new System.Drawing.Point(972, 91);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(83, 20);
-            this.label44.TabIndex = 178;
-            this.label44.Text = "Название";
-            this.label44.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // SchemeNameTextBox
-            // 
-            this.SchemeNameTextBox.Location = new System.Drawing.Point(976, 114);
-            this.SchemeNameTextBox.Name = "SchemeNameTextBox";
-            this.SchemeNameTextBox.Size = new System.Drawing.Size(166, 20);
-            this.SchemeNameTextBox.TabIndex = 179;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1199, 633);
+            this.ClientSize = new System.Drawing.Size(1208, 637);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -3390,6 +3628,27 @@
         private System.Windows.Forms.Label SchemeNotSavedLabel;
         private System.Windows.Forms.TextBox SchemeNameTextBox;
         private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.ComboBox FCParPowerComboBox;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.TextBox DiameterTextBox;
+        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.TextBox FlowCustomTextBox;
+        private System.Windows.Forms.Label FlowCustomLabel;
+        private System.Windows.Forms.TextBox FlowSITextBox;
+        private System.Windows.Forms.Label FlowSILabel;
+        private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.TextBox PressureCustomTextBox;
+        private System.Windows.Forms.Label PressureCustomLabel;
+        private System.Windows.Forms.TextBox PressureSITextBox;
+        private System.Windows.Forms.Label PressureSILabel;
+        private System.Windows.Forms.TextBox PowerCustomTextBox;
+        private System.Windows.Forms.Label PowerCustomLabel;
+        private System.Windows.Forms.TextBox PowerSITextBox;
+        private System.Windows.Forms.Label PowerSILabel;
+        private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.Button PerformanceTestStartButton;
     }
 }
 

@@ -10,6 +10,7 @@ namespace Stand
 {
     public class Scheme
     {
+        static public float g_constant = (float)9.8155; 
         static private int MaxN = 0;
         public int SchemeN;
         public string name;
@@ -23,6 +24,7 @@ namespace Stand
 
         public int FCUID;
         public int FCPID;
+        public int FCPPID;
 
         public int ValveUID;
         public int ValvePID;
@@ -31,10 +33,8 @@ namespace Stand
         public int FlowPID;
 
         public float Density;
-        public float L1;
-        public float L2;
-        public float L3;
-        public float L4;
+        public float[] dL = new float[4] { 0, 0, 0, 0 };
+        public float D;
 
         public Scheme()
         {
@@ -48,15 +48,13 @@ namespace Stand
             PressureP5ID = -1;
             FCUID = -1;
             FCPID = -1;
+            FCPPID = -1;
             ValveUID = -1;
             ValvePID = -1;
             FlowUID = -1;
             FlowPID = -1;
             Density = 0;
-            L1 = 0;
-            L2 = 0;
-            L3 = 0;
-            L4 = 0;
+            D = 0;
         }
         public Scheme(XElement el)
         {
@@ -78,6 +76,7 @@ namespace Stand
 
             FCUID = Convert.ToInt32(el.Attribute("FCU").Value);
             FCPID = Convert.ToInt32(el.Attribute("FCP").Value);
+            FCPPID = Convert.ToInt32(el.Attribute("FCPP").Value);
 
             ValveUID = Convert.ToInt32(el.Attribute("ValveU").Value);
             ValvePID = Convert.ToInt32(el.Attribute("ValveP").Value);
@@ -85,32 +84,37 @@ namespace Stand
             string stringVal = el.Attribute("L1").Value;
             if (stringVal.Contains("."))
                 stringVal = stringVal.Replace(".", ",");
-            L1 = Convert.ToSingle(stringVal);
+            dL[0] = Convert.ToSingle(stringVal);
 
             stringVal = el.Attribute("L2").Value;
             if (stringVal.Contains("."))
                 stringVal = stringVal.Replace(".", ",");
-            L2 = Convert.ToSingle(stringVal);
+            dL[1] = Convert.ToSingle(stringVal);
 
             stringVal = el.Attribute("L3").Value;
             if (stringVal.Contains("."))
                 stringVal = stringVal.Replace(".", ",");
-            L3 = Convert.ToSingle(stringVal);
+            dL[2] = Convert.ToSingle(stringVal);
 
             stringVal = el.Attribute("L4").Value;
             if (stringVal.Contains("."))
                 stringVal = stringVal.Replace(".", ",");
-            L4 = Convert.ToSingle(stringVal);
+            dL[3] = Convert.ToSingle(stringVal);
 
             stringVal = el.Attribute("Density").Value;
             if (stringVal.Contains("."))
                 stringVal = stringVal.Replace(".", ",");
             Density = Convert.ToSingle(stringVal);
+
+            stringVal = el.Attribute("D").Value;
+            if (stringVal.Contains("."))
+                stringVal = stringVal.Replace(".", ",");
+            D = Convert.ToSingle(stringVal);
         }
         public void SaveXML(ref List<Unit> UL,TextBox SchemeNameTB, ComboBox ConfigCB, ComboBox PressUIDCB
             , ComboBox PressP1CB, ComboBox PressP2CB, ComboBox PressP3CB, ComboBox PressP4CB, ComboBox PressP5CB
-            , ComboBox FlowUCB, ComboBox FlowPCB, ComboBox FCUCB, ComboBox FCPCB, ComboBox ValveUCB
-            , ComboBox ValvePCB, TextBox DensityTB, TextBox L1TB, TextBox L2TB, TextBox L3TB, TextBox L4TB)
+            , ComboBox FlowUCB, ComboBox FlowPCB, ComboBox FCUCB, ComboBox FCPCB, ComboBox FCPPCB, ComboBox ValveUCB
+            , ComboBox ValvePCB, TextBox DensityTB, TextBox L1TB, TextBox L2TB, TextBox L3TB, TextBox L4TB, TextBox DTB)
         {
             Form1.xSettings.Elements("scheme").Where(s => s.Attribute("Name").Value == this.name).Remove();
             XElement xScheme = new XElement("scheme");
@@ -157,8 +161,11 @@ namespace Stand
             FCUID = UL.Find(u => u.GetName() == FCUCB.Text).id;
             FCPID = UL.Find(u => u.GetName() == FCUCB.Text).GetParametersList()
                 .Find(p => p.GetName() == FCPCB.Text).id;
+            FCPPID = UL.Find(u => u.GetName() == FCUCB.Text).GetParametersList()
+                .Find(p => p.GetName() == FCPPCB.Text).id;
             XAttribute xFCU = new XAttribute("FCU", FCUID);
             XAttribute xFCP = new XAttribute("FCP", FCPID);
+            XAttribute xFCPP = new XAttribute("FCPP", FCPPID);
 
             if (ValveUCB.Text != "---" || ValvePCB.Text != "---")
             {
@@ -174,20 +181,23 @@ namespace Stand
             XAttribute xValveU = new XAttribute("ValveU", ValveUID);
             XAttribute xValveP = new XAttribute("ValveP", ValvePID);
 
-            L1 = Convert.ToSingle(L1TB.Text);
-            L2 = Convert.ToSingle(L2TB.Text);
-            L3 = Convert.ToSingle(L3TB.Text);
-            L4 = Convert.ToSingle(L4TB.Text);
-            XAttribute xL1 = new XAttribute("L1", L1);
-            XAttribute xL2 = new XAttribute("L2", L2);
-            XAttribute xL3 = new XAttribute("L3", L3);
-            XAttribute xL4 = new XAttribute("L4", L4);
+            dL[0] = Convert.ToSingle(L1TB.Text);
+            dL[1] = Convert.ToSingle(L2TB.Text);
+            dL[2] = Convert.ToSingle(L3TB.Text);
+            dL[3] = Convert.ToSingle(L4TB.Text);
+            XAttribute xL1 = new XAttribute("L1", dL[0]);
+            XAttribute xL2 = new XAttribute("L2", dL[1]);
+            XAttribute xL3 = new XAttribute("L3", dL[2]);
+            XAttribute xL4 = new XAttribute("L4", dL[3]);
 
             Density = Convert.ToSingle(DensityTB.Text);
             XAttribute xDensity = new XAttribute("Density", (float)Density);
 
+            D = Convert.ToSingle(DTB.Text);
+            XAttribute xD = new XAttribute("D", D);
+
             xScheme.Add(xName, xPressureU, xPressureP1, xPressureP2, xPressureP3, xPressureP4, xPressureP5,
-                xFlowU, xFlowP, xFCU, xFCP, xValveU, xValveP, xL1, xL2, xL3, xL4, xDensity);
+                xFlowU, xFlowP, xFCU, xFCP, xFCPP, xValveU, xValveP, xL1, xL2, xL3, xL4, xDensity, xD);
             Form1.xSettings.Add(xScheme);
             Form1.xSettings.Save("Defaults.xml");
         }
