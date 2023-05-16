@@ -309,6 +309,9 @@
             this.label33 = new System.Windows.Forms.Label();
             this.L1TextBox = new System.Windows.Forms.TextBox();
             this.DensityTextBox = new System.Windows.Forms.TextBox();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.listBox2 = new System.Windows.Forms.ListBox();
+            this.listBox3 = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.UnitSettings.SuspendLayout();
             this.Parameters.SuspendLayout();
@@ -2116,6 +2119,9 @@
             // 
             // MainChart
             // 
+            this.MainChart.Controls.Add(this.listBox3);
+            this.MainChart.Controls.Add(this.listBox2);
+            this.MainChart.Controls.Add(this.listBox1);
             this.MainChart.Controls.Add(this.PerformanceTestStartButton);
             this.MainChart.Controls.Add(this.PowerCustomTextBox);
             this.MainChart.Controls.Add(this.PowerCustomLabel);
@@ -3350,6 +3356,30 @@
             this.DensityTextBox.Text = "998,2";
             this.DensityTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(899, 240);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(82, 121);
+            this.listBox1.TabIndex = 168;
+            // 
+            // listBox2
+            // 
+            this.listBox2.FormattingEnabled = true;
+            this.listBox2.Location = new System.Drawing.Point(987, 240);
+            this.listBox2.Name = "listBox2";
+            this.listBox2.Size = new System.Drawing.Size(82, 121);
+            this.listBox2.TabIndex = 169;
+            // 
+            // listBox3
+            // 
+            this.listBox3.FormattingEnabled = true;
+            this.listBox3.Location = new System.Drawing.Point(1075, 240);
+            this.listBox3.Name = "listBox3";
+            this.listBox3.Size = new System.Drawing.Size(82, 121);
+            this.listBox3.TabIndex = 170;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3649,6 +3679,9 @@
         private System.Windows.Forms.Label PowerSILabel;
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.Button PerformanceTestStartButton;
+        private System.Windows.Forms.ListBox listBox3;
+        private System.Windows.Forms.ListBox listBox2;
+        private System.Windows.Forms.ListBox listBox1;
     }
 }
 

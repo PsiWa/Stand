@@ -1154,6 +1154,10 @@ namespace Stand
                     ECE[i] = SelectedScheme.Density * Scheme.g_constant * H[i] * FlowLastReg / PowerLastReg;
                 }
 
+                Action<float> lb1 = (float f) => listBox1.Items.Add(f);
+                Action<float> lb2 = (float f) => listBox2.Items.Add(f); 
+                Action<float> lb3 = (float f) => listBox3.Items.Add(f);
+
                 Action<int> readH = (int i) => chart1.Series[1].Points.AddXY(FlowLastReg, H[i]);
                 Action readN = () => chart1.Series[3].Points.AddXY(FlowLastReg, PowerLastReg);
 
@@ -1164,6 +1168,9 @@ namespace Stand
                 Action addN = () => chart1.Series[2].Points.AddXY(FlowLastReg, PowerLastReg);
                 if (InvokeRequired)
                 {
+                    Invoke(lb1, PowerLastReg);
+                    Invoke(lb2, FlowLastReg);
+                    Invoke(lb3, PressureParametersList[0].GetLastMeasuredRegs());
                     Invoke(clearH);
                     Invoke(clearN);
                     Invoke(readH, 0);
@@ -1171,6 +1178,9 @@ namespace Stand
                 }
                 else
                 {
+                    lb1(PowerLastReg);
+                    lb2(FlowLastReg);
+                    lb3(PressureParametersList[0].GetLastMeasuredRegs());
                     readH(0);
                     readN();
                     clearH();

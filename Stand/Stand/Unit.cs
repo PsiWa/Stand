@@ -478,18 +478,17 @@ namespace Stand
         }
         public void ReadAllParams()
         {
-            Random rnd = new Random();
+            //Random rnd = new Random();
             ushort offset = 0;
             if (isConnected)
                 foreach (Parameter par in parameters)
                     if (par.CheckIfToggled())
                         ComRead(par, offset);
                     else
-                        foreach (Parameter par1 in parameters)
-                            par1.SetMeasuredRegs(rnd.Next(1, 100));
+                        par.SetMeasuredRegs(0);
             else
                 foreach (Parameter par1 in parameters)
-                    par1.SetMeasuredRegs(rnd.Next(1, 100));
+                    par1.SetMeasuredRegs(0);
 
         }
     }
