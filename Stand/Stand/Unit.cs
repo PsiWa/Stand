@@ -396,49 +396,56 @@ namespace Stand
 
         public void ComRead(Parameter par, ushort offset)
         {
-            float fRegs = 0;
-            byte _slaveStationAddr = Convert.ToByte(this.address);
-            ushort[] usRegs = null;
-            if (par.GetDataType() == DataType.DT_Single)
+            try
             {
-                if (par.GetRegType() == RegType.RT_Input)
+                float fRegs = 0;
+                byte _slaveStationAddr = Convert.ToByte(this.address);
+                ushort[] usRegs = null;
+                if (par.GetDataType() == DataType.DT_Single)
                 {
-                    mreScan.Reset();
-                    usRegs = masterCOM.ReadInputRegisters(_slaveStationAddr,
-                        (ushort)(par.GetRegisterAddress() + offset), 1);
-                    mreScan.Set();
+                    if (par.GetRegType() == RegType.RT_Input)
+                    {
+                        mreScan.Reset();
+                        usRegs = masterCOM.ReadInputRegisters(_slaveStationAddr,
+                            (ushort)(par.GetRegisterAddress() + offset), 1);
+                        mreScan.Set();
+                    }
+                    else if (par.GetRegType() == RegType.RT_Holding)
+                    {
+                        mreScan.Reset();
+                        usRegs = masterCOM.ReadHoldingRegisters(_slaveStationAddr,
+                            (ushort)(par.GetRegisterAddress() + offset), 1);
+                        mreScan.Set();
+                    }
+                    fRegs = Convert.ToInt32(usRegs[0]);
                 }
-                else if (par.GetRegType() == RegType.RT_Holding)
+                else
                 {
-                    mreScan.Reset();
-                    usRegs = masterCOM.ReadHoldingRegisters(_slaveStationAddr,
-                        (ushort)(par.GetRegisterAddress() + offset), 1);
-                    mreScan.Set();
+                    if (par.GetRegType() == RegType.RT_Input)
+                    {
+                        mreScan.Reset();
+                        usRegs = masterCOM.ReadInputRegisters(_slaveStationAddr,
+                            (ushort)(par.GetRegisterAddress() + offset), 2);
+                        mreScan.Set();
+                    }
+                    else if (par.GetRegType() == RegType.RT_Holding)
+                    {
+                        mreScan.Reset();
+                        usRegs = masterCOM.ReadHoldingRegisters(_slaveStationAddr,
+                            (ushort)(par.GetRegisterAddress() + offset), 2);
+                        mreScan.Set();
+                    }
+                    if (par.GetDataType() == DataType.DT_Float_AB)
+                        fRegs = GetFloatFromRegs(usRegs[0], usRegs[1]);
+                    if (par.GetDataType() == DataType.DT_Float_BA)
+                        fRegs = GetFloatFromRegs(usRegs[0], usRegs[1]);
                 }
-                fRegs = Convert.ToInt32(usRegs[0]);
+                par.SetMeasuredRegs(fRegs);
             }
-            else
+            catch (Exception)
             {
-                if (par.GetRegType() == RegType.RT_Input)
-                {
-                    mreScan.Reset();
-                    usRegs = masterCOM.ReadInputRegisters(_slaveStationAddr,
-                        (ushort)(par.GetRegisterAddress() + offset), 2);
-                    mreScan.Set();
-                }
-                else if (par.GetRegType() == RegType.RT_Holding)
-                {
-                    mreScan.Reset();
-                    usRegs = masterCOM.ReadHoldingRegisters(_slaveStationAddr,
-                        (ushort)(par.GetRegisterAddress() + offset), 2);
-                    mreScan.Set();
-                }
-                if (par.GetDataType() == DataType.DT_Float_AB)
-                    fRegs = GetFloatFromRegs(usRegs[0], usRegs[1]);
-                if (par.GetDataType() == DataType.DT_Float_BA)
-                    fRegs = GetFloatFromRegs(usRegs[0], usRegs[1]);
+                par.SetMeasuredRegs(Single.NaN);
             }
-            par.SetMeasuredRegs(fRegs);
         }
 
         static private Single GetFloatFromRegs(ushort _reg1, ushort _reg0)
@@ -485,10 +492,10 @@ namespace Stand
                     if (par.CheckIfToggled())
                         ComRead(par, offset);
                     else
-                        par.SetMeasuredRegs(0);
+                        par.SetMeasuredRegs(Single.NaN);
             else
                 foreach (Parameter par1 in parameters)
-                    par1.SetMeasuredRegs(0);
+                    par1.SetMeasuredRegs(Single.NaN);
 
         }
     }

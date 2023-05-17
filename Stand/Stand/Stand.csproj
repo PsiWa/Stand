@@ -112,6 +112,12 @@
       <DependentUpon>AdditionalUnitSettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Parameter.cs" />
+    <Compile Include="RegistersTestingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegistersTestingForm.Designer.cs">
+      <DependentUpon>RegistersTestingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Scheme.cs" />
     <Compile Include="Unit.cs" />
     <Compile Include="Form1.cs">
@@ -145,6 +151,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="RegistersTestingForm.resx">
+      <DependentUpon>RegistersTestingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UoMRedactor.resx">
       <DependentUpon>UoMRedactor.cs</DependentUpon>
     </EmbeddedResource>

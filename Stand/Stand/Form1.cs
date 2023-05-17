@@ -26,6 +26,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using System.IO;
 using Application = System.Windows.Forms.Application;
 using Spire.Xls;
+using Spire.Pdf.Exporting.XPS.Schema;
 
 namespace Stand
 {
@@ -51,73 +52,6 @@ namespace Stand
         public double SiPressureCoefficient = 1;
         public double SiFlowCoefficient = 1;
         public double SiPowerCoefficient = 1;
-
-        //static public Unit FlowMeter = new Unit("Flowmeter");
-        //static public Unit FrequencyChanger = new Unit("FrequencyChanger");
-        //static public Unit PressureGauges = new Unit("PressureGauges");
-        //static public Unit Valve = new Unit("Valve");
-        //static public Unit Vibration = new Unit("Vibration");
-
-
-        /*static private Parameter Flow = new Parameter("Flow", new string[] { "л/ч", "л/сут", "м3/час", "м3/сут" });
-        static private Parameter Current = new Parameter("Current", new string[] { "А" });
-        static private Parameter CurrentFrequency = new Parameter("CurrentFrequency", new string[] { "Гц" });
-        static private Parameter Voltage = new Parameter("Voltage", new string[] { "В" });
-        static private Parameter Torque = new Parameter("Torque", new string[] { "Н*м" });
-        static private Parameter Power = new Parameter("Power", new string[] { "Вт", "кВт" });
-        static private Parameter RPM = new Parameter("RPM", new string[] { "об/мин" });
-        static private Parameter EngineLoad = new Parameter("EngineLoad", new string[] { "%" });
-        static private Parameter XAmplitude = new Parameter("XAmplitude", new string[] { "мм/с" });
-        static private Parameter YAmplitude = new Parameter("YAmplitude", new string[] { "мм/с" });
-        static private Parameter Pressure1 = new Parameter("Pressure1", new string[] { "Па", "кПа", "МПа", "атм" });
-        static private Parameter Pressure2 = new Parameter("Pressure2", new string[] { "Па", "кПа", "МПа", "атм" });
-        static private Parameter Pressure3 = new Parameter("Pressure3", new string[] { "Па", "кПа", "МПа", "атм" });
-        static private Parameter Pressure4 = new Parameter("Pressure4", new string[] { "Па", "кПа", "МПа", "атм" });
-        static private Parameter Pressure5 = new Parameter("Pressure5", new string[] { "Па", "кПа", "МПа", "атм" });
-        static private Parameter Pressure6 = new Parameter("Pressure6", new string[] { "Па", "кПа", "МПа", "атм" });
-        static private Parameter Pressure7 = new Parameter("Pressure7", new string[] { "Па", "кПа", "МПа", "атм" });
-        static private Parameter Pressure8 = new Parameter("Pressure8", new string[] { "Па", "кПа", "МПа", "атм" });*/
-
-        /*static private Parameter Flow = new Parameter("Flow");
-        static private Parameter Current = new Parameter("Current");
-        static private Parameter CurrentFrequency = new Parameter("CurrentFrequency");
-        static private Parameter Voltage = new Parameter("Voltage");
-        static private Parameter Torque = new Parameter("Torque");
-        static private Parameter Power = new Parameter("Power");
-        static private Parameter RPM = new Parameter("RPM");
-        static private Parameter EngineLoad = new Parameter("EngineLoad");
-        static private Parameter XAmplitude = new Parameter("XAmplitude");
-        static private Parameter YAmplitude = new Parameter("YAmplitude");
-        static private Parameter Pressure1 = new Parameter("Pressure1");
-        static private Parameter Pressure2 = new Parameter("Pressure2");
-        static private Parameter Pressure3 = new Parameter("Pressure3");
-        static private Parameter Pressure4 = new Parameter("Pressure4");
-        static private Parameter Pressure5 = new Parameter("Pressure5");
-        static private Parameter Pressure6 = new Parameter("Pressure6");
-        static private Parameter Pressure7 = new Parameter("Pressure7");
-        static private Parameter Pressure8 = new Parameter("Pressure8");
-
-        private SortedList<string, Parameter> ParameterDictionary = new SortedList<string, Parameter>()
-        {
-            {Flow.GetName(), Flow},
-            {Current.GetName(), Current},
-            {CurrentFrequency.GetName(), CurrentFrequency },
-            {Voltage.GetName(), Voltage},
-            {Torque.GetName(), Torque},
-            {Power.GetName(), Power},
-            {RPM.GetName(), RPM},
-            {EngineLoad.GetName(), EngineLoad},
-            {XAmplitude.GetName(), XAmplitude},
-            {YAmplitude.GetName(), YAmplitude},
-            {Pressure1.GetName(), Pressure1},
-            {Pressure2.GetName(), Pressure2},
-            {Pressure3.GetName(), Pressure3},
-            {Pressure4.GetName(), Pressure4},
-            {Pressure5.GetName(), Pressure5},
-            {Pressure6.GetName(), Pressure6},
-            {Pressure7.GetName(), Pressure7},
-            {Pressure8.GetName(), Pressure8}
-        };*/
 
         #endregion
         #region Utils
@@ -160,6 +94,8 @@ namespace Stand
             ParameterRegAddressTextBox.Clear();
             ParameterReadableCheckBox.Checked = false;
             PIDLabel.Text = "----";
+            RegTestListBox.Items.Clear();
+
             foreach (Parameter par in un.GetParametersList())
             {
                 ParametersListBox.Items.Add(par.GetName());
@@ -261,156 +197,19 @@ namespace Stand
             VibrationComComboBox.Items.AddRange(SerialPort.GetPortNames());
             UnitComComboBox.Items.AddRange(SerialPort.GetPortNames());
         }
-        /*public void GetUnitsOfMeasure()
-        {
-            PFlowСomboBox.Items.Clear();
-            PCurrentСomboBox.Items.Clear();
-            PCurrentFreqСomboBox.Items.Clear();
-            PVoltageСomboBox.Items.Clear();
-            PTorqueСomboBox.Items.Clear();
-            PPowerСomboBox.Items.Clear();
-            PRPMСomboBox.Items.Clear();
-            PLoadСomboBox.Items.Clear();
-            PXAmplitudeСomboBox.Items.Clear();
-            PYAmplitydeСomboBox.Items.Clear();
-            PPressureСomboBox.Items.Clear();
-
-            PFlowСomboBox.Items.AddRange(Flow.UnitsOfMeasure.Keys.ToArray());
-            PCurrentСomboBox.Items.AddRange(Current.UnitsOfMeasure.Keys.ToArray());
-            PCurrentFreqСomboBox.Items.AddRange(CurrentFrequency.UnitsOfMeasure.Keys.ToArray());
-            PVoltageСomboBox.Items.AddRange(Voltage.UnitsOfMeasure.Keys.ToArray());
-            PTorqueСomboBox.Items.AddRange(Torque.UnitsOfMeasure.Keys.ToArray());
-            PPowerСomboBox.Items.AddRange(Power.UnitsOfMeasure.Keys.ToArray());
-            PRPMСomboBox.Items.AddRange(RPM.UnitsOfMeasure.Keys.ToArray());
-            PLoadСomboBox.Items.AddRange(EngineLoad.UnitsOfMeasure.Keys.ToArray());
-            PXAmplitudeСomboBox.Items.AddRange(XAmplitude.UnitsOfMeasure.Keys.ToArray());
-            PYAmplitydeСomboBox.Items.AddRange(YAmplitude.UnitsOfMeasure.Keys.ToArray());
-            PPressureСomboBox.Items.AddRange(Pressure1.UnitsOfMeasure.Keys.ToArray());
-        }*/
-        /*internal void ParametersLoadXML()
-        {
-            xSettings = xDefaultDoc.Element("settings");
-            foreach (XElement el in xSettings.Elements("parameter"))
-            {
-                if (el.Attribute("Name").Value == "Flow")
-                {
-                    Flow.LoadXML(el, ref PFlowRegisterTextBox, ref PFlowСomboBox, ref PFlowRegisterComboBox, ref PFlowTypeComboBox);
-                }
-                if (el.Attribute("Name").Value == "Current")
-                {
-                    Current.LoadXML(el, ref PCurrentTextBox, ref PCurrentСomboBox, ref PCurrentRegisterComboBox, ref PCurrentTypeComboBox);
-                }
-                if (el.Attribute("Name").Value == "CurrentFrequency")
-                {
-                    CurrentFrequency.LoadXML(el, ref PCurrentFreqTextBox, ref PCurrentFreqСomboBox, ref PFreqRegisterComboBox, ref PFreqTypeComboBox);
-                }
-                if (el.Attribute("Name").Value == "Voltage")
-                {
-                    Voltage.LoadXML(el, ref PVoltageTextBox, ref PVoltageСomboBox, ref PVoltageRegisterComboBox, ref PVoltageTypeComboBox);
-                }
-                if (el.Attribute("Name").Value == "Torque")
-                {
-                    Torque.LoadXML(el, ref PTorqueTextBox, ref PTorqueСomboBox, ref PTorqueRegisterComboBox, ref PTorqueTypeComboBox);
-                }
-                if (el.Attribute("Name").Value == "Power")
-                {
-                    Power.LoadXML(el, ref PPowerTextBox, ref PPowerСomboBox,ref PPowerRegisterComboBox, ref PPowerTypeComboBox);
-                }
-                if (el.Attribute("Name").Value == "RPM")
-                {
-                    RPM.LoadXML(el, ref PRPMTextBox, ref PRPMСomboBox, ref PRPMRegisterComboBox, ref PRPMTypeComboBox);
-                }
-                if (el.Attribute("Name").Value == "EngineLoad")
-                {
-                    EngineLoad.LoadXML(el, ref PLoadTextBox, ref PLoadСomboBox, ref PLoadRegisterComboBox, ref PLoadTypeComboBox);
-                }
-                if (el.Attribute("Name").Value == "XAmplitude")
-                {
-                    XAmplitude.LoadXML(el, ref PXAmplitudeTextBox, ref PXAmplitudeСomboBox, ref PXAmplitudeRegisterComboBox, ref PXAmplitudeTypeComboBox);
-                }
-                if (el.Attribute("Name").Value == "YAmplitude")
-                {
-                    YAmplitude.LoadXML(el, ref PYAmplitudeTextBox, ref PYAmplitydeСomboBox, ref PYAmplitudeRegisterComboBox, ref PYAmplitudeTypeComboBox);
-                }
-                if (el.Attribute("Name").Value == "Pressure1")
-                {
-                    Pressure1.LoadXML(el, ref PPressure1TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure1CheckBox);
-                }
-                if (el.Attribute("Name").Value == "Pressure2")
-                {
-                    Pressure2.LoadXML(el, ref PPressure2TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure2CheckBox);
-                }
-                if (el.Attribute("Name").Value == "Pressure3")
-                {
-                    Pressure3.LoadXML(el, ref PPressure3TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure3CheckBox);
-                }
-                if (el.Attribute("Name").Value == "Pressure4")
-                {
-                    Pressure4.LoadXML(el, ref PPressure4TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure4CheckBox);
-                }
-                if (el.Attribute("Name").Value == "Pressure5")
-                {
-                    Pressure5.LoadXML(el, ref PPressure5TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure5CheckBox);
-                }
-                if (el.Attribute("Name").Value == "Pressure6")
-                {
-                    Pressure6.LoadXML(el, ref PPressure6TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure6CheckBox);
-                }
-                if (el.Attribute("Name").Value == "Pressure7")
-                {
-                    Pressure7.LoadXML(el, ref PPressure7TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure7CheckBox);
-                }
-                if (el.Attribute("Name").Value == "Pressure8")
-                {
-                    Pressure8.LoadXML(el, ref PPressure8TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure8CheckBox);
-                }
-            }
-        }*/
-        /*internal void ParametersSaveXML()
-        {
-            Flow.SaveXML(ref PFlowRegisterTextBox, ref PFlowСomboBox, ref PFlowRegisterComboBox, ref PFlowTypeComboBox);
-            Current.SaveXML(ref PCurrentTextBox, ref PCurrentСomboBox,ref PCurrentRegisterComboBox, ref PCurrentTypeComboBox);
-            CurrentFrequency.SaveXML(ref PCurrentFreqTextBox, ref PCurrentFreqСomboBox, ref PFreqRegisterComboBox, ref PFreqTypeComboBox);
-            Voltage.SaveXML(ref PVoltageTextBox, ref PVoltageСomboBox, ref PVoltageRegisterComboBox, ref PVoltageTypeComboBox);
-            Torque.SaveXML(ref PTorqueTextBox, ref PTorqueСomboBox, ref PTorqueRegisterComboBox, ref PTorqueTypeComboBox);
-            Power.SaveXML(ref PPowerTextBox, ref PPowerСomboBox,ref PPowerRegisterComboBox, ref PPowerTypeComboBox);
-            RPM.SaveXML(ref PRPMTextBox, ref PRPMСomboBox, ref PRPMRegisterComboBox, ref PRPMTypeComboBox);
-            EngineLoad.SaveXML(ref PLoadTextBox, ref PLoadСomboBox, ref PLoadRegisterComboBox, ref PLoadTypeComboBox);
-            XAmplitude.SaveXML(ref PXAmplitudeTextBox, ref PXAmplitudeСomboBox, ref PXAmplitudeRegisterComboBox
-                , ref PXAmplitudeTypeComboBox);
-            YAmplitude.SaveXML(ref PYAmplitudeTextBox, ref PYAmplitydeСomboBox, ref PYAmplitudeRegisterComboBox
-                , ref PYAmplitudeTypeComboBox);
-            Pressure1.SaveXML(ref PPressure1TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure1CheckBox);
-            Pressure2.SaveXML(ref PPressure2TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure2CheckBox);
-            Pressure3.SaveXML(ref PPressure3TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure3CheckBox);
-            Pressure4.SaveXML(ref PPressure4TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure4CheckBox);
-            Pressure5.SaveXML(ref PPressure5TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure5CheckBox);
-            Pressure6.SaveXML(ref PPressure6TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure6CheckBox);
-            Pressure7.SaveXML(ref PPressure7TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure7CheckBox);
-            Pressure8.SaveXML(ref PPressure8TextBox, ref PPressureСomboBox, ref PPressureRegisterComboBox, ref PPressureTypeComboBox, ref PPressure8CheckBox);
-
-            xSettings.Save("Defaults.xml");
-        }*/
         internal void UnitLoadXML()
         {
+            UnitsList.Clear();
             xSettings = xDefaultDoc.Element("settings");
             IEnumerable<XElement> pars = xSettings.Elements("parameter");
             foreach (XElement un in xSettings.Elements("unit"))
             {
                 UnitsList.Add(new Unit(un, pars));
-                /*if (un.Attribute("Name").Value == "Flowmeter")
-                    FlowMeter.LoadSettingsXML(un, ref FlowComComboBox, ref FlowSpeedTextBox, ref FlowAddressTextBox);
-                if (un.Attribute("Name").Value == "FrequencyChanger")
-                    FrequencyChanger.LoadSettingsXML(un, ref FrequencyComComboBox, ref FrequencySpeedTextBox, ref FrequencyAddressTextBox);
-                if (un.Attribute("Name").Value == "PressureGauges")
-                    PressureGauges.LoadSettingsXML(un, ref PressureComComboBox, ref PressureSpeedTextBox, ref PressureAddressTextBox);
-                if (un.Attribute("Name").Value == "Valve")
-                    Valve.LoadSettingsXML(un, ref ValveComComboBox, ref ValveSpeedTextBox, ref ValveAddressTextBox);
-                if (un.Attribute("Name").Value == "Vibration")
-                    Vibration.LoadSettingsXML(un, ref VibrationComComboBox, ref VibrationSpeedTextBox, ref VibrationAddresTextBox);*/
             }
+            UnitsList.Sort((x,y) => x.id.CompareTo(y.id));
         }
         #endregion
+
         #region COM Con/Discon Event
         private struct DEV_BROADCAST_HDR
         {
@@ -423,9 +222,9 @@ namespace Stand
         protected override void WndProc(ref Message m)
         {
             base.WndProc(ref m);
-            if (m.Msg == 0x0219)
+            if (m.Msg == 0x219)
             {
-                //WM_DEVICECHANGE = 0x0219
+                //WM_DEVICECHANGE = 0x219
                 DEV_BROADCAST_HDR dbh;
                 switch ((int)m.WParam)
                 {
@@ -832,6 +631,47 @@ namespace Stand
             {
                 MessageBox.Show("Введены некорректные параметры");
             }
+        }
+
+        private void RegTest(Unit un, Parameter par)
+        {
+            while (!stopthread)
+            {
+                un.ComRead(par, 0);
+                Action add = () => RegTestListBox.Items.Add(par.GetLastMeasuredRegs());
+                if (InvokeRequired)
+                    Invoke(add);
+                else
+                    add();
+            }
+        }
+
+        private void RegTestToggleButton_Click(object sender, EventArgs e)
+        {
+            Unit un = UnitsList[UnitsListBox.SelectedIndex];
+            Parameter par = un.GetParametersList()[ParametersListBox.SelectedIndex];
+            if (!un.isConnected)
+                MessageBox.Show("Не установлено соединение с устройством");
+            else
+            {
+                if (RegTestToggleButton.Text == "Начать")
+                {
+                    RegTestListBox.Items.Clear();
+                    RegTestToggleButton.Text = "Остановить";
+                    stopthread = false;
+                    var threadParameters = new System.Threading.ThreadStart(delegate
+                    { RegTest(un, par); });
+                    var thread = new System.Threading.Thread(threadParameters);
+                    thread.Start();
+                    return;
+                }
+            }
+            if (RegTestToggleButton.Text == "Остановить")
+            {
+                RegTestToggleButton.Text = "Начать";
+                stopthread = true;
+            }
+            return;
         }
         #endregion
         #region Схема
@@ -1688,7 +1528,5 @@ namespace Stand
             worksheet.AllocatedRange.AutoFitColumns();
             workbook.SaveToFile("TEST.xlsx", ExcelVersion.Version2016);
         }
-
-       
     }
 }
