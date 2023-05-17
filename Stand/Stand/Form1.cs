@@ -98,7 +98,10 @@ namespace Stand
 
             foreach (Parameter par in un.GetParametersList())
             {
-                ParametersListBox.Items.Add(par.GetName());
+                if (par.CheckIfToggled())
+                    ParametersListBox.Items.Add(par.GetName() + " (считывается)");
+                else
+                    ParametersListBox.Items.Add(par.GetName());
                 ParametersListBox.SelectedIndex = 0;
             }
         }
@@ -116,6 +119,7 @@ namespace Stand
             if (ParameterUoMComboBox.Items.Count >0)
                 ParameterUoMComboBox.SelectedIndex = par.GetSelectedUoM();
             PIDLabel.Text = par.id.ToString();
+            ParameterChangesNotSavedLabel.Visible = false;
         }
         public void UpdateSchemeOptions()
         {
@@ -183,18 +187,6 @@ namespace Stand
         }
         private void GetComPorts()
         {
-            FlowComComboBox.Items.Clear();
-            FrequencyComComboBox.Items.Clear();
-            PressureComComboBox.Items.Clear();
-            ValveComComboBox.Items.Clear();
-            VibrationComComboBox.Items.Clear();
-            UnitComComboBox.Items.Clear();
-
-            FlowComComboBox.Items.AddRange(SerialPort.GetPortNames());
-            FrequencyComComboBox.Items.AddRange(SerialPort.GetPortNames());
-            PressureComComboBox.Items.AddRange(SerialPort.GetPortNames());
-            ValveComComboBox.Items.AddRange(SerialPort.GetPortNames());
-            VibrationComComboBox.Items.AddRange(SerialPort.GetPortNames());
             UnitComComboBox.Items.AddRange(SerialPort.GetPortNames());
         }
         internal void UnitLoadXML()
@@ -274,221 +266,6 @@ namespace Stand
             }
         }
         
-        #region Расходомер
-        private void FlowSaveButton_Click(object sender, EventArgs e)
-        {
-            /*
-            try
-            {
-                FlowMeter.SetComParameters(FlowComComboBox.Text, Convert.ToInt32(FlowSpeedTextBox.Text),
-                    Convert.ToInt32(FlowAddressTextBox.Text));
-                FlowMeter.SaveSettingsXML();
-                MessageBox.Show("Настройки успешно сохранены");
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Не удалось сохранить настройки");
-            }
-            */
-        }
-
-        private void FlowAdditionalButton_Click(object sender, EventArgs e)
-        {
-            /*
-            AdditionalUnitSettingsForm addsett = new AdditionalUnitSettingsForm(ref FlowMeter);
-            addsett.Show();*/
-        }
-
-        private void FlowConnectButton_Click(object sender, EventArgs e)
-        {
-            /*
-            if (FlowMeter.isConnected)
-            {
-                FlowMeter.Disconnect();
-                FlowConnectButton.Text = "Подключиться";
-                FlowStatusTextBox.BackColor = Color.Red;
-            }
-            else
-            {
-                if (FlowMeter.TryToConnect())
-                {
-                    FlowConnectButton.Text = "Отключиться";
-                    FlowStatusTextBox.BackColor = Color.Green;
-                }
-            }*/
-        }
-
-        #endregion
-        #region Частотник
-        private void FrequencyAdditionalSettings_Click(object sender, EventArgs e)
-        {
-            /*
-            AdditionalUnitSettingsForm addsett = new AdditionalUnitSettingsForm(ref FrequencyChanger);
-            addsett.Show();*/
-        }
-
-        private void FrequencySaveButton_Click(object sender, EventArgs e)
-        {
-            /*
-            try
-            {
-                FrequencyChanger.SetComParameters(FrequencyComComboBox.Text, Convert.ToInt32(FrequencySpeedTextBox.Text),
-                    Convert.ToInt32(FrequencyAddressTextBox.Text));
-                FrequencyChanger.SaveSettingsXML();
-                MessageBox.Show("Настройки успешно сохранены");
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Не удалось сохранить настройки");
-            }*/
-        }
-
-        private void FrequencyConnectButton_Click(object sender, EventArgs e)
-        {
-            /*
-            if (FrequencyChanger.isConnected)
-            {
-                FrequencyChanger.Disconnect();
-                FrequencyConnectButton.Text = "Подключиться";
-                FrequencyStatusTextBox.BackColor = Color.Red;
-            }
-            else
-            {
-                if (FrequencyChanger.TryToConnect())
-                {
-                    FrequencyConnectButton.Text = "Отключиться";
-                    FrequencyStatusTextBox.BackColor = Color.Green;
-                }
-            }*/
-        }
-        #endregion
-        #region Датчик давления
-        private void PressureAdditionalButton_Click(object sender, EventArgs e)
-        {
-            /*
-            AdditionalUnitSettingsForm addsett = new AdditionalUnitSettingsForm(ref PressureGauges);
-            addsett.Show();*/
-        }
-
-        private void PressureConnectButton_Click(object sender, EventArgs e)
-        {
-            /*
-            if (PressureGauges.isConnected)
-            {
-                PressureGauges.Disconnect();
-                PressureConnectButton.Text = "Подключиться";
-                PressureStatusTextBox.BackColor = Color.Red;
-            }
-            else
-            {
-                if (PressureGauges.TryToConnect())
-                {
-                    PressureConnectButton.Text = "Отключиться";
-                    PressureStatusTextBox.BackColor = Color.Green;
-                }
-            }*/
-        }
-
-        private void PressureSaveButton_Click(object sender, EventArgs e)
-        {
-            /*
-            try
-            {
-                PressureGauges.SetComParameters(PressureComComboBox.Text, Convert.ToInt32(PressureSpeedTextBox.Text),
-                    Convert.ToInt32(PressureAddressTextBox.Text));
-                PressureGauges.SaveSettingsXML();
-                MessageBox.Show("Настройки успешно сохранены");
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Не удалось сохранить настройки");
-            }*/
-        }
-
-        #endregion
-        #region Задвижка
-        private void ValveAdditionalButton_Click(object sender, EventArgs e)
-        {
-            //AdditionalUnitSettingsForm addsett = new AdditionalUnitSettingsForm(ref Valve);
-            //addsett.Show();
-        }
-        private void ValveConnectButton_Click(object sender, EventArgs e)
-        {
-            /*
-            if (Valve.isConnected)
-            {
-                Valve.Disconnect();
-                ValveConnectButton.Text = "Подключиться";
-                ValveStatusTextBox.BackColor = Color.Red;
-            }
-            else
-            {
-                if (Valve.TryToConnect())
-                {
-                    ValveConnectButton.Text = "Отключиться";
-                    ValveStatusTextBox.BackColor = Color.Green;
-                }
-            }*/
-        }
-        private void ValveSaveButton_Click(object sender, EventArgs e)
-        {
-            /*
-            try
-            {
-                Valve.SetComParameters(ValveComComboBox.Text, Convert.ToInt32(ValveSpeedTextBox.Text),
-                    Convert.ToInt32(ValveAddressTextBox.Text));
-                Valve.SaveSettingsXML();
-                MessageBox.Show("Настройки успешно сохранены");
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Не удалось сохранить настройки");
-            }*/
-        }
-        #endregion
-        #region Датчик вибрации
-        private void VibrationAdditionalSettings_Click(object sender, EventArgs e)
-        {
-            //AdditionalUnitSettingsForm addsett = new AdditionalUnitSettingsForm(ref Vibration);
-            //addsett.Show();
-        }
-
-        private void VibrationConnectButton_Click(object sender, EventArgs e)
-        {
-            /*
-            if (Vibration.isConnected)
-            {
-                Vibration.Disconnect();
-                VibrationConnectButton.Text = "Подключиться";
-                VibrationStatusTextBox.BackColor = Color.Red;
-            }
-            else
-            {
-                if (Vibration.TryToConnect())
-                {
-                    VibrationConnectButton.Text = "Отключиться";
-                    VibrationStatusTextBox.BackColor = Color.Green;
-                }
-            }*/
-        }
-
-        private void VibrationSaveButton_Click(object sender, EventArgs e)
-        {
-            /*
-            try
-            {
-                Vibration.SetComParameters(VibrationComComboBox.Text, Convert.ToInt32(VibrationSpeedTextBox.Text),
-                    Convert.ToInt32(VibrationAddresTextBox.Text));
-                Vibration.SaveSettingsXML();
-                MessageBox.Show("Настройки успешно сохранены");
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("Не удалось сохранить настройки");
-            }*/
-        }
-        #endregion
-        /// OLD/NEW
         #region Настройки соединения
         private void UnitAddButton_Click(object sender, EventArgs e)
         {
@@ -626,12 +403,28 @@ namespace Stand
                 xSettings.Save("Defaults.xml");
                 UpdateUnitsList(selected);
                 MessageBox.Show("Настройки успешно сохранены");
+                ParameterChangesNotSavedLabel.Visible = false;
             }
             catch (Exception)
             {
                 MessageBox.Show("Введены некорректные параметры");
             }
         }
+        private void ParameterTypeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ParameterChangesNotSavedLabel.Visible = true;
+        }
+        private void ParameterRegAddressTextBox_TextChanged(object sender, EventArgs e)
+        {
+            ParameterChangesNotSavedLabel.Visible = true;
+        }
+        private void ParameterReadableCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            ParameterChangesNotSavedLabel.Visible = true;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
 
         private void RegTest(Unit un, Parameter par)
         {
@@ -859,7 +652,6 @@ namespace Stand
                 }
                 else
                 {
-
                     ValveUnitComboBox.SelectedIndex = 0;
                     ValveParComboBox.SelectedIndex = 0;
                 }
@@ -899,6 +691,25 @@ namespace Stand
                     .Find(p => p.GetName() == PressureParComboBox1.Text).GetUoMstring();
             }
         }
+
+        private void PressureParComboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SchemeComboBox.SelectedIndex != -1)
+                SchemeNotSavedLabel.Visible = true;
+        }
+        private void ValveParComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (SchemeComboBox.SelectedIndex != -1)
+                SchemeNotSavedLabel.Visible = true;
+        }
+        private void L4TextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (SchemeComboBox.SelectedIndex != -1)
+                SchemeNotSavedLabel.Visible = true;
+        }
+        /// <summary>
+        /// ///////////////
+        /// </summary>
         #endregion
         #region РНХ
         ManualResetEvent StartReadingEvent = new ManualResetEvent(false);
@@ -978,7 +789,7 @@ namespace Stand
             float[] H = new float[PressureParametersList.Count() - 1];
             float[] ECE = new float[PressureParametersList.Count() - 1];
             StartReadingEvent.Set();
-            //Thread.Sleep(1000);
+
             while (IsStartPossible)
             {
                 WaitHandle.WaitAll(FinishedReadingEventList);
@@ -994,38 +805,64 @@ namespace Stand
                     ECE[i] = SelectedScheme.Density * Scheme.g_constant * H[i] * FlowLastReg / PowerLastReg;
                 }
 
-                Action<float> lb1 = (float f) => listBox1.Items.Add(f);
-                Action<float> lb2 = (float f) => listBox2.Items.Add(f); 
-                Action<float> lb3 = (float f) => listBox3.Items.Add(f);
+                Action<string> Prlb = (string str) => PressureListBox.Items.Insert(0,str);
+                Action<string> Powlb = (string str) => PowerListBox.Items.Insert(0, str); 
+                Action<string> Qlb = (string str) => QListBox.Items.Insert(0, str);
+                Action<string> Hlb = (string str) => HListBox.Items.Insert(0, str);
+                Action<string> ECElb = (string str) => ECEListBox.Items.Insert(0, str);
 
-                Action<int> readH = (int i) => chart1.Series[1].Points.AddXY(FlowLastReg, H[i]);
-                Action readN = () => chart1.Series[3].Points.AddXY(FlowLastReg, PowerLastReg);
+                Action<int> readH = (int i) => chart1.Series[i+6].Points.AddXY(FlowLastReg, H[i]+10+i*10); //H[i]
+                Action readN = () => chart1.Series[0].Points.AddXY(FlowLastReg, PowerLastReg);
 
-                Action clearH = () => chart1.Series[1].Points.Clear();
-                Action clearN = () => chart1.Series[3].Points.Clear();
+                Action<int> clearH = (int i) => chart1.Series[i+6].Points.Clear();
+                Action clearN = () => chart1.Series[0].Points.Clear();
 
-                Action addH = () => chart1.Series[0].Points.AddXY(FlowLastReg, H[0]);
-                Action addN = () => chart1.Series[2].Points.AddXY(FlowLastReg, PowerLastReg);
+                Action<int> addH = (int i) => chart1.Series[i+2].Points.AddXY(FlowLastReg, H[i] + 10 + i * 10);
+                Action addN = () => chart1.Series[1].Points.AddXY(FlowLastReg, PowerLastReg);
+
+                string Prstr = "";
+                string Hstr = "";
+                string ECEstr = "";
+                for (int i = 0; i < PressureParametersList.Count(); i++)
+                    Prstr = Prstr + PressureParametersList[i].GetLastMeasuredRegs().ToString() + " ; ";
+                for (int i = 0; i < H.Count(); i++)
+                    Hstr = Hstr + H[0].ToString() + " ; ";
+                for (int i = 0; i < ECE.Count(); i++)
+                    ECEstr = ECEstr + ECE[0].ToString() + " ; ";
+
                 if (InvokeRequired)
                 {
-                    Invoke(lb1, PowerLastReg);
-                    Invoke(lb2, FlowLastReg);
-                    Invoke(lb3, PressureParametersList[0].GetLastMeasuredRegs());
-                    Invoke(clearH);
+                    Invoke(Prlb, Prstr);
+                    Invoke(Powlb, PowerLastReg.ToString());
+                    Invoke(Qlb, FlowLastReg.ToString());
+                    Invoke(Hlb, Hstr);
+                    Invoke(ECElb, ECEstr);
+
+                    for (int i = 0; i < H.Count(); i++)
+                        Invoke(clearH, i);
+                    for (int i = 0; i < H.Count(); i++)
+                        Invoke(readH, i);
+
                     Invoke(clearN);
-                    Invoke(readH, 0);
                     Invoke(readN);
                 }
                 else
                 {
-                    lb1(PowerLastReg);
-                    lb2(FlowLastReg);
-                    lb3(PressureParametersList[0].GetLastMeasuredRegs());
-                    readH(0);
-                    readN();
-                    clearH();
+                    Prlb(Prstr);
+                    Powlb(PowerLastReg.ToString());
+                    Qlb(FlowLastReg.ToString());
+                    Hlb(Hstr);
+                    ECElb(ECEstr);
+
+                    for (int i = 0; i < H.Count(); i++)
+                        clearH(i);
+                    for (int i = 0; i < H.Count(); i++)
+                        readH(i);
+
                     clearN();
+                    readN();
                 }
+
                 StartReadingEvent.Set();
                 if (_stopper.WaitOne(1000, false))
                 {
@@ -1033,12 +870,14 @@ namespace Stand
                         break;
                     if (InvokeRequired)
                     {
-                        Invoke(addH);
+                        for (int i = 0; i < H.Count(); i++)
+                            Invoke(addH,i);
                         Invoke(addN);
                     }
                     else
                     {
-                        addH();
+                        for (int i = 0; i < H.Count(); i++)
+                            addH(i);
                         addN();
                     }
                     _stopper.Reset();
@@ -1056,6 +895,15 @@ namespace Stand
                 SiPowerCoefficient = Convert.ToSingle(PowerSITextBox.Text) /
                     Convert.ToSingle(PowerCustomTextBox.Text);
                 //System.FormatException
+
+                PressureListBox.Items.Clear();
+                PowerListBox.Items.Clear();
+                QListBox.Items.Clear();
+                HListBox.Items.Clear();
+                ECEListBox.Items.Clear();
+
+                for (int i = 0; i < chart1.Series.Count; i++)
+                    chart1.Series[i].Points.Clear();
 
                 stopthread = false;
                 _stopper.Reset();
@@ -1076,16 +924,6 @@ namespace Stand
                 { PerformanceParametersReadout(FinishedReadingEventList); });
                 var thread1 = new System.Threading.Thread(threadParameters1);
                 thread1.Start();
-                /*for (int i = 0; i < UnCount; i++)
-                {
-                    UnitsList[i].ClearMeasuredRegs();
-                    ManualResetEvent _IsFinished = new ManualResetEvent(false);
-                    FinishedReadingEventList[i] = _IsFinished;
-                    var threadParameters = new System.Threading.ThreadStart(delegate
-                    { UnitParametersRead(UnitsList[i], FinishedReadingEventList[i]); });
-                    var thread = new System.Threading.Thread(threadParameters);
-                    thread.Start();
-                }*/
             }
             catch (System.FormatException)
             {
@@ -1108,6 +946,10 @@ namespace Stand
             {
                 PressureCustomLabel.Text = UnitsList.Find(u => u.GetName() == PressureUnitСomboBox.Text).GetParametersList()
                     .Find(p => p.GetName() == PressureParComboBox1.Text).GetUoMstring();
+            }
+            if (SchemeComboBox.SelectedIndex != -1)
+            {
+                PerformanceTestLabel.Text = $"Расходно-напорная характеристика насоса {SchemeComboBox.Text}";
             }
         }
         #endregion
@@ -1148,45 +990,11 @@ namespace Stand
             }
         }
 
-        internal void TestChart(Unit un, ref Parameter par, int series)//, Unit un2, ref Parameter par2, 
-            //Unit un3, ref Parameter par3)
-        {
-            int wait = 1000;
-            var start = DateTime.Now;
-            while (true)
-            {
-                //float fRegs = un.ComRead(par, 0);
-                //Action read = () => VarTimeChart.Series[series+1].Points.AddXY((DateTime.Now - start).Seconds, fRegs);
-                //Action add = () => VarTimeChart.Series[series].Points.AddXY((DateTime.Now - start).Seconds, fRegs);
-                Action clear = () => VarTimeChart.Series[series+1].Points.Clear();
-                if (InvokeRequired)
-                {
-                    //Invoke(clear);
-                    //Invoke(read);
-                }
-                else
-                {
-                    clear();
-                    //read();
-                }
-                if (_stopper.WaitOne(wait, false))
-                {
-                    if (stopthread)
-                        break;
-                    //par.SetMeasuredRegs(fRegs);
-                    //if (InvokeRequired)
-                        //Invoke(add);
-                    //else
-                        //add();
-                    _stopper.Reset();
-                }
-            }
-        }
-
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             stopthread = true;
             _stopper.Set();
+            StartReadingEvent.Set();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -1196,70 +1004,6 @@ namespace Stand
         private void RgistersAdditionalButton_Click(object sender, EventArgs e)
         {
             IsRegistersAdditionalToggled = !IsRegistersAdditionalToggled;
-            RgisterLabel.Visible = IsRegistersAdditionalToggled;
-            PLabel1.Visible = IsRegistersAdditionalToggled;
-            PLabel2.Visible = IsRegistersAdditionalToggled;
-            PLabel3.Visible = IsRegistersAdditionalToggled;
-            PLabel4.Visible = IsRegistersAdditionalToggled;
-            PLabel5.Visible = IsRegistersAdditionalToggled;
-            PLabel6.Visible = IsRegistersAdditionalToggled;
-            PLabel7.Visible = IsRegistersAdditionalToggled;
-            PLabel8.Visible = IsRegistersAdditionalToggled;
-            PPressure1CheckBox.Visible = IsRegistersAdditionalToggled;
-            PPressure2CheckBox.Visible = IsRegistersAdditionalToggled;
-            PPressure3CheckBox.Visible = IsRegistersAdditionalToggled;
-            PPressure4CheckBox.Visible = IsRegistersAdditionalToggled;
-            PPressure5CheckBox.Visible = IsRegistersAdditionalToggled;
-            PPressure6CheckBox.Visible = IsRegistersAdditionalToggled;
-            PPressure7CheckBox.Visible = IsRegistersAdditionalToggled;
-            PPressure8CheckBox.Visible = IsRegistersAdditionalToggled;
-            PPressure1TextBox.Visible = IsRegistersAdditionalToggled;
-            PPressure1TextBox.Visible = IsRegistersAdditionalToggled;
-            PPressure2TextBox.Visible = IsRegistersAdditionalToggled;
-            PPressure3TextBox.Visible = IsRegistersAdditionalToggled;
-            PPressure4TextBox.Visible = IsRegistersAdditionalToggled;
-            PPressure5TextBox.Visible = IsRegistersAdditionalToggled;
-            PPressure6TextBox.Visible = IsRegistersAdditionalToggled;
-            PPressure7TextBox.Visible = IsRegistersAdditionalToggled;
-            PPressure8TextBox.Visible = IsRegistersAdditionalToggled;
-            PFlowRegisterTextBox.Visible = IsRegistersAdditionalToggled;
-            PCurrentTextBox.Visible = IsRegistersAdditionalToggled;
-            PCurrentFreqTextBox.Visible = IsRegistersAdditionalToggled;
-            PVoltageTextBox.Visible = IsRegistersAdditionalToggled;
-            PTorqueTextBox.Visible = IsRegistersAdditionalToggled;
-            PPowerTextBox.Visible = IsRegistersAdditionalToggled;
-            PRPMTextBox.Visible = IsRegistersAdditionalToggled;
-            PLoadTextBox.Visible = IsRegistersAdditionalToggled;
-            PXAmplitudeTextBox.Visible = IsRegistersAdditionalToggled;
-            PYAmplitudeTextBox.Visible = IsRegistersAdditionalToggled;
-
-            RegTypeLabel.Visible = IsRegistersAdditionalToggled;
-            PFlowRegisterComboBox.Visible = IsRegistersAdditionalToggled;
-            PCurrentRegisterComboBox.Visible = IsRegistersAdditionalToggled;
-            PFreqRegisterComboBox.Visible = IsRegistersAdditionalToggled;
-            PVoltageRegisterComboBox.Visible = IsRegistersAdditionalToggled;
-            PTorqueRegisterComboBox.Visible = IsRegistersAdditionalToggled;
-            PPowerRegisterComboBox.Visible = IsRegistersAdditionalToggled;
-            PRPMRegisterComboBox.Visible = IsRegistersAdditionalToggled;
-            PLoadRegisterComboBox.Visible = IsRegistersAdditionalToggled;
-            PXAmplitudeRegisterComboBox.Visible = IsRegistersAdditionalToggled;
-            PYAmplitudeRegisterComboBox.Visible = IsRegistersAdditionalToggled;
-            PPressureRegisterComboBox.Visible = IsRegistersAdditionalToggled;
-
-            RegDataTypeLable.Visible = IsRegistersAdditionalToggled;
-            PFlowTypeComboBox.Visible = IsRegistersAdditionalToggled;
-            PCurrentTypeComboBox.Visible = IsRegistersAdditionalToggled;
-            PVoltageTypeComboBox.Visible = IsRegistersAdditionalToggled;
-            PFreqTypeComboBox.Visible = IsRegistersAdditionalToggled;
-            PTorqueTypeComboBox.Visible = IsRegistersAdditionalToggled;
-            PPowerTypeComboBox.Visible = IsRegistersAdditionalToggled;
-            PRPMTypeComboBox.Visible = IsRegistersAdditionalToggled;
-            PLoadTypeComboBox.Visible = IsRegistersAdditionalToggled;
-            PXAmplitudeTypeComboBox.Visible = IsRegistersAdditionalToggled;
-            PYAmplitudeTypeComboBox.Visible = IsRegistersAdditionalToggled;
-            PPressureTypeComboBox.Visible = IsRegistersAdditionalToggled;
-
-            UoMRedactorButton.Visible = IsRegistersAdditionalToggled;
         }
 
         private void SaveParametersButton_Click(object sender, EventArgs e)
@@ -1528,5 +1272,6 @@ namespace Stand
             worksheet.AllocatedRange.AutoFitColumns();
             workbook.SaveToFile("TEST.xlsx", ExcelVersion.Version2016);
         }
+
     }
 }
