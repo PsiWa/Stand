@@ -35,6 +35,8 @@ namespace Stand
         public float Density;
         public float[] dL = new float[4] { 0, 0, 0, 0 };
         public float D;
+        public int FCStep;
+        public int ValveStep;
 
         public Scheme()
         {
@@ -55,7 +57,9 @@ namespace Stand
             FlowPID = -1;
             Density = 0;
             D = 0;
-        }
+            FCStep = 1;
+            ValveStep = 1;
+    }
         public Scheme(XElement el)
         {
             LoadXML(el);
@@ -110,11 +114,15 @@ namespace Stand
             if (stringVal.Contains("."))
                 stringVal = stringVal.Replace(".", ",");
             D = Convert.ToSingle(stringVal);
+
+            FCStep = Convert.ToInt32(el.Attribute("FCStep").Value);
+            ValveStep = Convert.ToInt32(el.Attribute("ValveStep").Value);
         }
         public void SaveXML(ref List<Unit> UL,TextBox SchemeNameTB, ComboBox ConfigCB, ComboBox PressUIDCB
             , ComboBox PressP1CB, ComboBox PressP2CB, ComboBox PressP3CB, ComboBox PressP4CB, ComboBox PressP5CB
             , ComboBox FlowUCB, ComboBox FlowPCB, ComboBox FCUCB, ComboBox FCPCB, ComboBox FCPPCB, ComboBox ValveUCB
-            , ComboBox ValvePCB, TextBox DensityTB, TextBox L1TB, TextBox L2TB, TextBox L3TB, TextBox L4TB, TextBox DTB)
+            , ComboBox ValvePCB, TextBox DensityTB, TextBox L1TB, TextBox L2TB, TextBox L3TB, TextBox L4TB
+            , TextBox DTB, TextBox FCStepTB, TextBox ValveStepTB)
         {
             Form1.xSettings.Elements("scheme").Where(s => s.Attribute("Name").Value == this.name).Remove();
             XElement xScheme = new XElement("scheme");
@@ -196,8 +204,14 @@ namespace Stand
             D = Convert.ToSingle(DTB.Text);
             XAttribute xD = new XAttribute("D", D);
 
+            FCStep = Convert.ToInt32(FCStepTB.Text);
+            XAttribute xFCStep = new XAttribute("FCStep", FCStep);
+
+            ValveStep = Convert.ToInt32(ValveStepTB.Text);
+            XAttribute xValveStep = new XAttribute("ValveStep", ValveStep);
+
             xScheme.Add(xName, xPressureU, xPressureP1, xPressureP2, xPressureP3, xPressureP4, xPressureP5,
-                xFlowU, xFlowP, xFCU, xFCP, xFCPP, xValveU, xValveP, xL1, xL2, xL3, xL4, xDensity, xD);
+                xFlowU, xFlowP, xFCU, xFCP, xFCPP, xValveU, xValveP, xL1, xL2, xL3, xL4, xDensity, xD, xFCStep, xFCStep, xValveStep);
             Form1.xSettings.Add(xScheme);
             Form1.xSettings.Save("Defaults.xml");
         }

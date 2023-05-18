@@ -323,7 +323,7 @@ namespace Stand
             }
             catch (Exception)
             {
-                MessageBox.Show("Ошибка подключения");
+                MessageBox.Show($"Ошибка подключения {this.name}");
                 COMport.Close();
                 isConnected= false;
                 return isConnected;
@@ -448,6 +448,26 @@ namespace Stand
             }
         }
 
+        public void ComWrire(Parameter par, ushort value)
+        {
+            if (isConnected)
+                if (par.CheckIfToggled())
+                    try
+                    {
+                        float fRegs = 0;
+                        byte _slaveStationAddr = Convert.ToByte(this.address);
+                        ushort[] usRegs = null;
+                        mreScan.Reset();
+                        masterCOM.WriteSingleRegister(_slaveStationAddr,
+                            (ushort)par.GetRegisterAddress(), value);
+                        mreScan.Set();
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Ошибка записи регистра");
+                    }
+        }
+
         static private Single GetFloatFromRegs(ushort _reg1, ushort _reg0)
         {
             try
@@ -496,7 +516,7 @@ namespace Stand
                         par.SetMeasuredRegs(0); //Single.NaN
             else
                 foreach (Parameter par1 in this.parameters)
-                    par1.SetMeasuredRegs(0);
+                    par1.SetMeasuredRegs(rnd.Next(1, 100));//par1.SetMeasuredRegs(0);
 
         }
     }

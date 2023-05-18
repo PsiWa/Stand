@@ -178,7 +178,7 @@ namespace Stand
                     SchemeComboBox, PressureUnitСomboBox, PressureParComboBox1, PressureParComboBox2, 
                     PressureParComboBox3, PressureParComboBox4, PressureParComboBox5, FlowmeterUnitComboBox, 
                     FlowmeterParComboBox, FCUnitComboBox, FCParComboBox, FCParPowerComboBox, ValveUnitComboBox, ValveParComboBox, 
-                    DensityTextBox, L1TextBox, L2TextBox, L3TextBox, L4TextBox, DiameterTextBox);
+                    DensityTextBox, L1TextBox, L2TextBox, L3TextBox, L4TextBox, DiameterTextBox, FCStepTextBox, ValveStepTextBox);
                 SchemeNotSavedLabel.Visible = false;
             }
             SchemeComboBox.Items.Clear();
@@ -309,6 +309,20 @@ namespace Stand
             else
                 un.TryToConnect();
 
+            UpdateUnitsList(selected);
+            UpdateSelectedUnit();
+        }
+
+        private void UnitConnectAllButton_Click(object sender, EventArgs e)
+        {
+            int selected = UnitsListBox.SelectedIndex;
+            foreach (Unit un in UnitsList)
+            {
+                if (un.isConnected)
+                    un.Disconnect();
+                else
+                    un.TryToConnect();
+            }
             UpdateUnitsList(selected);
             UpdateSelectedUnit();
         }
@@ -491,7 +505,6 @@ namespace Stand
             }
         }
 
-
         private void PressureUnitСomboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (SchemeComboBox.SelectedIndex != -1)
@@ -572,6 +585,12 @@ namespace Stand
                 L2TextBox.Text = SelectedScheme.dL[1].ToString();
                 L3TextBox.Text = SelectedScheme.dL[2].ToString();
                 L4TextBox.Text = SelectedScheme.dL[3].ToString();
+                FCStepTextBox.Text = SelectedScheme.FCStep.ToString();
+                ValveStepTextBox.Text = SelectedScheme.ValveStep.ToString();
+                FrequencyPlusButton.Text = $"+{SelectedScheme.FCStep}";
+                FrequencyMinusButton.Text = $"-{SelectedScheme.FCStep}";
+                ValvePosPlusButton.Text = $"+{SelectedScheme.ValveStep}";
+                ValvePosMinusButton.Text = $"-{SelectedScheme.ValveStep}";
 
                 if (SelectedScheme.PressureUID != -1)
                 {
@@ -707,13 +726,41 @@ namespace Stand
             if (SchemeComboBox.SelectedIndex != -1)
                 SchemeNotSavedLabel.Visible = true;
         }
-        /// <summary>
-        /// ///////////////
-        /// </summary>
+        private void FCStepTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (SchemeComboBox.SelectedIndex != -1)
+                SchemeNotSavedLabel.Visible = true;
+        }
+
         #endregion
         #region РНХ
         ManualResetEvent StartReadingEvent = new ManualResetEvent(false);
         ManualResetEvent AddEvent = new ManualResetEvent(false);
+        bool IsFCPlus = false;
+        bool IsFCMinus = false;
+        bool IsValvePlus = false;
+        bool IsValveMinus = false;
+        private void FrequencyPlusButton_Click(object sender, EventArgs e)
+        {
+            IsFCPlus = true;
+            IsFCMinus = false;
+        }
+        private void FrequencyMinusButton_Click(object sender, EventArgs e)
+        {
+            IsFCMinus = true;
+            IsFCPlus = false;
+        }
+        private void ValvePosMinusButton_Click(object sender, EventArgs e)
+        {
+            IsValveMinus = true;
+            IsValvePlus = false;
+        }
+        private void ValvePosPlusButton_Click(object sender, EventArgs e)
+        {
+            IsValvePlus = true;
+            IsValveMinus = false;
+        }
+
         private void UnitParametersRead(Unit un, ManualResetEvent finished)
         {
             while (true)
@@ -732,10 +779,16 @@ namespace Stand
             bool IsStartPossible = true;
             
             List<Parameter> PressureParametersList = new List<Parameter>();
-            Parameter FCPowerParameter =null;
+            Parameter FCPowerParameter = null;
             float PowerLastReg = 0;
             Parameter FlowParameter = null;
             float FlowLastReg = 0;
+
+            Unit FC = UnitsList.Find(u => u.id == SelectedScheme.FCUID);
+            Parameter FCChangableParameter = null;
+            Unit Valve = UnitsList.Find(u => u.id == SelectedScheme.ValveUID);
+            Parameter ValveChangableParameter = null;
+            
             if (SelectedScheme.PressureP1ID != -1 && SelectedScheme.PressureP2ID != -1)
             {
                 PressureParametersList.Add(UnitsList.Find(u => u.id == SelectedScheme.PressureUID).GetParametersList()
@@ -786,6 +839,15 @@ namespace Stand
                 stopthread = true;
                 IsStartPossible = false;
             }
+            if (SelectedScheme.FCPPID != -1)
+            {
+                FCChangableParameter = FC.GetParametersList().Find(par => par.id == SelectedScheme.FCPPID);
+            }
+            if (SelectedScheme.ValvePID != -1)
+            {
+                ValveChangableParameter = Valve.GetParametersList().Find(par => par.id == SelectedScheme.ValvePID);
+            }
+
             float[] H = new float[PressureParametersList.Count() - 1];
             float[] ECE = new float[PressureParametersList.Count() - 1];
             StartReadingEvent.Set();
@@ -812,13 +874,18 @@ namespace Stand
                 Action<string> ECElb = (string str) => ECEListBox.Items.Insert(0, str);
 
                 Action<int> readH = (int i) => chart1.Series[i+6].Points.AddXY(FlowLastReg, H[i]+10+i*10); //H[i]
-                Action readN = () => chart1.Series[0].Points.AddXY(FlowLastReg, PowerLastReg);
+                Action readN = () => chart1.Series[1].Points.AddXY(FlowLastReg, PowerLastReg);
 
                 Action<int> clearH = (int i) => chart1.Series[i+6].Points.Clear();
-                Action clearN = () => chart1.Series[0].Points.Clear();
+                Action clearN = () => chart1.Series[1].Points.Clear();
 
                 Action<int> addH = (int i) => chart1.Series[i+2].Points.AddXY(FlowLastReg, H[i] + 10 + i * 10);
-                Action addN = () => chart1.Series[1].Points.AddXY(FlowLastReg, PowerLastReg);
+                Action addN = () => chart1.Series[0].Points.AddXY(FlowLastReg, PowerLastReg);
+
+                Action readFreq = () => CurrentFrequencyTextBox.Text 
+                    = FCChangableParameter.GetLastMeasuredRegs().ToString();
+                Action readValvePos = () => CurrentValvePosTextBox.Text
+                    = ValveChangableParameter.GetLastMeasuredRegs().ToString();
 
                 string Prstr = "";
                 string Hstr = "";
@@ -845,6 +912,10 @@ namespace Stand
 
                     Invoke(clearN);
                     Invoke(readN);
+                    if (FCChangableParameter != null)
+                        Invoke(readFreq);
+                    if (ValveChangableParameter != null)
+                        Invoke(readValvePos);
                 }
                 else
                 {
@@ -861,6 +932,10 @@ namespace Stand
 
                     clearN();
                     readN();
+                    if (FCChangableParameter != null)
+                        readFreq();
+                    if (ValveChangableParameter != null)
+                        readValvePos();
                 }
 
                 StartReadingEvent.Set();
@@ -882,12 +957,48 @@ namespace Stand
                     }
                     _stopper.Reset();
                 }
+                if (IsFCPlus)
+                    FC.ComWrire(FCChangableParameter, 
+                        (ushort)(FCChangableParameter.GetLastMeasuredRegs()+SelectedScheme.FCStep));
+                if (IsFCMinus)
+                    FC.ComWrire(FCChangableParameter,
+                        (ushort)(FCChangableParameter.GetLastMeasuredRegs() - SelectedScheme.FCStep));
+                if (IsValvePlus)
+                    FC.ComWrire(FCChangableParameter,
+                        (ushort)(FCChangableParameter.GetLastMeasuredRegs() + SelectedScheme.ValveStep));
+                if (IsValveMinus)
+                    FC.ComWrire(FCChangableParameter,
+                        (ushort)(FCChangableParameter.GetLastMeasuredRegs() - SelectedScheme.ValveStep));
+                IsValvePlus = false;
+                IsValveMinus = false;
+                IsFCPlus = false;
+                IsFCMinus = false;
             }
         }
         private void PerformanceTestStartButton_Click(object sender, EventArgs e)
         {
             try
             {
+                if (SelectedScheme.FCPPID != -1)
+                {
+                    FrequencyPlusButton.Enabled = true;
+                    FrequencyMinusButton.Enabled = true;
+                }
+                else
+                {
+                    FrequencyPlusButton.Enabled = false;
+                    FrequencyMinusButton.Enabled = false;
+                }
+                if (SelectedScheme.ValvePID != -1)
+                {
+                    ValvePosPlusButton.Enabled = true;
+                    ValvePosMinusButton.Enabled = true;
+                }
+                else
+                {
+                    ValvePosPlusButton.Enabled = false;
+                    ValvePosMinusButton.Enabled = false;
+                }
                 SiPressureCoefficient = Convert.ToSingle(PressureSITextBox.Text) /
                     Convert.ToSingle(PressureCustomTextBox.Text);
                 SiFlowCoefficient = Convert.ToSingle(FlowSITextBox.Text) /
@@ -903,7 +1014,10 @@ namespace Stand
                 ECEListBox.Items.Clear();
 
                 for (int i = 0; i < chart1.Series.Count; i++)
+                {
                     chart1.Series[i].Points.Clear();
+                    chart1.Series[i].ChartType = SeriesChartType.Point;
+                }
 
                 stopthread = false;
                 _stopper.Reset();
@@ -930,6 +1044,67 @@ namespace Stand
                 MessageBox.Show("Ошибка в переводе параметров к СИ");
             }
         }
+        private void PerformanceTestStopButton_Click(object sender, EventArgs e)
+        {
+            stopthread = true;
+            _stopper.Set();
+            StartReadingEvent.Set();
+            chart1.Series[0].Sort(PointSortOrder.Ascending, "X");
+            chart1.Series[0].ChartType = SeriesChartType.Spline;
+            for (int i = 2; i < 6; i++)
+            {
+                chart1.Series[i].Sort(PointSortOrder.Ascending, "X");
+                chart1.Series[i].ChartType = SeriesChartType.Spline;
+            }
+        }
+        private void PerformanceTestToExcelButton_Click(object sender, EventArgs e)
+        {
+            Workbook workbook = new Workbook();
+
+            workbook.Worksheets.Clear();
+            Worksheet worksheetAll = workbook.Worksheets.Add("Все параметры");
+            Worksheet worksheetPerformance = workbook.Worksheets.Add("РНХ");
+
+            int j = 1;
+            foreach (var un in UnitsList)
+            {
+                int i = 1;
+                worksheetAll.Range[i++, j].Value = un.GetName();
+                foreach (var par in un.GetParametersList())
+                {
+                    int istart = i;
+                    worksheetAll.Range[i++, j].Value = par.GetName();
+                    foreach (var reg in par.GetAllMeasuredRegs())
+                        worksheetAll.Range[i++, j].Value = reg.ToString();
+                    j++;
+                    i = istart;
+                }
+            }
+            worksheetAll.AllocatedRange.AutoFitColumns();
+
+            j = 1;
+            worksheetPerformance.Range[1, j].Value = "Расход";
+            worksheetPerformance.Range[1, j+1].Value = chart1.Series[0].Name;
+            for (int i = 0; i < chart1.Series[0].Points.Count; i++)
+            {
+                worksheetPerformance.Range[i+2, j].Value = chart1.Series[0].Points[i].XValue.ToString();
+                worksheetPerformance.Range[i + 2, j+1].Value = chart1.Series[0].Points[i].YValues[0].ToString();
+            }
+            j = 3;
+            for (int k = 0; k < 4; k++)
+            {
+                worksheetPerformance.Range[1, j+k].Value = chart1.Series[k+2].Name;
+                for (int i = 0; i < chart1.Series[k + 2].Points.Count; i++)
+                {
+                    worksheetPerformance.Range[i + 2, j+k].Value = chart1.Series[k + 2].Points[i].YValues[0].ToString();                    worksheetPerformance.Range[i + 2, j + 1].Value = chart1.Series[0].Points[i].YValues[0].ToString();
+                }
+            }
+
+            workbook.SaveToFile("TEST.xlsx", ExcelVersion.Version2016);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (FCParPowerComboBox.SelectedIndex != 0)
@@ -1223,15 +1398,6 @@ namespace Stand
             }*/
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            stopthread = true;
-            _stopper.Set();
-            StartReadingEvent.Set();
-            chart1.Series[0].ChartType = SeriesChartType.Spline;
-            chart1.Series[2].Sort(PointSortOrder.Ascending, "X");
-            chart1.Series[2].ChartType = SeriesChartType.Spline;
-        }
 
         private void button6_Click(object sender, EventArgs e)
         {
@@ -1244,33 +1410,6 @@ namespace Stand
             chart1.ChartAreas[0].AxisX2.Maximum = Convert.ToInt32(XSizeTextBox.Text);
             chart1.ChartAreas[0].AxisY.Maximum = Convert.ToInt32(YSizeTextBox.Text);
             chart1.ChartAreas[0].AxisY2.Maximum = Convert.ToInt32(XSizeTextBox.Text);
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-            Workbook workbook = new Workbook();
-            
-            workbook.Worksheets.Clear();
-            Worksheet worksheet = workbook.Worksheets.Add("TEST");
-
-            
-            int j = 1;
-            foreach(var un in UnitsList)
-            {
-                int i = 1;
-                worksheet.Range[i++, j].Value = un.GetName();
-                foreach (var par in un.GetParametersList())
-                {
-                    int istart = i;
-                    worksheet.Range[i++, j].Value = par.GetName();
-                    foreach (var reg in par.GetAllMeasuredRegs())
-                        worksheet.Range[i++, j].Value = reg.ToString();
-                    j++;
-                    i = istart;
-                }
-            }
-            worksheet.AllocatedRange.AutoFitColumns();
-            workbook.SaveToFile("TEST.xlsx", ExcelVersion.Version2016);
         }
 
     }
