@@ -873,13 +873,13 @@ namespace Stand
                 Action<string> Hlb = (string str) => HListBox.Items.Insert(0, str);
                 Action<string> ECElb = (string str) => ECEListBox.Items.Insert(0, str);
 
-                Action<int> readH = (int i) => chart1.Series[i+6].Points.AddXY(FlowLastReg, H[i]+10+i*10); //H[i]
+                Action<int> readH = (int i) => chart1.Series[i+6].Points.AddXY(FlowLastReg, H[i]); //H[i]
                 Action readN = () => chart1.Series[1].Points.AddXY(FlowLastReg, PowerLastReg);
 
                 Action<int> clearH = (int i) => chart1.Series[i+6].Points.Clear();
                 Action clearN = () => chart1.Series[1].Points.Clear();
 
-                Action<int> addH = (int i) => chart1.Series[i+2].Points.AddXY(FlowLastReg, H[i] + 10 + i * 10);
+                Action<int> addH = (int i) => chart1.Series[i+2].Points.AddXY(FlowLastReg, H[i]);
                 Action addN = () => chart1.Series[0].Points.AddXY(FlowLastReg, PowerLastReg);
 
                 Action readFreq = () => CurrentFrequencyTextBox.Text 
