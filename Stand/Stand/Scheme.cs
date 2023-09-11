@@ -199,7 +199,7 @@ namespace Stand
             XAttribute xL4 = new XAttribute("L4", dL[3]);
 
             Density = Convert.ToSingle(DensityTB.Text);
-            XAttribute xDensity = new XAttribute("Density", (float)Density);
+            XAttribute xDensity = new XAttribute("Density", Density);
 
             D = Convert.ToSingle(DTB.Text);
             XAttribute xD = new XAttribute("D", D);
@@ -211,8 +211,13 @@ namespace Stand
             XAttribute xValveStep = new XAttribute("ValveStep", ValveStep);
 
             xScheme.Add(xName, xPressureU, xPressureP1, xPressureP2, xPressureP3, xPressureP4, xPressureP5,
-                xFlowU, xFlowP, xFCU, xFCP, xFCPP, xValveU, xValveP, xL1, xL2, xL3, xL4, xDensity, xD, xFCStep, xFCStep, xValveStep);
+                xFlowU, xFlowP, xFCU, xFCP, xFCPP, xValveU, xValveP, xL1, xL2, xL3, xL4, xDensity, xD, xFCStep, xValveStep);
             Form1.xSettings.Add(xScheme);
+            Form1.xSettings.Save("Defaults.xml");
+        }
+        public void DeleteXML()
+        {
+            Form1.xSettings.Elements("scheme").Where(s => s.Attribute("Name").Value == this.name).Remove();
             Form1.xSettings.Save("Defaults.xml");
         }
     }

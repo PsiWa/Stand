@@ -27,6 +27,11 @@ using System.IO;
 using Application = System.Windows.Forms.Application;
 using Spire.Xls;
 using Spire.Pdf.Exporting.XPS.Schema;
+using static Npgsql.Replication.PgOutput.Messages.RelationMessage;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
+using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Wordprocessing;
+using Color = System.Drawing.Color;
 
 namespace Stand
 {
@@ -38,20 +43,27 @@ namespace Stand
         }
 
         private static ManualResetEvent _stopper = new ManualResetEvent(false);
+        private static ManualResetEvent _waiter = new ManualResetEvent(false);
         private bool stopthread = false;
 
-        private XDocument xDefaultDoc = new XDocument();
+        public XDocument xDefaultDoc = new XDocument();
         public static XElement xSettings = new XElement("settings");
         private bool IsRegistersAdditionalToggled = false;
+        private bool IsExtended = false;
+        private PerformanceTableOverlay Overlay;
+        private DataTable PerformanceDataTable;
+        private List<float> TimestampList = new List<float>();
 
         #region Инициализация устройств и параметров
         public List<Unit> UnitsList = new List<Unit>();
         public List<Scheme> SchemasList = new List<Scheme>();
         public Scheme SelectedScheme;
+        PostgreSQLib postgreSQL = new PostgreSQLib();
 
         public double SiPressureCoefficient = 1;
         public double SiFlowCoefficient = 1;
         public double SiPowerCoefficient = 1;
+        private string ExperimentName;
 
         #endregion
         #region Utils
@@ -236,7 +248,7 @@ namespace Stand
                         if (dbh.dbch_devicetype == 0x00000003)
                         {
                             GetComPorts();
-                            UnitLoadXML();
+                            UnitLoadXML();                            
                             MessageBox.Show("Устройство отключено");
                         }
                         break;
@@ -505,6 +517,18 @@ namespace Stand
             }
         }
 
+        private void SchemeDeleteButton_Click(object sender, EventArgs e)
+        {
+            if (SchemeComboBox.SelectedIndex != -1)
+            {
+                SchemasList[SchemeComboBox.SelectedIndex].DeleteXML();
+                SchemasList.RemoveAt(SchemeComboBox.SelectedIndex);
+            }
+            SchemeComboBox.Items.Clear();
+            foreach (var sc in SchemasList)
+                SchemeComboBox.Items.Add(sc.name);
+        }
+
         private void PressureUnitСomboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (SchemeComboBox.SelectedIndex != -1)
@@ -533,181 +557,232 @@ namespace Stand
 
         private void FCUnitComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (SchemeComboBox.SelectedIndex != -1)
-                SchemeNotSavedLabel.Visible = true;
-            if (FCUnitComboBox.SelectedIndex > 0)
+            try
             {
-                FCParComboBox.Items.Clear();
-                FCParComboBox.Items.Add("---");
-                var parlist = UnitsList.Find(un => un.GetName() == FCUnitComboBox.Text).GetParametersList();
-                parlist.ForEach(par => FCParComboBox.Items.Add(par.GetName()));
+                if (SchemeComboBox.SelectedIndex != -1)
+                    SchemeNotSavedLabel.Visible = true;
+                if (FCUnitComboBox.SelectedIndex > 0)
+                {
+                    FCParComboBox.Items.Clear();
+                    FCParComboBox.Items.Add("---");
+                    var parlist = UnitsList.Find(un => un.GetName() == FCUnitComboBox.Text).GetParametersList();
+                    parlist.ForEach(par => FCParComboBox.Items.Add(par.GetName()));
 
-                FCParPowerComboBox.Items.Clear();
-                FCParPowerComboBox.Items.Add("---");
-                parlist.ForEach(par => FCParPowerComboBox.Items.Add(par.GetName()));
+                    FCParPowerComboBox.Items.Clear();
+                    FCParPowerComboBox.Items.Add("---");
+                    parlist.ForEach(par => FCParPowerComboBox.Items.Add(par.GetName()));
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка");
             }
         }
 
         private void ValveUnitComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (SchemeComboBox.SelectedIndex != -1)
-                SchemeNotSavedLabel.Visible = true;
-            if (ValveUnitComboBox.SelectedIndex > 0)
+            try
             {
-                ValveParComboBox.Items.Clear();
-                ValveParComboBox.Items.Add("---");
-                var parlist = UnitsList.Find(un => un.GetName() == ValveUnitComboBox.Text).GetParametersList();
-                parlist.ForEach(par => ValveParComboBox.Items.Add(par.GetName()));
+                if (SchemeComboBox.SelectedIndex != -1)
+                    SchemeNotSavedLabel.Visible = true;
+                if (ValveUnitComboBox.SelectedIndex > 0)
+                {
+                    ValveParComboBox.Items.Clear();
+                    ValveParComboBox.Items.Add("---");
+                    var parlist = UnitsList.Find(un => un.GetName() == ValveUnitComboBox.Text).GetParametersList();
+                    parlist.ForEach(par => ValveParComboBox.Items.Add(par.GetName()));
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка");
             }
         }
 
         private void FlowmeterUnitComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (SchemeComboBox.SelectedIndex != -1)
-                SchemeNotSavedLabel.Visible = true;
-            if (FlowmeterUnitComboBox.SelectedIndex > 0)
+            try
             {
-                FlowmeterParComboBox.Items.Clear();
-                FlowmeterParComboBox.Items.Add("---");
-                var parlist = UnitsList.Find(un => un.GetName() == FlowmeterUnitComboBox.Text).GetParametersList();
-                parlist.ForEach(par => FlowmeterParComboBox.Items.Add(par.GetName()));
+                if (SchemeComboBox.SelectedIndex != -1)
+                    SchemeNotSavedLabel.Visible = true;
+                if (FlowmeterUnitComboBox.SelectedIndex > 0)
+                {
+                    FlowmeterParComboBox.Items.Clear();
+                    FlowmeterParComboBox.Items.Add("---");
+                    var parlist = UnitsList.Find(un => un.GetName() == FlowmeterUnitComboBox.Text).GetParametersList();
+                    parlist.ForEach(par => FlowmeterParComboBox.Items.Add(par.GetName()));
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка");
             }
         }
 
         private void SchemeComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SelectedScheme = SchemasList.Find(sc => sc.SchemeN == SchemeComboBox.SelectedIndex);
-            if (SelectedScheme != null)
+            try
             {
-                SchemeNameTextBox.Text = SelectedScheme.name;
-                DensityTextBox.Text = SelectedScheme.Density.ToString();
-                L1TextBox.Text = SelectedScheme.dL[0].ToString();
-                L2TextBox.Text = SelectedScheme.dL[1].ToString();
-                L3TextBox.Text = SelectedScheme.dL[2].ToString();
-                L4TextBox.Text = SelectedScheme.dL[3].ToString();
-                FCStepTextBox.Text = SelectedScheme.FCStep.ToString();
-                ValveStepTextBox.Text = SelectedScheme.ValveStep.ToString();
-                FrequencyPlusButton.Text = $"+{SelectedScheme.FCStep}";
-                FrequencyMinusButton.Text = $"-{SelectedScheme.FCStep}";
-                ValvePosPlusButton.Text = $"+{SelectedScheme.ValveStep}";
-                ValvePosMinusButton.Text = $"-{SelectedScheme.ValveStep}";
-
-                if (SelectedScheme.PressureUID != -1)
+                SelectedScheme = SchemasList.Find(sc => sc.SchemeN == SchemeComboBox.SelectedIndex);
+                if (SelectedScheme != null)
                 {
-                    var unit = UnitsList.Find(un => un.id == SelectedScheme.PressureUID);
-                    PressureUnitСomboBox.SelectedIndex = PressureUnitСomboBox.Items
-                        .IndexOf(unit.GetName());
-                    if (SelectedScheme.PressureP1ID != -1)
-                        PressureParComboBox1.SelectedIndex = PressureParComboBox1.Items
-                            .IndexOf(unit.GetParametersList().Find(par => par.id == SelectedScheme.PressureP1ID).GetName());
+                    SchemeNameTextBox.Text = SelectedScheme.name;
+                    DensityTextBox.Text = SelectedScheme.Density.ToString();
+                    L1TextBox.Text = SelectedScheme.dL[0].ToString();
+                    L2TextBox.Text = SelectedScheme.dL[1].ToString();
+                    L3TextBox.Text = SelectedScheme.dL[2].ToString();
+                    L4TextBox.Text = SelectedScheme.dL[3].ToString();
+                    FCStepTextBox.Text = SelectedScheme.FCStep.ToString();
+                    ValveStepTextBox.Text = SelectedScheme.ValveStep.ToString();
+                    FrequencyPlusButton.Text = $"+{SelectedScheme.FCStep}";
+                    FrequencyMinusButton.Text = $"-{SelectedScheme.FCStep}";
+                    ValvePosPlusButton.Text = $"+{SelectedScheme.ValveStep}";
+                    ValvePosMinusButton.Text = $"-{SelectedScheme.ValveStep}";
+                    DiameterTextBox.Text = SelectedScheme.D.ToString();
+
+                    if (SelectedScheme.PressureUID != -1)
+                    {
+                        var unit = UnitsList.Find(un => un.id == SelectedScheme.PressureUID);
+                        PressureUnitСomboBox.SelectedIndex = PressureUnitСomboBox.Items
+                            .IndexOf(unit.GetName());
+                        if (SelectedScheme.PressureP1ID != -1)
+                            PressureParComboBox1.SelectedIndex = PressureParComboBox1.Items
+                                .IndexOf(unit.GetParametersList().Find(par => par.id == SelectedScheme.PressureP1ID).GetName());
+                        else
+                            PressureParComboBox1.SelectedIndex = 0;
+                        if (SelectedScheme.PressureP2ID != -1)
+                            PressureParComboBox2.SelectedIndex = PressureParComboBox1.Items
+                                .IndexOf(unit.GetParametersList().Find(par => par.id == SelectedScheme.PressureP2ID).GetName());
+                        else
+                            PressureParComboBox2.SelectedIndex = 0;
+                        if (SelectedScheme.PressureP3ID != -1)
+                            PressureParComboBox3.SelectedIndex = PressureParComboBox1.Items
+                                .IndexOf(unit.GetParametersList().Find(par => par.id == SelectedScheme.PressureP3ID).GetName());
+                        else
+                            PressureParComboBox3.SelectedIndex = 0;
+                        if (SelectedScheme.PressureP4ID != -1)
+                            PressureParComboBox4.SelectedIndex = PressureParComboBox1.Items
+                                .IndexOf(unit.GetParametersList().Find(par => par.id == SelectedScheme.PressureP4ID).GetName());
+                        else
+                            PressureParComboBox4.SelectedIndex = 0;
+                        if (SelectedScheme.PressureP5ID != -1)
+                            PressureParComboBox5.SelectedIndex = PressureParComboBox1.Items
+                                .IndexOf(unit.GetParametersList().Find(par => par.id == SelectedScheme.PressureP5ID).GetName());
+                        else
+                            PressureParComboBox5.SelectedIndex = 0;
+                    }
                     else
+                    {
+                        PressureUnitСomboBox.SelectedIndex = 0;
                         PressureParComboBox1.SelectedIndex = 0;
-                    if (SelectedScheme.PressureP2ID != -1)
-                        PressureParComboBox2.SelectedIndex = PressureParComboBox1.Items
-                            .IndexOf(unit.GetParametersList().Find(par => par.id == SelectedScheme.PressureP2ID).GetName());
-                    else
                         PressureParComboBox2.SelectedIndex = 0;
-                    if (SelectedScheme.PressureP3ID != -1)
-                        PressureParComboBox3.SelectedIndex = PressureParComboBox1.Items
-                            .IndexOf(unit.GetParametersList().Find(par => par.id == SelectedScheme.PressureP3ID).GetName());
-                    else
                         PressureParComboBox3.SelectedIndex = 0;
-                    if (SelectedScheme.PressureP4ID != -1)
-                        PressureParComboBox4.SelectedIndex = PressureParComboBox1.Items
-                            .IndexOf(unit.GetParametersList().Find(par => par.id == SelectedScheme.PressureP4ID).GetName());
-                    else
                         PressureParComboBox4.SelectedIndex = 0;
-                    if (SelectedScheme.PressureP5ID != -1)
-                        PressureParComboBox5.SelectedIndex = PressureParComboBox1.Items
-                            .IndexOf(unit.GetParametersList().Find(par => par.id == SelectedScheme.PressureP5ID).GetName());
-                    else
                         PressureParComboBox5.SelectedIndex = 0;
-                }
-                else
-                {
-                    PressureUnitСomboBox.SelectedIndex = 0;
-                    PressureParComboBox1.SelectedIndex = 0;
-                    PressureParComboBox2.SelectedIndex = 0;
-                    PressureParComboBox3.SelectedIndex = 0;
-                    PressureParComboBox4.SelectedIndex = 0;
-                    PressureParComboBox5.SelectedIndex = 0;
-                }
-                if (SelectedScheme.FCUID != -1)
-                {
-                    var unit = UnitsList.Find(un => un.id == SelectedScheme.FCUID);
-                    FCUnitComboBox.SelectedIndex = FCUnitComboBox.Items
-                        .IndexOf(unit.GetName());
-                    FCParComboBox.SelectedIndex = FCParComboBox.Items
-                        .IndexOf(unit.GetParametersList().Find(par => par.id == SelectedScheme.FCPID).GetName());
-                    FCParPowerComboBox.SelectedIndex = FCParPowerComboBox.Items
-                        .IndexOf(unit.GetParametersList().Find(par => par.id == SelectedScheme.FCPPID).GetName());
-                }
-                else
-                {
-                    FCUnitComboBox.SelectedIndex = 0;
-                    FCParComboBox.SelectedIndex = 0;
-                    FCParPowerComboBox.SelectedIndex= 0;
-                }
-                if (SelectedScheme.FlowUID != -1)
-                {
-                    var unit = UnitsList.Find(un => un.id == SelectedScheme.FlowUID);
-                    FlowmeterUnitComboBox.SelectedIndex = FlowmeterUnitComboBox.Items
-                        .IndexOf(unit.GetName());
-                    FlowmeterParComboBox.SelectedIndex = FlowmeterParComboBox.Items
-                        .IndexOf(unit.GetParametersList().Find(par => par.id == SelectedScheme.FlowPID).GetName());
-                }
-                else
-                {
-                    FlowmeterUnitComboBox.SelectedIndex = 0;
-                    FlowmeterParComboBox.SelectedIndex = 0;
-                }
-                if (SelectedScheme.ValveUID != -1)
-                {
-                    var unit = UnitsList.Find(un => un.id == SelectedScheme.ValveUID);
-                    ValveUnitComboBox.SelectedIndex = ValveUnitComboBox.Items
-                        .IndexOf(unit.GetName());
-                    ValveParComboBox.SelectedIndex = ValveParComboBox.Items
-                        .IndexOf(unit.GetParametersList().Find(par => par.id == SelectedScheme.ValvePID).GetName());
-                }
-                else
-                {
-                    ValveUnitComboBox.SelectedIndex = 0;
-                    ValveParComboBox.SelectedIndex = 0;
-                }
+                    }
+                    if (SelectedScheme.FCUID != -1)
+                    {
+                        var unit = UnitsList.Find(un => un.id == SelectedScheme.FCUID);
+                        FCUnitComboBox.SelectedIndex = FCUnitComboBox.Items
+                            .IndexOf(unit.GetName());
+                        FCParComboBox.SelectedIndex = FCParComboBox.Items
+                            .IndexOf(unit.GetParametersList().Find(par => par.id == SelectedScheme.FCPID).GetName());
+                        FCParPowerComboBox.SelectedIndex = FCParPowerComboBox.Items
+                            .IndexOf(unit.GetParametersList().Find(par => par.id == SelectedScheme.FCPPID).GetName());
+                    }
+                    else
+                    {
+                        FCUnitComboBox.SelectedIndex = 0;
+                        FCParComboBox.SelectedIndex = 0;
+                        FCParPowerComboBox.SelectedIndex = 0;
+                    }
+                    if (SelectedScheme.FlowUID != -1)
+                    {
+                        var unit = UnitsList.Find(un => un.id == SelectedScheme.FlowUID);
+                        FlowmeterUnitComboBox.SelectedIndex = FlowmeterUnitComboBox.Items
+                            .IndexOf(unit.GetName());
+                        FlowmeterParComboBox.SelectedIndex = FlowmeterParComboBox.Items
+                            .IndexOf(unit.GetParametersList().Find(par => par.id == SelectedScheme.FlowPID).GetName());
+                    }
+                    else
+                    {
+                        FlowmeterUnitComboBox.SelectedIndex = 0;
+                        FlowmeterParComboBox.SelectedIndex = 0;
+                    }
+                    if (SelectedScheme.ValveUID != -1)
+                    {
+                        var unit = UnitsList.Find(un => un.id == SelectedScheme.ValveUID);
+                        ValveUnitComboBox.SelectedIndex = ValveUnitComboBox.Items
+                            .IndexOf(unit.GetName());
+                        ValveParComboBox.SelectedIndex = ValveParComboBox.Items
+                            .IndexOf(unit.GetParametersList().Find(par => par.id == SelectedScheme.ValvePID).GetName());
+                    }
+                    else
+                    {
+                        ValveUnitComboBox.SelectedIndex = 0;
+                        ValveParComboBox.SelectedIndex = 0;
+                    }
 
-                SchemeNotSavedLabel.Visible = false;
+                    SchemeNotSavedLabel.Visible = false;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка");
             }
         }
         private void FCParPowerComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (SchemeComboBox.SelectedIndex != -1)
-                SchemeNotSavedLabel.Visible = true; // лобавить для остальных
-            if (FCParPowerComboBox.SelectedIndex != 0)
+            try
             {
-                PowerCustomLabel.Text = UnitsList.Find(u => u.GetName() == FCUnitComboBox.Text).GetParametersList()
-                    .Find(p => p.GetName() == FCParPowerComboBox.Text).GetUoMstring();
+                if (SchemeComboBox.SelectedIndex != -1)
+                    SchemeNotSavedLabel.Visible = true; // лобавить для остальных
+                if (FCParPowerComboBox.SelectedIndex != 0)
+                {
+                    PowerCustomLabel.Text = UnitsList.Find(u => u.GetName() == FCUnitComboBox.Text).GetParametersList()
+                        .Find(p => p.GetName() == FCParPowerComboBox.Text).GetUoMstring();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка");
             }
         }
 
         private void FlowmeterParComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (SchemeComboBox.SelectedIndex != -1)
-                SchemeNotSavedLabel.Visible = true;
-            if (FlowmeterParComboBox.SelectedIndex != 0)
+            try
             {
-                FlowCustomLabel.Text = UnitsList.Find(u => u.GetName() == FlowmeterUnitComboBox.Text).GetParametersList()
-                    .Find(p => p.GetName() == FlowmeterParComboBox.Text).GetUoMstring();
+                if (SchemeComboBox.SelectedIndex != -1)
+                    SchemeNotSavedLabel.Visible = true;
+                if (FlowmeterParComboBox.SelectedIndex != 0)
+                {
+                    FlowCustomLabel.Text = UnitsList.Find(u => u.GetName() == FlowmeterUnitComboBox.Text).GetParametersList()
+                        .Find(p => p.GetName() == FlowmeterParComboBox.Text).GetUoMstring();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка");
             }
         }
 
         private void PressureParComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (SchemeComboBox.SelectedIndex != -1)
-                SchemeNotSavedLabel.Visible = true;
-            if (PressureParComboBox1.SelectedIndex != 0)
+            try
             {
-                PressureCustomLabel.Text = UnitsList.Find(u => u.GetName() == PressureUnitСomboBox.Text).GetParametersList()
-                    .Find(p => p.GetName() == PressureParComboBox1.Text).GetUoMstring();
+
+                if (SchemeComboBox.SelectedIndex != -1)
+                    SchemeNotSavedLabel.Visible = true;
+                if (PressureParComboBox1.SelectedIndex != 0)
+                {
+                    PressureCustomLabel.Text = UnitsList.Find(u => u.GetName() == PressureUnitСomboBox.Text).GetParametersList()
+                        .Find(p => p.GetName() == PressureParComboBox1.Text).GetUoMstring();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка");
             }
         }
 
@@ -718,18 +793,41 @@ namespace Stand
         }
         private void ValveParComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (SchemeComboBox.SelectedIndex != -1)
-                SchemeNotSavedLabel.Visible = true;
+            try
+            {
+
+                if (SchemeComboBox.SelectedIndex != -1)
+                    SchemeNotSavedLabel.Visible = true;
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка");
+            }
         }
         private void L4TextBox_TextChanged(object sender, EventArgs e)
         {
-            if (SchemeComboBox.SelectedIndex != -1)
-                SchemeNotSavedLabel.Visible = true;
+            try
+            {
+                if (SchemeComboBox.SelectedIndex != -1)
+                    SchemeNotSavedLabel.Visible = true;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка");
+            }
         }
         private void FCStepTextBox_TextChanged(object sender, EventArgs e)
         {
-            if (SchemeComboBox.SelectedIndex != -1)
-                SchemeNotSavedLabel.Visible = true;
+            try
+            {
+                if (SchemeComboBox.SelectedIndex != -1)
+                    SchemeNotSavedLabel.Visible = true;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка");
+            }
         }
 
         #endregion
@@ -761,7 +859,7 @@ namespace Stand
             IsValveMinus = false;
         }
 
-        private void UnitParametersRead(Unit un, ManualResetEvent finished)
+        private void UnitParametersRead(Unit un, ManualResetEvent _finished)
         {
             while (true)
             {
@@ -769,26 +867,13 @@ namespace Stand
                 if (stopthread)
                     break;
                 un.ReadAllParams();
-                finished.Set();
+                _finished.Set();
                 StartReadingEvent.Reset();
             }
         }
-        
-        private void PerformanceParametersReadout(ManualResetEvent[] FinishedReadingEventList)
-        {
-            bool IsStartPossible = true;
-            
-            List<Parameter> PressureParametersList = new List<Parameter>();
-            Parameter FCPowerParameter = null;
-            float PowerLastReg = 0;
-            Parameter FlowParameter = null;
-            float FlowLastReg = 0;
 
-            Unit FC = UnitsList.Find(u => u.id == SelectedScheme.FCUID);
-            Parameter FCChangableParameter = null;
-            Unit Valve = UnitsList.Find(u => u.id == SelectedScheme.ValveUID);
-            Parameter ValveChangableParameter = null;
-            
+        private bool MakePressureParametersList(ref List<Parameter> PressureParametersList)
+        {
             if (SelectedScheme.PressureP1ID != -1 && SelectedScheme.PressureP2ID != -1)
             {
                 PressureParametersList.Add(UnitsList.Find(u => u.id == SelectedScheme.PressureUID).GetParametersList()
@@ -800,7 +885,8 @@ namespace Stand
             {
                 MessageBox.Show("Не заданы контролируемые параметры давления");
                 stopthread = true;
-                IsStartPossible = false;
+                return false;
+                //IsStartPossible = false;
             }
             if (SelectedScheme.PressureP3ID != -1)
             {
@@ -817,6 +903,55 @@ namespace Stand
                 PressureParametersList.Add(UnitsList.Find(u => u.id == SelectedScheme.PressureUID).GetParametersList()
                     .Find(par => par.id == SelectedScheme.PressureP5ID));
             }
+            return true;
+        }
+
+        private void MakeARow(ref DataRow row, float timespan, float Q, float N, float[] H, float[] ECE )
+        {
+            row[0] = 0;
+            row[1] = timespan;
+            row[2] = Q;
+            row[3] = N;
+            for (int i = 0; i< H.Length; i++)
+                row[i+4] = H[i];
+            for (int i = 0; i < H.Length; i++)
+                row[i + 4 + H.Length] = ECE[i];
+            if (IsExtended)
+            {
+                int i = 0;
+                foreach (var unit in UnitsList)
+                {
+                    foreach (var parameter in unit.GetParametersList())
+                    {
+                        if (parameter.CheckIfToggled())
+                        {
+                            row[3 + H.Length + ECE.Length + i] = parameter.GetLastMeasuredRegs();
+                            i++;
+                        }
+                    }
+                }
+            }
+        } 
+
+        private void PerformanceParametersReadout(ManualResetEvent[] FinishedReadingEventList, 
+            ref List<Parameter> PressureParametersList, ref DataTable PerformanceDataTable)
+        {
+            DataRow row = PerformanceDataTable.NewRow();
+            DateTime startTime = new DateTime();
+            DateTime endTime = new DateTime();
+
+            bool IsStartPossible = true;
+            //List<Parameter> PressureParametersList = new List<Parameter>();
+            Parameter FCPowerParameter = null;
+            float PowerLastReg = 0;
+            Parameter FlowParameter = null;
+            float FlowLastReg = 0;
+
+            Unit FC = UnitsList.Find(u => u.id == SelectedScheme.FCUID);
+            Parameter FCChangableParameter = null;
+            Unit Valve = UnitsList.Find(u => u.id == SelectedScheme.ValveUID);
+            Parameter ValveChangableParameter = null;
+            //IsStartPossible = MakePressureParametersList(ref PressureParametersList);
             if (SelectedScheme.FCPPID != -1)
             {
                 FCPowerParameter = UnitsList.Find(u => u.id == SelectedScheme.FCUID).GetParametersList()
@@ -852,9 +987,64 @@ namespace Stand
             float[] ECE = new float[PressureParametersList.Count() - 1];
             StartReadingEvent.Set();
 
+            // InitDataTable
+            DataColumn checkcol = new DataColumn();
+            checkcol.ColumnName = $"!";
+            PerformanceDataTable.Columns.Add(checkcol);
+
+            DataColumn Timecol = new DataColumn();
+            Timecol.ColumnName = $"T [сек]";
+            PerformanceDataTable.Columns.Add(Timecol);
+
+            DataColumn Flowcol = new DataColumn();
+            Flowcol.ColumnName = $"Q [{FlowParameter.GetUoMstring()}]";
+            PerformanceDataTable.Columns.Add(Flowcol);
+
+            DataColumn Ncol = new DataColumn();
+            Ncol.ColumnName = $"N [{FCPowerParameter.GetUoMstring()}]";
+            PerformanceDataTable.Columns.Add(Ncol);
+
+            DataColumn[] Hcol = new DataColumn[H.Length];
+            for (int i = 0; i < Hcol.Length; i++)
+            {
+                Hcol[i] = new DataColumn();
+                Hcol[i].ColumnName = $"H {i + 1} [м]";
+            }
+            PerformanceDataTable.Columns.AddRange(Hcol);
+
+            DataColumn[] ECEcol = new DataColumn[ECE.Length];
+            for (int i = 0; i < ECEcol.Length; i++)
+            {
+                ECEcol[i] = new DataColumn();
+                ECEcol[i].ColumnName = $"η {i + 1} [%]";
+            }
+            PerformanceDataTable.Columns.AddRange(ECEcol);
+
+            if (IsExtended)
+            {
+                foreach (var unit in UnitsList)
+                {
+                    foreach (var parameter in unit.GetParametersList())
+                    {
+                        if (parameter.CheckIfToggled())
+                        {
+                            DataColumn col = new DataColumn();
+                            col.ColumnName = $"&{parameter.GetName()} [{parameter.GetUoMstring()}]";
+                            PerformanceDataTable.Columns.Add(col);
+                        }
+                    }
+                }
+            }
+            _waiter.Set();
+
+            //InitDataTable
+
+            TimestampList.Clear();
+            startTime = DateTime.Now;
             while (IsStartPossible)
             {
                 WaitHandle.WaitAll(FinishedReadingEventList);
+                endTime = DateTime.Now;
                 foreach (var threadfinished in FinishedReadingEventList)
                     threadfinished.Reset();
 
@@ -862,31 +1052,34 @@ namespace Stand
                 FlowLastReg = FlowParameter.GetLastMeasuredRegs();
                 for (int i = 0; i < H.Length; i++)
                 {
-                    H[i] = SelectedScheme.dL[i] + (PressureParametersList[i+1].GetLastMeasuredRegs() - 
-                        PressureParametersList[i].GetLastMeasuredRegs()) / (SelectedScheme.Density * Scheme.g_constant);
-                    ECE[i] = SelectedScheme.Density * Scheme.g_constant * H[i] * FlowLastReg / PowerLastReg;
+                    H[i] = (SelectedScheme.dL[i] + (PressureParametersList[i+1].GetLastMeasuredRegs() - 
+                        PressureParametersList[i].GetLastMeasuredRegs())*(float)SiPressureCoefficient) / (SelectedScheme.Density * Scheme.g_constant);
+                    ECE[i] = SelectedScheme.Density * Scheme.g_constant * H[i] * FlowLastReg * (float)SiFlowCoefficient
+                        / (PowerLastReg * (float)SiPowerCoefficient);
                 }
 
-                Action<string> Prlb = (string str) => PressureListBox.Items.Insert(0,str);
-                Action<string> Powlb = (string str) => PowerListBox.Items.Insert(0, str); 
-                Action<string> Qlb = (string str) => QListBox.Items.Insert(0, str);
-                Action<string> Hlb = (string str) => HListBox.Items.Insert(0, str);
-                Action<string> ECElb = (string str) => ECEListBox.Items.Insert(0, str);
+                int ECEoffset = H.Length * 2;
 
-                Action<int> readH = (int i) => chart1.Series[i+6].Points.AddXY(FlowLastReg, H[i]); //H[i]
-                Action readN = () => chart1.Series[1].Points.AddXY(FlowLastReg, PowerLastReg);
+                Action<DataTable,DataRow> RowInsert = (DataTable t,DataRow r) => t.Rows.InsertAt(r,0);
 
-                Action<int> clearH = (int i) => chart1.Series[i+6].Points.Clear();
-                Action clearN = () => chart1.Series[1].Points.Clear();
+                Action<int> readH = (int i) => 
+                    chart1.Series[i].Points.AddXY(FlowLastReg, H[i]); //H[i]
+                Action<int> clearH = (int i) => 
+                    chart1.Series[i].Points.Clear();
+                Action<int> addH = (int i) => 
+                    chart1.Series[i+H.Length].Points.AddXY(FlowLastReg, H[i]);
 
-                Action<int> addH = (int i) => chart1.Series[i+2].Points.AddXY(FlowLastReg, H[i]);
-                Action addN = () => chart1.Series[0].Points.AddXY(FlowLastReg, PowerLastReg);
+                Action<int> readECE = (int i) => 
+                    chart1.Series[i + ECEoffset].Points.AddXY(FlowLastReg, ECE[i]); //H[i]
+                Action<int> clearECE = (int i) => 
+                    chart1.Series[i + ECEoffset].Points.Clear();
+                Action<int> addECE = (int i) => 
+                    chart1.Series[i + ECEoffset + ECE.Length].Points.AddXY(FlowLastReg, ECE[i]);
 
                 Action readFreq = () => CurrentFrequencyTextBox.Text 
                     = FCChangableParameter.GetLastMeasuredRegs().ToString();
                 Action readValvePos = () => CurrentValvePosTextBox.Text
                     = ValveChangableParameter.GetLastMeasuredRegs().ToString();
-
                 string Prstr = "";
                 string Hstr = "";
                 string ECEstr = "";
@@ -897,21 +1090,29 @@ namespace Stand
                 for (int i = 0; i < ECE.Count(); i++)
                     ECEstr = ECEstr + ECE[0].ToString() + " ; ";
 
+                ////////////////
+                row = PerformanceDataTable.NewRow();
+                float span = (float)(endTime - startTime).TotalSeconds;
+                TimestampList.Add(span);
+                MakeARow(ref row, span, FlowLastReg, PowerLastReg, H, ECE);
+                ///PerformanceDataTable.Rows.Add(row);
+                ////////////////
+
                 if (InvokeRequired)
                 {
-                    Invoke(Prlb, Prstr);
-                    Invoke(Powlb, PowerLastReg.ToString());
-                    Invoke(Qlb, FlowLastReg.ToString());
-                    Invoke(Hlb, Hstr);
-                    Invoke(ECElb, ECEstr);
+                    Invoke(RowInsert, PerformanceDataTable, row);
 
                     for (int i = 0; i < H.Count(); i++)
+                    {
                         Invoke(clearH, i);
+                        Invoke(clearECE, i);
+                    }
                     for (int i = 0; i < H.Count(); i++)
+                    {
                         Invoke(readH, i);
+                        Invoke(readECE, i);
+                    }
 
-                    Invoke(clearN);
-                    Invoke(readN);
                     if (FCChangableParameter != null)
                         Invoke(readFreq);
                     if (ValveChangableParameter != null)
@@ -919,44 +1120,67 @@ namespace Stand
                 }
                 else
                 {
-                    Prlb(Prstr);
-                    Powlb(PowerLastReg.ToString());
-                    Qlb(FlowLastReg.ToString());
-                    Hlb(Hstr);
-                    ECElb(ECEstr);
+                    RowInsert(PerformanceDataTable, row);
 
                     for (int i = 0; i < H.Count(); i++)
+                    {
                         clearH(i);
+                        clearECE(i);
+                    }
                     for (int i = 0; i < H.Count(); i++)
+                    {
                         readH(i);
+                        readECE(i);
+                    }
 
-                    clearN();
-                    readN();
                     if (FCChangableParameter != null)
                         readFreq();
                     if (ValveChangableParameter != null)
                         readValvePos();
                 }
-
                 StartReadingEvent.Set();
                 if (_stopper.WaitOne(1000, false))
                 {
                     if (stopthread)
                         break;
+                    ///////
+                    foreach (var un in UnitsList)
+                    {
+                        foreach (var par in un.GetParametersList())
+                        {
+                            par.IsMeasureSetList.Add(true);
+                        }
+                    }
+                    Overlay.MakeRowBold();
+                    PerformanceDataTable.Rows[0][0] = 1;
+                    ///////
                     if (InvokeRequired)
                     {
                         for (int i = 0; i < H.Count(); i++)
-                            Invoke(addH,i);
-                        Invoke(addN);
+                        {
+                            Invoke(addH, i);
+                            Invoke(addECE, i);
+                        }
                     }
                     else
                     {
                         for (int i = 0; i < H.Count(); i++)
+                        {
                             addH(i);
-                        addN();
+                            addECE(i);
+                        }
                     }
                     _stopper.Reset();
                 }
+                ////// 
+                foreach (var un in UnitsList)
+                {
+                    foreach (var par in un.GetParametersList())
+                    {
+                        par.IsMeasureSetList.Add(false);
+                    }
+                }
+                //////
                 if (IsFCPlus)
                     FC.ComWrire(FCChangableParameter, 
                         (ushort)(FCChangableParameter.GetLastMeasuredRegs()+SelectedScheme.FCStep));
@@ -977,6 +1201,19 @@ namespace Stand
         }
         private void PerformanceTestStartButton_Click(object sender, EventArgs e)
         {
+            ExperimentName = $"РНХ {DateTime.Now.ToString()}";
+            if (Overlay != null)
+            {
+                var result = MessageBox.Show("Вы действительно хотите начать новый эксперимент? " +
+                    "Несохраненные результаты будут удалены","Новый эксперимент",MessageBoxButtons.YesNo);
+                if (result == DialogResult.Yes)
+                    Overlay.Close();
+                else return;
+            }
+            if (ExtendedParametersCheckBox.Checked)
+                IsExtended = true;
+            else
+                IsExtended = false;
             try
             {
                 if (SelectedScheme.FCPPID != -1)
@@ -1007,18 +1244,58 @@ namespace Stand
                     Convert.ToSingle(PowerCustomTextBox.Text);
                 //System.FormatException
 
-                PressureListBox.Items.Clear();
-                PowerListBox.Items.Clear();
-                QListBox.Items.Clear();
-                HListBox.Items.Clear();
-                ECEListBox.Items.Clear();
+                chart1.ChartAreas[0].AxisX.Title = $"Расход [{FlowCustomLabel.Text}]";
+                chart1.ChartAreas[0].AxisY.Title = $"Напор [м]";
+                chart1.ChartAreas[0].AxisY2.Title = $"КПД [%]";
+                chart1.ChartAreas[0].AxisY2.Enabled = AxisEnabled.True;
+                chart1.Series.Clear();
 
-                for (int i = 0; i < chart1.Series.Count; i++)
+                List<Parameter> PressureParameterList = new List<Parameter>();
+                if (MakePressureParametersList(ref PressureParameterList))
+                {
+                    for (int i = 0; i < PressureParameterList.Count() - 1; i++)
+                    {
+                        chart1.Series.Add($"H {i + 1} мгновенный");
+                        chart1.Series.Last().YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Primary;
+                        chart1.Series.Last().ChartType = SeriesChartType.Point;
+                        chart1.Series.Last().MarkerStyle = MarkerStyle.Diamond;
+                        chart1.Series.Last().MarkerSize = 8;
+                    }
+                    for (int i = 0; i < PressureParameterList.Count()-1; i++)
+                    {
+                        chart1.Series.Add($"H {i + 1}");
+                        chart1.Series.Last().YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Primary;
+                        chart1.Series.Last().ChartType = SeriesChartType.Point;
+                        chart1.Series.Last().MarkerStyle = MarkerStyle.Cross;
+                        chart1.Series.Last().MarkerSize = 8;
+                    }
+                    for (int i = 0; i < PressureParameterList.Count() - 1; i++)
+                    {
+                        chart1.Series.Add($"η {i + 1} мгновенный");
+                        chart1.Series.Last().YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+                        chart1.Series.Last().ChartType = SeriesChartType.Point;
+                        chart1.Series.Last().MarkerStyle = MarkerStyle.Diamond;
+                        chart1.Series.Last().MarkerSize = 8;
+                    }
+                    for (int i = 0; i < PressureParameterList.Count() - 1; i++)
+                    {
+                        chart1.Series.Add($"η {i + 1}");
+                        chart1.Series.Last().YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+                        chart1.Series.Last().ChartType = SeriesChartType.Point;
+                        chart1.Series.Last().MarkerStyle = MarkerStyle.Cross;
+                        chart1.Series.Last().MarkerSize = 8;
+                    }
+                }
+                else
+                {
+                    return;
+                }
+                /*for (int i = 0; i < chart1.Series.Count; i++)
                 {
                     chart1.Series[i].Points.Clear();
                     chart1.Series[i].ChartType = SeriesChartType.Point;
-                }
-
+                }*/
+                PerformanceDataTable = new DataTable("РНХ");
                 stopthread = false;
                 _stopper.Reset();
                 ManualResetEvent[] FinishedReadingEventList = new ManualResetEvent[UnitsList.Count()];
@@ -1035,9 +1312,27 @@ namespace Stand
                     thread.Start();
                 }
                 var threadParameters1 = new System.Threading.ThreadStart(delegate
-                { PerformanceParametersReadout(FinishedReadingEventList); });
+                { PerformanceParametersReadout(FinishedReadingEventList, 
+                    ref PressureParameterList, ref PerformanceDataTable); });
                 var thread1 = new System.Threading.Thread(threadParameters1);
                 thread1.Start();
+
+                _waiter.WaitOne();
+                Overlay = new PerformanceTableOverlay(ref PerformanceDataTable, ExperimentName);
+                try
+                {
+                    Overlay.Show();
+                    foreach (DataGridViewColumn col in Overlay.dataGridView1.Columns)
+                    {
+                        col.SortMode = DataGridViewColumnSortMode.NotSortable;
+                    }
+                }
+                catch (System.ObjectDisposedException)
+                {
+                    MessageBox.Show("Произошла непредвиденная ошибка");
+                }
+                _waiter.Reset();
+
             }
             catch (System.FormatException)
             {
@@ -1049,9 +1344,12 @@ namespace Stand
             stopthread = true;
             _stopper.Set();
             StartReadingEvent.Set();
-            chart1.Series[0].Sort(PointSortOrder.Ascending, "X");
-            chart1.Series[0].ChartType = SeriesChartType.Spline;
-            for (int i = 2; i < 6; i++)
+            for (int i = chart1.Series.Count / 4; i < chart1.Series.Count/2; i++)
+            {
+                chart1.Series[i].Sort(PointSortOrder.Ascending, "X");
+                chart1.Series[i].ChartType = SeriesChartType.Spline;
+            }
+            for (int i = (chart1.Series.Count / 4 + chart1.Series.Count / 2); i < chart1.Series.Count; i++)
             {
                 chart1.Series[i].Sort(PointSortOrder.Ascending, "X");
                 chart1.Series[i].ChartType = SeriesChartType.Spline;
@@ -1059,7 +1357,7 @@ namespace Stand
         }
         private void PerformanceTestToExcelButton_Click(object sender, EventArgs e)
         {
-            Workbook workbook = new Workbook();
+            /*Workbook workbook = new Workbook();
 
             workbook.Worksheets.Clear();
             Worksheet worksheetAll = workbook.Worksheets.Add("Все параметры");
@@ -1100,7 +1398,7 @@ namespace Stand
                 }
             }
 
-            workbook.SaveToFile("TEST.xlsx", ExcelVersion.Version2016);
+            workbook.SaveToFile("TEST.xlsx", ExcelVersion.Version2016);*/
         }
         /// <summary>
         /// 
@@ -1125,6 +1423,15 @@ namespace Stand
             if (SchemeComboBox.SelectedIndex != -1)
             {
                 PerformanceTestLabel.Text = $"Расходно-напорная характеристика насоса {SchemeComboBox.Text}";
+            }
+            if (tabControl1.SelectedIndex == 3)
+            {
+                if (postgreSQL.NpgsqlConnect())
+                {
+                    ExperimentsListBox.Items.Clear();
+                    string[] exps = (string[])postgreSQL.GetExperimentNames().Result.ToArray();
+                    ExperimentsListBox.Items.AddRange(exps);
+                }
             }
         }
         #endregion
@@ -1412,5 +1719,138 @@ namespace Stand
             chart1.ChartAreas[0].AxisY2.Maximum = Convert.ToInt32(XSizeTextBox.Text);
         }
 
+        private void PerformanceTestAddButton_Click(object sender, EventArgs e)
+        {
+            if (postgreSQL.NpgsqlConnect())
+            {
+                if (postgreSQL.SaveMeasurements(ref UnitsList, ExperimentName, ref TimestampList, ref PerformanceDataTable))
+                    MessageBox.Show("Сохранение успешно завершено");
+                else
+                    MessageBox.Show("Error");
+
+            }
+        }
+
+        private void DeleteResultButton_Click(object sender, EventArgs e)
+        {
+            if (postgreSQL.NpgsqlConnect())
+            {
+                string[] parts = { "0" };
+                if (ExperimentsListBox.SelectedIndex >= 0)
+                    parts = (ExperimentsListBox.SelectedItem.ToString().Split('@'));
+                if (postgreSQL.DeleteExperiment(int.Parse(parts[0])))
+                {
+                    MessageBox.Show("OK");
+                    
+                    RefreshExperimentsListBox();
+                }
+                ExperimentGridView.Refresh();
+            }
+        }
+
+        private void RefreshExperimentsListBox()
+        {
+            if (postgreSQL.NpgsqlConnect())
+            {
+                ExperimentsListBox.Items.Clear();
+                string[] exps = (string[])postgreSQL.GetExperimentNames().Result.ToArray();
+                ExperimentsListBox.Items.AddRange(exps);
+            }
+            if (ExperimentsListBox.Items.Count > 0)
+                ExperimentsListBox.SelectedIndex = 0;
+            else
+            {
+                ExperimentGridView.DataSource = null;
+                TableNameTextBox.Text = "";
+            }
+        }
+        private void ExperimentsListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (postgreSQL.NpgsqlConnect())
+            {
+                DataTable results = new DataTable();
+                DataTable performance = new DataTable();
+                string[] parts = { "0" };
+                if (ExperimentsListBox.SelectedIndex >= 0)
+                {
+                    parts = (ExperimentsListBox.SelectedItem.ToString().Split('@'));
+                    results.TableName = parts[1];
+                    TableNameTextBox.Text = results.TableName;
+                }
+                if (postgreSQL.GetExperimentResults(int.Parse(parts[0]), ref results, ref performance))
+                {
+                    ExperimentGridView.DataSource = results;
+                    PerformanceGridView.DataSource = performance;
+                }
+                ExperimentGridView.Refresh();
+            }
+        }
+
+        private void ChangeExperimentNameButton_Click(object sender, EventArgs e)
+        {
+            if (postgreSQL.NpgsqlConnect())
+            {
+                string[] parts = { "0" };
+                if (ExperimentsListBox.SelectedIndex >= 0)
+                {
+                    parts = (ExperimentsListBox.SelectedItem.ToString().Split('@'));
+                    if (TableNameTextBox.Text != "")
+                    {
+                        if (postgreSQL.ChangeExperimentName(int.Parse(parts[0]), TableNameTextBox.Text))
+                        {
+                            MessageBox.Show("OK");
+                            RefreshExperimentsListBox();
+                        }
+                    }
+                }
+                ExperimentGridView.Refresh();
+            }
+        }
+
+        private void PerformanceTestToExcelButton_Click_1(object sender, EventArgs e)
+        {
+            try
+            {
+                XLWorkbook wb = new XLWorkbook();
+                DataTable alldt = new DataTable();
+                DataTable perfdt = new DataTable();
+                foreach (DataGridViewColumn col in ExperimentGridView.Columns)
+                {
+                    alldt.Columns.Add(col.Name);
+                }
+                foreach (DataGridViewRow row in ExperimentGridView.Rows)
+                {
+                    DataRow dRow = alldt.NewRow();
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        dRow[cell.ColumnIndex] = cell.Value;
+                    }
+                    alldt.Rows.Add(dRow);
+                }
+                wb.Worksheets.Add(alldt, "All");
+
+                foreach (DataGridViewColumn col in PerformanceGridView.Columns)
+                {
+                    perfdt.Columns.Add(col.Name);
+                }
+                foreach (DataGridViewRow row in PerformanceGridView.Rows)
+                {
+                    DataRow dRow = perfdt.NewRow();
+                    foreach (DataGridViewCell cell in row.Cells)
+                    {
+                        dRow[cell.ColumnIndex] = cell.Value;
+                    }
+                    perfdt.Rows.Add(dRow);
+                }
+                wb.Worksheets.Add(perfdt, "Performance");
+                var savestr = (string)($"Saves/{TableNameTextBox.Text}").Replace(" ", "_").Replace(".", "").Replace(":", "");
+                wb.SaveAs(savestr + ".xlsx");
+                MessageBox.Show("Успешно");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка");
+            }
+        }
     }
 }

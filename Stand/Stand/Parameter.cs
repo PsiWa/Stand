@@ -13,7 +13,7 @@ namespace Stand
 {
     public enum DataType : int
     {
-        DT_Single = 0,
+        DT_Int = 0,
         DT_Float_AB = 1,
         DT_Float_BA = 2,
     };
@@ -34,13 +34,10 @@ namespace Stand
         private bool IsConnected;
         private RegType RegType;
         private DataType DataType;
-        private List<float> MeasuredRegs = new List<float> { };
+        private List<float> MeasuredRegs = new List<float>() { };
+        public List<bool> IsMeasureSetList = new List<bool>() { };
 
         #region Constructors
-        public Parameter(string name, string ParentUnitName)
-        {
-            this.name = name;
-        }
         public Parameter(XElement el, int ParentID)
         {
             LoadXML(el, ParentID);

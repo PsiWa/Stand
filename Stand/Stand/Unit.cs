@@ -32,15 +32,6 @@ namespace Stand
         static private ManualResetEvent mreScan= new ManualResetEvent(false);
 
         #region Constructors/Dispose
-        public Unit(string name)
-        {
-            UnitNum++;
-            this.name = name;
-            address = 0;
-            this.SetDeffaultAdditionalSettings();
-            parameters = new List<Parameter>();
-        }
-
         public Unit()
         {
             this.id = UnitNum;
@@ -48,6 +39,11 @@ namespace Stand
             address = 0;
             this.SetDeffaultAdditionalSettings();
             parameters = new List<Parameter>();
+        }
+        public Unit(XElement el, IEnumerable<XElement> pars)
+        {
+            parameters = new List<Parameter>();
+            this.LoadSettingsXML(el, pars);
         }
         public void Dispose()
         {
@@ -59,11 +55,7 @@ namespace Stand
             if (Directory.Exists($"{Application.StartupPath}/UoM/{name}"))
                 Directory.Delete($"{Application.StartupPath}/UoM/{name}", true);
         }
-        public Unit(XElement el, IEnumerable<XElement> pars)
-        {
-            parameters = new List<Parameter>();
-            this.LoadSettingsXML(el, pars);
-        }
+        
         #endregion
         #region Get/Set/Add/Del Params
         public string GetName()
@@ -401,7 +393,7 @@ namespace Stand
                 float fRegs = 0;
                 byte _slaveStationAddr = Convert.ToByte(this.address);
                 ushort[] usRegs = null;
-                if (par.GetDataType() == DataType.DT_Single)
+                if (par.GetDataType() == DataType.DT_Int)
                 {
                     if (par.GetRegType() == RegType.RT_Input)
                     {
@@ -444,7 +436,7 @@ namespace Stand
             }
             catch (Exception)
             {
-                par.SetMeasuredRegs(Single.NaN);
+                par.SetMeasuredRegs(-99999);
             }
         }
 
@@ -510,13 +502,13 @@ namespace Stand
             if (isConnected)
                 foreach (Parameter par in this.parameters)
                     if (par.CheckIfToggled())
-                        par.SetMeasuredRegs(rnd.Next(1,100));
-                        //ComRead(par, offset);
+                        //par.SetMeasuredRegs(50 + rnd.Next(-10, 10));
+                        ComRead(par, offset);
                     else
                         par.SetMeasuredRegs(0); //Single.NaN
             else
                 foreach (Parameter par1 in this.parameters)
-                    par1.SetMeasuredRegs(rnd.Next(1, 100));//par1.SetMeasuredRegs(0);
+                    par1.SetMeasuredRegs(50 + rnd.Next(-10, 10));
 
         }
     }

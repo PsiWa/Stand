@@ -28,18 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series41 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series42 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series43 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series44 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series45 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series46 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series47 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series48 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series49 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series50 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Settings = new System.Windows.Forms.TabPage();
             this.UnitConnectAllButton = new System.Windows.Forms.Button();
@@ -136,7 +136,7 @@
             this.DensityTextBox = new System.Windows.Forms.TextBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MainChart = new System.Windows.Forms.TabPage();
-            this.PerformanceTestToExcelButton = new System.Windows.Forms.Button();
+            this.ExtendedParametersCheckBox = new System.Windows.Forms.CheckBox();
             this.PerformanceTestAddButton = new System.Windows.Forms.Button();
             this.PerformanceTestStopButton = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
@@ -148,16 +148,6 @@
             this.FrequencyPlusButton = new System.Windows.Forms.Button();
             this.CurrentValvePosTextBox = new System.Windows.Forms.TextBox();
             this.CurrentFrequencyTextBox = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.ECEListBox = new System.Windows.Forms.ListBox();
-            this.QListBox = new System.Windows.Forms.ListBox();
-            this.PowerListBox = new System.Windows.Forms.ListBox();
-            this.PressureListBox = new System.Windows.Forms.ListBox();
-            this.HListBox = new System.Windows.Forms.ListBox();
             this.PerformanceTestStartButton = new System.Windows.Forms.Button();
             this.PowerCustomTextBox = new System.Windows.Forms.TextBox();
             this.PowerCustomLabel = new System.Windows.Forms.Label();
@@ -182,12 +172,23 @@
             this.XSizeTextBox = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.DataBaseTab = new System.Windows.Forms.TabPage();
+            this.PerformanceGridView = new System.Windows.Forms.DataGridView();
+            this.ChangeExperimentNameButton = new System.Windows.Forms.Button();
+            this.TableNameTextBox = new System.Windows.Forms.TextBox();
+            this.DeleteResultButton = new System.Windows.Forms.Button();
+            this.ExperimentGridView = new System.Windows.Forms.DataGridView();
+            this.ExperimentsListBox = new System.Windows.Forms.ListBox();
+            this.PerformanceTestToExcelButton = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.Settings.SuspendLayout();
             this.Schema.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.MainChart.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.DataBaseTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PerformanceGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ExperimentGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -198,6 +199,7 @@
             this.tabControl1.Controls.Add(this.Settings);
             this.tabControl1.Controls.Add(this.Schema);
             this.tabControl1.Controls.Add(this.MainChart);
+            this.tabControl1.Controls.Add(this.DataBaseTab);
             this.tabControl1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -476,7 +478,7 @@
             this.ParameterTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ParameterTypeComboBox.FormattingEnabled = true;
             this.ParameterTypeComboBox.Items.AddRange(new object[] {
-            "Single",
+            "Signed",
             "Float AB",
             "Float BA"});
             this.ParameterTypeComboBox.Location = new System.Drawing.Point(903, 175);
@@ -808,7 +810,7 @@
             this.DiameterTextBox.Name = "DiameterTextBox";
             this.DiameterTextBox.Size = new System.Drawing.Size(136, 20);
             this.DiameterTextBox.TabIndex = 183;
-            this.DiameterTextBox.Text = "0,1";
+            this.DiameterTextBox.Text = "0";
             this.DiameterTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.DiameterTextBox.TextChanged += new System.EventHandler(this.L4TextBox_TextChanged);
             // 
@@ -872,6 +874,7 @@
             this.SchemeDeleteButton.TabIndex = 175;
             this.SchemeDeleteButton.Text = "Удалить";
             this.SchemeDeleteButton.UseVisualStyleBackColor = true;
+            this.SchemeDeleteButton.Click += new System.EventHandler(this.SchemeDeleteButton_Click);
             // 
             // SchemeSaveButton
             // 
@@ -1248,7 +1251,7 @@
             // 
             // MainChart
             // 
-            this.MainChart.Controls.Add(this.PerformanceTestToExcelButton);
+            this.MainChart.Controls.Add(this.ExtendedParametersCheckBox);
             this.MainChart.Controls.Add(this.PerformanceTestAddButton);
             this.MainChart.Controls.Add(this.PerformanceTestStopButton);
             this.MainChart.Controls.Add(this.label8);
@@ -1260,16 +1263,6 @@
             this.MainChart.Controls.Add(this.FrequencyPlusButton);
             this.MainChart.Controls.Add(this.CurrentValvePosTextBox);
             this.MainChart.Controls.Add(this.CurrentFrequencyTextBox);
-            this.MainChart.Controls.Add(this.label5);
-            this.MainChart.Controls.Add(this.label4);
-            this.MainChart.Controls.Add(this.label3);
-            this.MainChart.Controls.Add(this.label2);
-            this.MainChart.Controls.Add(this.label1);
-            this.MainChart.Controls.Add(this.ECEListBox);
-            this.MainChart.Controls.Add(this.QListBox);
-            this.MainChart.Controls.Add(this.PowerListBox);
-            this.MainChart.Controls.Add(this.PressureListBox);
-            this.MainChart.Controls.Add(this.HListBox);
             this.MainChart.Controls.Add(this.PerformanceTestStartButton);
             this.MainChart.Controls.Add(this.PowerCustomTextBox);
             this.MainChart.Controls.Add(this.PowerCustomLabel);
@@ -1302,26 +1295,28 @@
             this.MainChart.Text = "РНХ";
             this.MainChart.UseVisualStyleBackColor = true;
             // 
-            // PerformanceTestToExcelButton
+            // ExtendedParametersCheckBox
             // 
-            this.PerformanceTestToExcelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.PerformanceTestToExcelButton.Location = new System.Drawing.Point(700, 585);
-            this.PerformanceTestToExcelButton.Name = "PerformanceTestToExcelButton";
-            this.PerformanceTestToExcelButton.Size = new System.Drawing.Size(132, 35);
-            this.PerformanceTestToExcelButton.TabIndex = 189;
-            this.PerformanceTestToExcelButton.Text = "Сохранить";
-            this.PerformanceTestToExcelButton.UseVisualStyleBackColor = true;
-            this.PerformanceTestToExcelButton.Click += new System.EventHandler(this.PerformanceTestToExcelButton_Click);
+            this.ExtendedParametersCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExtendedParametersCheckBox.AutoSize = true;
+            this.ExtendedParametersCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ExtendedParametersCheckBox.Location = new System.Drawing.Point(1036, 172);
+            this.ExtendedParametersCheckBox.Name = "ExtendedParametersCheckBox";
+            this.ExtendedParametersCheckBox.Size = new System.Drawing.Size(199, 24);
+            this.ExtendedParametersCheckBox.TabIndex = 190;
+            this.ExtendedParametersCheckBox.Text = "Расширенная таблица";
+            this.ExtendedParametersCheckBox.UseVisualStyleBackColor = true;
             // 
             // PerformanceTestAddButton
             // 
-            this.PerformanceTestAddButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.PerformanceTestAddButton.Location = new System.Drawing.Point(1066, 509);
+            this.PerformanceTestAddButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.PerformanceTestAddButton.Location = new System.Drawing.Point(551, 585);
             this.PerformanceTestAddButton.Name = "PerformanceTestAddButton";
             this.PerformanceTestAddButton.Size = new System.Drawing.Size(143, 35);
             this.PerformanceTestAddButton.TabIndex = 188;
-            this.PerformanceTestAddButton.Text = "Добавить";
+            this.PerformanceTestAddButton.Text = "Сохранить результаты";
             this.PerformanceTestAddButton.UseVisualStyleBackColor = true;
+            this.PerformanceTestAddButton.Click += new System.EventHandler(this.PerformanceTestAddButton_Click);
             // 
             // PerformanceTestStopButton
             // 
@@ -1336,10 +1331,10 @@
             // 
             // label8
             // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(1062, 484);
+            this.label8.Location = new System.Drawing.Point(1032, 355);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(147, 20);
             this.label8.TabIndex = 186;
@@ -1347,10 +1342,10 @@
             // 
             // label7
             // 
-            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label7.Location = new System.Drawing.Point(838, 537);
+            this.label7.Location = new System.Drawing.Point(1036, 274);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(188, 20);
             this.label7.TabIndex = 185;
@@ -1358,10 +1353,10 @@
             // 
             // label6
             // 
-            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label6.Location = new System.Drawing.Point(838, 484);
+            this.label6.Location = new System.Drawing.Point(1036, 221);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(176, 20);
             this.label6.TabIndex = 184;
@@ -1369,9 +1364,9 @@
             // 
             // ValvePosMinusButton
             // 
-            this.ValvePosMinusButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ValvePosMinusButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ValvePosMinusButton.Enabled = false;
-            this.ValvePosMinusButton.Location = new System.Drawing.Point(842, 558);
+            this.ValvePosMinusButton.Location = new System.Drawing.Point(1040, 295);
             this.ValvePosMinusButton.Name = "ValvePosMinusButton";
             this.ValvePosMinusButton.Size = new System.Drawing.Size(43, 23);
             this.ValvePosMinusButton.TabIndex = 183;
@@ -1381,9 +1376,9 @@
             // 
             // ValvePosPlusButton
             // 
-            this.ValvePosPlusButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ValvePosPlusButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ValvePosPlusButton.Enabled = false;
-            this.ValvePosPlusButton.Location = new System.Drawing.Point(997, 558);
+            this.ValvePosPlusButton.Location = new System.Drawing.Point(1195, 295);
             this.ValvePosPlusButton.Name = "ValvePosPlusButton";
             this.ValvePosPlusButton.Size = new System.Drawing.Size(43, 23);
             this.ValvePosPlusButton.TabIndex = 182;
@@ -1393,9 +1388,9 @@
             // 
             // FrequencyMinusButton
             // 
-            this.FrequencyMinusButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.FrequencyMinusButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FrequencyMinusButton.Enabled = false;
-            this.FrequencyMinusButton.Location = new System.Drawing.Point(842, 507);
+            this.FrequencyMinusButton.Location = new System.Drawing.Point(1040, 244);
             this.FrequencyMinusButton.Name = "FrequencyMinusButton";
             this.FrequencyMinusButton.Size = new System.Drawing.Size(43, 23);
             this.FrequencyMinusButton.TabIndex = 181;
@@ -1405,9 +1400,9 @@
             // 
             // FrequencyPlusButton
             // 
-            this.FrequencyPlusButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.FrequencyPlusButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FrequencyPlusButton.Enabled = false;
-            this.FrequencyPlusButton.Location = new System.Drawing.Point(997, 507);
+            this.FrequencyPlusButton.Location = new System.Drawing.Point(1195, 244);
             this.FrequencyPlusButton.Name = "FrequencyPlusButton";
             this.FrequencyPlusButton.Size = new System.Drawing.Size(43, 23);
             this.FrequencyPlusButton.TabIndex = 180;
@@ -1417,9 +1412,9 @@
             // 
             // CurrentValvePosTextBox
             // 
-            this.CurrentValvePosTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.CurrentValvePosTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.CurrentValvePosTextBox.Enabled = false;
-            this.CurrentValvePosTextBox.Location = new System.Drawing.Point(891, 560);
+            this.CurrentValvePosTextBox.Location = new System.Drawing.Point(1089, 297);
             this.CurrentValvePosTextBox.Name = "CurrentValvePosTextBox";
             this.CurrentValvePosTextBox.Size = new System.Drawing.Size(100, 20);
             this.CurrentValvePosTextBox.TabIndex = 179;
@@ -1427,123 +1422,18 @@
             // 
             // CurrentFrequencyTextBox
             // 
-            this.CurrentFrequencyTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.CurrentFrequencyTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.CurrentFrequencyTextBox.Enabled = false;
-            this.CurrentFrequencyTextBox.Location = new System.Drawing.Point(891, 509);
+            this.CurrentFrequencyTextBox.Location = new System.Drawing.Point(1089, 246);
             this.CurrentFrequencyTextBox.Name = "CurrentFrequencyTextBox";
             this.CurrentFrequencyTextBox.Size = new System.Drawing.Size(100, 20);
             this.CurrentFrequencyTextBox.TabIndex = 178;
-            this.CurrentFrequencyTextBox.Text = "0";
-            // 
-            // label5
-            // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(1014, 325);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(43, 20);
-            this.label5.TabIndex = 177;
-            this.label5.Text = "КПД";
-            // 
-            // label4
-            // 
-            this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(838, 325);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(57, 20);
-            this.label4.TabIndex = 176;
-            this.label4.Text = "Напор";
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(1102, 178);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 20);
-            this.label3.TabIndex = 175;
-            this.label3.Text = "Расход";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(1014, 178);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(88, 20);
-            this.label2.TabIndex = 174;
-            this.label2.Text = "Мощность";
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(838, 178);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(85, 20);
-            this.label1.TabIndex = 173;
-            this.label1.Text = "Давление";
-            // 
-            // ECEListBox
-            // 
-            this.ECEListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ECEListBox.FormattingEnabled = true;
-            this.ECEListBox.HorizontalScrollbar = true;
-            this.ECEListBox.Location = new System.Drawing.Point(1018, 348);
-            this.ECEListBox.Name = "ECEListBox";
-            this.ECEListBox.Size = new System.Drawing.Size(170, 121);
-            this.ECEListBox.TabIndex = 172;
-            // 
-            // QListBox
-            // 
-            this.QListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.QListBox.FormattingEnabled = true;
-            this.QListBox.HorizontalScrollbar = true;
-            this.QListBox.Location = new System.Drawing.Point(1106, 201);
-            this.QListBox.Name = "QListBox";
-            this.QListBox.Size = new System.Drawing.Size(82, 121);
-            this.QListBox.TabIndex = 171;
-            // 
-            // PowerListBox
-            // 
-            this.PowerListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PowerListBox.FormattingEnabled = true;
-            this.PowerListBox.HorizontalScrollbar = true;
-            this.PowerListBox.Location = new System.Drawing.Point(1018, 201);
-            this.PowerListBox.Name = "PowerListBox";
-            this.PowerListBox.Size = new System.Drawing.Size(82, 121);
-            this.PowerListBox.TabIndex = 170;
-            // 
-            // PressureListBox
-            // 
-            this.PressureListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PressureListBox.FormattingEnabled = true;
-            this.PressureListBox.HorizontalScrollbar = true;
-            this.PressureListBox.Location = new System.Drawing.Point(842, 201);
-            this.PressureListBox.Name = "PressureListBox";
-            this.PressureListBox.Size = new System.Drawing.Size(170, 121);
-            this.PressureListBox.TabIndex = 169;
-            // 
-            // HListBox
-            // 
-            this.HListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.HListBox.FormattingEnabled = true;
-            this.HListBox.HorizontalScrollbar = true;
-            this.HListBox.Location = new System.Drawing.Point(842, 348);
-            this.HListBox.Name = "HListBox";
-            this.HListBox.Size = new System.Drawing.Size(170, 121);
-            this.HListBox.TabIndex = 168;
+            this.CurrentFrequencyTextBox.Text = "5";
             // 
             // PerformanceTestStartButton
             // 
             this.PerformanceTestStartButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.PerformanceTestStartButton.Location = new System.Drawing.Point(3, 585);
+            this.PerformanceTestStartButton.Location = new System.Drawing.Point(6, 585);
             this.PerformanceTestStartButton.Name = "PerformanceTestStartButton";
             this.PerformanceTestStartButton.Size = new System.Drawing.Size(135, 35);
             this.PerformanceTestStartButton.TabIndex = 167;
@@ -1554,18 +1444,18 @@
             // PowerCustomTextBox
             // 
             this.PowerCustomTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PowerCustomTextBox.Location = new System.Drawing.Point(950, 146);
+            this.PowerCustomTextBox.Location = new System.Drawing.Point(1148, 146);
             this.PowerCustomTextBox.Name = "PowerCustomTextBox";
             this.PowerCustomTextBox.Size = new System.Drawing.Size(53, 20);
             this.PowerCustomTextBox.TabIndex = 166;
-            this.PowerCustomTextBox.Text = "1";
+            this.PowerCustomTextBox.Text = "1000";
             // 
             // PowerCustomLabel
             // 
             this.PowerCustomLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.PowerCustomLabel.AutoSize = true;
             this.PowerCustomLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.PowerCustomLabel.Location = new System.Drawing.Point(1009, 146);
+            this.PowerCustomLabel.Location = new System.Drawing.Point(1207, 146);
             this.PowerCustomLabel.Name = "PowerCustomLabel";
             this.PowerCustomLabel.Size = new System.Drawing.Size(69, 20);
             this.PowerCustomLabel.TabIndex = 165;
@@ -1574,7 +1464,7 @@
             // PowerSITextBox
             // 
             this.PowerSITextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PowerSITextBox.Location = new System.Drawing.Point(842, 146);
+            this.PowerSITextBox.Location = new System.Drawing.Point(1040, 146);
             this.PowerSITextBox.Name = "PowerSITextBox";
             this.PowerSITextBox.Size = new System.Drawing.Size(53, 20);
             this.PowerSITextBox.TabIndex = 164;
@@ -1585,7 +1475,7 @@
             this.PowerSILabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.PowerSILabel.AutoSize = true;
             this.PowerSILabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.PowerSILabel.Location = new System.Drawing.Point(901, 146);
+            this.PowerSILabel.Location = new System.Drawing.Point(1099, 146);
             this.PowerSILabel.Name = "PowerSILabel";
             this.PowerSILabel.Size = new System.Drawing.Size(42, 20);
             this.PowerSILabel.TabIndex = 163;
@@ -1596,7 +1486,7 @@
             this.label55.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label55.AutoSize = true;
             this.label55.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label55.Location = new System.Drawing.Point(838, 123);
+            this.label55.Location = new System.Drawing.Point(1036, 123);
             this.label55.Name = "label55";
             this.label55.Size = new System.Drawing.Size(158, 20);
             this.label55.TabIndex = 162;
@@ -1605,7 +1495,7 @@
             // PressureCustomTextBox
             // 
             this.PressureCustomTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PressureCustomTextBox.Location = new System.Drawing.Point(950, 54);
+            this.PressureCustomTextBox.Location = new System.Drawing.Point(1148, 54);
             this.PressureCustomTextBox.Name = "PressureCustomTextBox";
             this.PressureCustomTextBox.Size = new System.Drawing.Size(53, 20);
             this.PressureCustomTextBox.TabIndex = 161;
@@ -1616,7 +1506,7 @@
             this.PressureCustomLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.PressureCustomLabel.AutoSize = true;
             this.PressureCustomLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.PressureCustomLabel.Location = new System.Drawing.Point(1009, 54);
+            this.PressureCustomLabel.Location = new System.Drawing.Point(1207, 54);
             this.PressureCustomLabel.Name = "PressureCustomLabel";
             this.PressureCustomLabel.Size = new System.Drawing.Size(69, 20);
             this.PressureCustomLabel.TabIndex = 160;
@@ -1625,7 +1515,7 @@
             // PressureSITextBox
             // 
             this.PressureSITextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.PressureSITextBox.Location = new System.Drawing.Point(842, 54);
+            this.PressureSITextBox.Location = new System.Drawing.Point(1040, 54);
             this.PressureSITextBox.Name = "PressureSITextBox";
             this.PressureSITextBox.Size = new System.Drawing.Size(53, 20);
             this.PressureSITextBox.TabIndex = 159;
@@ -1636,7 +1526,7 @@
             this.PressureSILabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.PressureSILabel.AutoSize = true;
             this.PressureSILabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.PressureSILabel.Location = new System.Drawing.Point(901, 54);
+            this.PressureSILabel.Location = new System.Drawing.Point(1099, 54);
             this.PressureSILabel.Name = "PressureSILabel";
             this.PressureSILabel.Size = new System.Drawing.Size(43, 20);
             this.PressureSILabel.TabIndex = 158;
@@ -1645,7 +1535,7 @@
             // FlowCustomTextBox
             // 
             this.FlowCustomTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.FlowCustomTextBox.Location = new System.Drawing.Point(950, 100);
+            this.FlowCustomTextBox.Location = new System.Drawing.Point(1148, 100);
             this.FlowCustomTextBox.Name = "FlowCustomTextBox";
             this.FlowCustomTextBox.Size = new System.Drawing.Size(53, 20);
             this.FlowCustomTextBox.TabIndex = 157;
@@ -1656,7 +1546,7 @@
             this.FlowCustomLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FlowCustomLabel.AutoSize = true;
             this.FlowCustomLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FlowCustomLabel.Location = new System.Drawing.Point(1009, 100);
+            this.FlowCustomLabel.Location = new System.Drawing.Point(1207, 100);
             this.FlowCustomLabel.Name = "FlowCustomLabel";
             this.FlowCustomLabel.Size = new System.Drawing.Size(69, 20);
             this.FlowCustomLabel.TabIndex = 156;
@@ -1665,7 +1555,7 @@
             // FlowSITextBox
             // 
             this.FlowSITextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.FlowSITextBox.Location = new System.Drawing.Point(842, 100);
+            this.FlowSITextBox.Location = new System.Drawing.Point(1040, 100);
             this.FlowSITextBox.Name = "FlowSITextBox";
             this.FlowSITextBox.Size = new System.Drawing.Size(53, 20);
             this.FlowSITextBox.TabIndex = 155;
@@ -1676,7 +1566,7 @@
             this.FlowSILabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.FlowSILabel.AutoSize = true;
             this.FlowSILabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.FlowSILabel.Location = new System.Drawing.Point(901, 100);
+            this.FlowSILabel.Location = new System.Drawing.Point(1099, 100);
             this.FlowSILabel.Name = "FlowSILabel";
             this.FlowSILabel.Size = new System.Drawing.Size(50, 20);
             this.FlowSILabel.TabIndex = 154;
@@ -1687,7 +1577,7 @@
             this.label52.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label52.AutoSize = true;
             this.label52.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label52.Location = new System.Drawing.Point(838, 77);
+            this.label52.Location = new System.Drawing.Point(1036, 77);
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(143, 20);
             this.label52.TabIndex = 153;
@@ -1698,7 +1588,7 @@
             this.label51.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label51.AutoSize = true;
             this.label51.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label51.Location = new System.Drawing.Point(838, 31);
+            this.label51.Location = new System.Drawing.Point(1036, 31);
             this.label51.Name = "label51";
             this.label51.Size = new System.Drawing.Size(156, 20);
             this.label51.TabIndex = 152;
@@ -1718,7 +1608,7 @@
             // 
             this.label30.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(1129, 86);
+            this.label30.Location = new System.Drawing.Point(1036, 534);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(12, 13);
             this.label30.TabIndex = 8;
@@ -1728,7 +1618,7 @@
             // 
             this.label29.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(1129, 40);
+            this.label29.Location = new System.Drawing.Point(1036, 488);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(12, 13);
             this.label29.TabIndex = 7;
@@ -1737,7 +1627,7 @@
             // button7
             // 
             this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button7.Location = new System.Drawing.Point(1129, 128);
+            this.button7.Location = new System.Drawing.Point(1036, 576);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(135, 35);
             this.button7.TabIndex = 6;
@@ -1748,7 +1638,7 @@
             // YSizeTextBox
             // 
             this.YSizeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.YSizeTextBox.Location = new System.Drawing.Point(1129, 102);
+            this.YSizeTextBox.Location = new System.Drawing.Point(1036, 550);
             this.YSizeTextBox.Name = "YSizeTextBox";
             this.YSizeTextBox.Size = new System.Drawing.Size(135, 20);
             this.YSizeTextBox.TabIndex = 5;
@@ -1757,7 +1647,7 @@
             // XSizeTextBox
             // 
             this.XSizeTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.XSizeTextBox.Location = new System.Drawing.Point(1129, 56);
+            this.XSizeTextBox.Location = new System.Drawing.Point(1036, 504);
             this.XSizeTextBox.Name = "XSizeTextBox";
             this.XSizeTextBox.Size = new System.Drawing.Size(135, 20);
             this.XSizeTextBox.TabIndex = 4;
@@ -1765,12 +1655,12 @@
             // 
             // button6
             // 
-            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button6.Location = new System.Drawing.Point(1066, 572);
+            this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button6.Location = new System.Drawing.Point(1036, 378);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(143, 35);
             this.button6.TabIndex = 3;
-            this.button6.Text = "add";
+            this.button6.Text = "Добавить";
             this.button6.UseVisualStyleBackColor = true;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
@@ -1780,111 +1670,189 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chart1.CausesValidation = false;
-            chartArea1.AxisX.Maximum = 100D;
-            chartArea1.AxisX.Minimum = 0D;
-            chartArea1.AxisX2.Maximum = 100D;
-            chartArea1.AxisX2.Minimum = 0D;
-            chartArea1.AxisY.Maximum = 100D;
-            chartArea1.AxisY.Minimum = 0D;
-            chartArea1.AxisY2.Maximum = 100D;
-            chartArea1.AxisY2.Minimum = 0D;
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
+            chartArea5.AxisX.Maximum = 100D;
+            chartArea5.AxisX.Minimum = 0D;
+            chartArea5.AxisX2.Maximum = 100D;
+            chartArea5.AxisX2.Minimum = 0D;
+            chartArea5.AxisY.Maximum = 100D;
+            chartArea5.AxisY.Minimum = 0D;
+            chartArea5.AxisY2.Maximum = 100D;
+            chartArea5.AxisY2.Minimum = 0D;
+            chartArea5.AxisY2.Title = "%";
+            chartArea5.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.chart1.Legends.Add(legend5);
             this.chart1.Location = new System.Drawing.Point(6, 31);
             this.chart1.Name = "chart1";
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            series1.Legend = "Legend1";
-            series1.MarkerSize = 8;
-            series1.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
-            series1.Name = "N";
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            series2.Legend = "Legend1";
-            series2.MarkerSize = 8;
-            series2.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series2.Name = "N мгновенная";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series3.Legend = "Legend1";
-            series3.MarkerSize = 8;
-            series3.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
-            series3.Name = "H1";
-            series3.XAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series3.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series4.Legend = "Legend1";
-            series4.MarkerSize = 8;
-            series4.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
-            series4.Name = "H2";
-            series4.XAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series4.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series5.Legend = "Legend1";
-            series5.MarkerSize = 8;
-            series5.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
-            series5.Name = "H3";
-            series5.XAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series5.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series6.Legend = "Legend1";
-            series6.MarkerSize = 8;
-            series6.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
-            series6.Name = "H4";
-            series6.XAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series6.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series7.Legend = "Legend1";
-            series7.MarkerSize = 8;
-            series7.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series7.Name = "H1 мгновенная";
-            series7.XAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series7.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series8.Legend = "Legend1";
-            series8.MarkerSize = 8;
-            series8.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series8.Name = "H2 мгновенная";
-            series8.XAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series8.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series9.ChartArea = "ChartArea1";
-            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series9.Legend = "Legend1";
-            series9.MarkerSize = 8;
-            series9.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series9.Name = "H3 мгновенная";
-            series9.XAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series9.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series10.ChartArea = "ChartArea1";
-            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series10.Legend = "Legend1";
-            series10.MarkerSize = 8;
-            series10.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series10.Name = "H4 мгновенная";
-            series10.XAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series10.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            this.chart1.Series.Add(series1);
-            this.chart1.Series.Add(series2);
-            this.chart1.Series.Add(series3);
-            this.chart1.Series.Add(series4);
-            this.chart1.Series.Add(series5);
-            this.chart1.Series.Add(series6);
-            this.chart1.Series.Add(series7);
-            this.chart1.Series.Add(series8);
-            this.chart1.Series.Add(series9);
-            this.chart1.Series.Add(series10);
-            this.chart1.Size = new System.Drawing.Size(826, 548);
+            series41.ChartArea = "ChartArea1";
+            series41.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series41.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            series41.Legend = "Legend1";
+            series41.MarkerSize = 8;
+            series41.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
+            series41.Name = "N";
+            series42.ChartArea = "ChartArea1";
+            series42.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series42.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            series42.Legend = "Legend1";
+            series42.MarkerSize = 8;
+            series42.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series42.Name = "N мгновенная";
+            series43.ChartArea = "ChartArea1";
+            series43.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series43.Legend = "Legend1";
+            series43.MarkerSize = 8;
+            series43.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
+            series43.Name = "H1";
+            series43.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series44.ChartArea = "ChartArea1";
+            series44.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series44.Legend = "Legend1";
+            series44.MarkerSize = 8;
+            series44.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
+            series44.Name = "H2";
+            series44.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series45.ChartArea = "ChartArea1";
+            series45.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series45.Legend = "Legend1";
+            series45.MarkerSize = 8;
+            series45.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
+            series45.Name = "H3";
+            series45.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series46.ChartArea = "ChartArea1";
+            series46.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series46.Legend = "Legend1";
+            series46.MarkerSize = 8;
+            series46.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
+            series46.Name = "H4";
+            series46.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series47.ChartArea = "ChartArea1";
+            series47.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series47.Legend = "Legend1";
+            series47.MarkerSize = 8;
+            series47.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series47.Name = "H1 мгновенная";
+            series47.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series48.ChartArea = "ChartArea1";
+            series48.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series48.Legend = "Legend1";
+            series48.MarkerSize = 8;
+            series48.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series48.Name = "H2 мгновенная";
+            series48.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series49.ChartArea = "ChartArea1";
+            series49.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series49.Legend = "Legend1";
+            series49.MarkerSize = 8;
+            series49.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series49.Name = "H3 мгновенная";
+            series49.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series50.ChartArea = "ChartArea1";
+            series50.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series50.Legend = "Legend1";
+            series50.MarkerSize = 8;
+            series50.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series50.Name = "H4 мгновенная";
+            series50.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            this.chart1.Series.Add(series41);
+            this.chart1.Series.Add(series42);
+            this.chart1.Series.Add(series43);
+            this.chart1.Series.Add(series44);
+            this.chart1.Series.Add(series45);
+            this.chart1.Series.Add(series46);
+            this.chart1.Series.Add(series47);
+            this.chart1.Series.Add(series48);
+            this.chart1.Series.Add(series49);
+            this.chart1.Series.Add(series50);
+            this.chart1.Size = new System.Drawing.Size(1020, 548);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
+            // 
+            // DataBaseTab
+            // 
+            this.DataBaseTab.Controls.Add(this.PerformanceTestToExcelButton);
+            this.DataBaseTab.Controls.Add(this.PerformanceGridView);
+            this.DataBaseTab.Controls.Add(this.ChangeExperimentNameButton);
+            this.DataBaseTab.Controls.Add(this.TableNameTextBox);
+            this.DataBaseTab.Controls.Add(this.DeleteResultButton);
+            this.DataBaseTab.Controls.Add(this.ExperimentGridView);
+            this.DataBaseTab.Controls.Add(this.ExperimentsListBox);
+            this.DataBaseTab.Location = new System.Drawing.Point(4, 22);
+            this.DataBaseTab.Name = "DataBaseTab";
+            this.DataBaseTab.Size = new System.Drawing.Size(1287, 626);
+            this.DataBaseTab.TabIndex = 6;
+            this.DataBaseTab.Text = "БД";
+            this.DataBaseTab.UseVisualStyleBackColor = true;
+            // 
+            // PerformanceGridView
+            // 
+            this.PerformanceGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PerformanceGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.PerformanceGridView.Location = new System.Drawing.Point(196, 324);
+            this.PerformanceGridView.Name = "PerformanceGridView";
+            this.PerformanceGridView.Size = new System.Drawing.Size(1088, 295);
+            this.PerformanceGridView.TabIndex = 7;
+            // 
+            // ChangeExperimentNameButton
+            // 
+            this.ChangeExperimentNameButton.Location = new System.Drawing.Point(8, 293);
+            this.ChangeExperimentNameButton.Name = "ChangeExperimentNameButton";
+            this.ChangeExperimentNameButton.Size = new System.Drawing.Size(182, 42);
+            this.ChangeExperimentNameButton.TabIndex = 6;
+            this.ChangeExperimentNameButton.Text = "Изменить название";
+            this.ChangeExperimentNameButton.UseVisualStyleBackColor = true;
+            this.ChangeExperimentNameButton.Click += new System.EventHandler(this.ChangeExperimentNameButton_Click);
+            // 
+            // TableNameTextBox
+            // 
+            this.TableNameTextBox.Location = new System.Drawing.Point(196, 3);
+            this.TableNameTextBox.Name = "TableNameTextBox";
+            this.TableNameTextBox.Size = new System.Drawing.Size(183, 20);
+            this.TableNameTextBox.TabIndex = 5;
+            // 
+            // DeleteResultButton
+            // 
+            this.DeleteResultButton.Location = new System.Drawing.Point(8, 341);
+            this.DeleteResultButton.Name = "DeleteResultButton";
+            this.DeleteResultButton.Size = new System.Drawing.Size(182, 42);
+            this.DeleteResultButton.TabIndex = 3;
+            this.DeleteResultButton.Text = "Удалить запись";
+            this.DeleteResultButton.UseVisualStyleBackColor = true;
+            this.DeleteResultButton.Click += new System.EventHandler(this.DeleteResultButton_Click);
+            // 
+            // ExperimentGridView
+            // 
+            this.ExperimentGridView.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ExperimentGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ExperimentGridView.Location = new System.Drawing.Point(196, 23);
+            this.ExperimentGridView.Name = "ExperimentGridView";
+            this.ExperimentGridView.Size = new System.Drawing.Size(1088, 295);
+            this.ExperimentGridView.TabIndex = 1;
+            // 
+            // ExperimentsListBox
+            // 
+            this.ExperimentsListBox.FormattingEnabled = true;
+            this.ExperimentsListBox.Location = new System.Drawing.Point(8, 23);
+            this.ExperimentsListBox.Name = "ExperimentsListBox";
+            this.ExperimentsListBox.Size = new System.Drawing.Size(182, 264);
+            this.ExperimentsListBox.TabIndex = 0;
+            this.ExperimentsListBox.SelectedIndexChanged += new System.EventHandler(this.ExperimentsListBox_SelectedIndexChanged);
+            // 
+            // PerformanceTestToExcelButton
+            // 
+            this.PerformanceTestToExcelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.PerformanceTestToExcelButton.Location = new System.Drawing.Point(8, 389);
+            this.PerformanceTestToExcelButton.Name = "PerformanceTestToExcelButton";
+            this.PerformanceTestToExcelButton.Size = new System.Drawing.Size(182, 35);
+            this.PerformanceTestToExcelButton.TabIndex = 190;
+            this.PerformanceTestToExcelButton.Text = "В Excel";
+            this.PerformanceTestToExcelButton.UseVisualStyleBackColor = true;
+            this.PerformanceTestToExcelButton.Click += new System.EventHandler(this.PerformanceTestToExcelButton_Click_1);
             // 
             // Form1
             // 
@@ -1893,7 +1861,7 @@
             this.ClientSize = new System.Drawing.Size(1301, 654);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "РНХ";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
@@ -1905,6 +1873,10 @@
             this.MainChart.ResumeLayout(false);
             this.MainChart.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.DataBaseTab.ResumeLayout(false);
+            this.DataBaseTab.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.PerformanceGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ExperimentGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2021,20 +1993,10 @@
         private System.Windows.Forms.Label PowerSILabel;
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.Button PerformanceTestStartButton;
-        private System.Windows.Forms.ListBox PowerListBox;
-        private System.Windows.Forms.ListBox PressureListBox;
-        private System.Windows.Forms.ListBox HListBox;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label53;
         private System.Windows.Forms.Button RegTestToggleButton;
         private System.Windows.Forms.ListBox RegTestListBox;
-        private System.Windows.Forms.ListBox ECEListBox;
-        private System.Windows.Forms.ListBox QListBox;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label ParameterChangesNotSavedLabel;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -2050,9 +2012,17 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button UnitConnectAllButton;
-        private System.Windows.Forms.Button PerformanceTestToExcelButton;
         private System.Windows.Forms.Button PerformanceTestAddButton;
         private System.Windows.Forms.Button PerformanceTestStopButton;
+        private System.Windows.Forms.CheckBox ExtendedParametersCheckBox;
+        private System.Windows.Forms.TabPage DataBaseTab;
+        private System.Windows.Forms.ListBox ExperimentsListBox;
+        private System.Windows.Forms.DataGridView ExperimentGridView;
+        private System.Windows.Forms.Button DeleteResultButton;
+        private System.Windows.Forms.TextBox TableNameTextBox;
+        private System.Windows.Forms.Button ChangeExperimentNameButton;
+        private System.Windows.Forms.DataGridView PerformanceGridView;
+        private System.Windows.Forms.Button PerformanceTestToExcelButton;
     }
 }
 
