@@ -64,15 +64,23 @@ namespace Stand
                     DialogResult result = MessageBox.Show("Хотите инициализировать БД?", "Confirmation", MessageBoxButtons.YesNoCancel);
                     if (result == DialogResult.Yes)
                     {
-                        if (InitDB())
+                        if (File.Exists("DB_StandResults_init.txt"))
                         {
-                            var connectionString = "Host=localhost;Username=postgres;Password=1234;Database=StandResults";
-                            con = new NpgsqlConnection(connectionString);
-                            con.Open();
-                            return true;
-                        } 
+                            if (InitDB())
+                            {
+                                var connectionString = "Host=localhost;Username=postgres;Password=1234;Database=StandResults";
+                                con = new NpgsqlConnection(connectionString);
+                                con.Open();
+                                return true;
+                            }
+                            else
+                                return false;
+                        }
                         else
+                        {
+                            MessageBox.Show("Нет файла с конфигурацией БД");
                             return false;
+                        }
 
                     }
                     else if (result == DialogResult.No)
