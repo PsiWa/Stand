@@ -42,6 +42,8 @@
             System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Settings = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.OffsetTextBox = new System.Windows.Forms.TextBox();
             this.UnitConnectAllButton = new System.Windows.Forms.Button();
             this.ParameterChangesNotSavedLabel = new System.Windows.Forms.Label();
             this.label53 = new System.Windows.Forms.Label();
@@ -180,8 +182,6 @@
             this.DeleteResultButton = new System.Windows.Forms.Button();
             this.ExperimentGridView = new System.Windows.Forms.DataGridView();
             this.ExperimentsListBox = new System.Windows.Forms.ListBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.OffsetTextBox = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.Settings.SuspendLayout();
             this.Schema.SuspendLayout();
@@ -264,6 +264,24 @@
             this.Settings.TabIndex = 4;
             this.Settings.Text = "Настройки соединения";
             this.Settings.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label1.Location = new System.Drawing.Point(770, 202);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(89, 20);
+            this.label1.TabIndex = 181;
+            this.label1.Text = "Смещение";
+            // 
+            // OffsetTextBox
+            // 
+            this.OffsetTextBox.Location = new System.Drawing.Point(903, 202);
+            this.OffsetTextBox.Name = "OffsetTextBox";
+            this.OffsetTextBox.Size = new System.Drawing.Size(153, 20);
+            this.OffsetTextBox.TabIndex = 180;
+            this.OffsetTextBox.TextChanged += new System.EventHandler(this.OffsetTextBox_TextChanged_1);
             // 
             // UnitConnectAllButton
             // 
@@ -1857,23 +1875,6 @@
             this.ExperimentsListBox.Size = new System.Drawing.Size(182, 264);
             this.ExperimentsListBox.TabIndex = 0;
             this.ExperimentsListBox.SelectedIndexChanged += new System.EventHandler(this.ExperimentsListBox_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label1.Location = new System.Drawing.Point(770, 202);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(89, 20);
-            this.label1.TabIndex = 181;
-            this.label1.Text = "Смещение";
-            // 
-            // OffsetTextBox
-            // 
-            this.OffsetTextBox.Location = new System.Drawing.Point(903, 202);
-            this.OffsetTextBox.Name = "OffsetTextBox";
-            this.OffsetTextBox.Size = new System.Drawing.Size(153, 20);
-            this.OffsetTextBox.TabIndex = 180;
             // 
             // Form1
             // 

@@ -264,7 +264,7 @@ namespace Stand
             XAttribute xNameAttr = new XAttribute("Name", name);
             XAttribute xConnected = new XAttribute("IsConnected", IsConnected);
             XAttribute xRegister = new XAttribute("Register", RegisterAddress);
-            XAttribute xOffset = new XAttribute("Offset", RegisterAddress);
+            XAttribute xOffset = new XAttribute("Offset", RegisterOffset);
             XAttribute xRegType = new XAttribute("RegType", (int)this.RegType);
             XAttribute xDataType = new XAttribute("DataType", (int)this.DataType);
             XAttribute xUnitOfMeasure = new XAttribute("UnitOfMeasure", SelectedIndex);

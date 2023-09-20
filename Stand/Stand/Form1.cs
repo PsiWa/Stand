@@ -453,6 +453,10 @@ namespace Stand
         {
             ParameterChangesNotSavedLabel.Visible = true;
         }
+        private void OffsetTextBox_TextChanged_1(object sender, EventArgs e)
+        {
+            ParameterChangesNotSavedLabel.Visible = true;
+        }
         /// <summary>
         /// 
         /// </summary>
