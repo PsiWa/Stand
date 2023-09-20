@@ -29,6 +29,7 @@ namespace Stand
         private string name;
         private string ParentUnitName;
         private ushort RegisterAddress;
+        private ushort RegisterOffset;
         public SortedList<string,float> UnitsOfMeasure = new SortedList<string, float>();
         private int SelectedIndex;
         private bool IsConnected;
@@ -151,6 +152,7 @@ namespace Stand
             }
             name = el.Attribute("Name").Value;
             RegisterAddress = Convert.ToUInt16(el.Attribute("Register").Value);
+            RegisterOffset = Convert.ToUInt16(el.Attribute("Offset").Value);
             IsConnected = Convert.ToBoolean(el.Attribute("IsConnected").Value);
             SelectedIndex = Convert.ToInt32(el.Attribute("UnitOfMeasure").Value);
             this.RegType = (RegType)Convert.ToInt32(el.Attribute("RegType").Value);
@@ -175,6 +177,7 @@ namespace Stand
             }
         }
 
+        //рудимент
         public void SaveXML(ref TextBox RegTB, ref ComboBox UofMCB, ref ComboBox RegTypeCB, ref ComboBox DTCB)
         {
             SelectedIndex = UofMCB.SelectedIndex;
@@ -212,6 +215,7 @@ namespace Stand
                 }
             }
         }
+        //рудимент
         public void SaveXML(ref TextBox RegTB, ref ComboBox UofMCB, ref ComboBox RegTypeCB, 
             ref ComboBox DTCB, ref CheckBox IsConnectedChB)
         {
@@ -260,11 +264,12 @@ namespace Stand
             XAttribute xNameAttr = new XAttribute("Name", name);
             XAttribute xConnected = new XAttribute("IsConnected", IsConnected);
             XAttribute xRegister = new XAttribute("Register", RegisterAddress);
+            XAttribute xOffset = new XAttribute("Offset", RegisterAddress);
             XAttribute xRegType = new XAttribute("RegType", (int)this.RegType);
             XAttribute xDataType = new XAttribute("DataType", (int)this.DataType);
             XAttribute xUnitOfMeasure = new XAttribute("UnitOfMeasure", SelectedIndex);
             XAttribute xUnitName = new XAttribute("UnitName", ParentUnitName);
-            xParameter.Add(xIdAttr ,xNameAttr, xConnected, xRegister, xRegType, xDataType, xUnitOfMeasure, xUnitName);
+            xParameter.Add(xIdAttr ,xNameAttr, xConnected, xRegister, xOffset, xRegType, xDataType, xUnitOfMeasure, xUnitName);
             Form1.xSettings.Add(xParameter);
             bool exists = Directory.Exists($"{Application.StartupPath}/UoM/{ParentUnitName}");
             if (!exists)
@@ -307,6 +312,10 @@ namespace Stand
         {
             return RegisterAddress;
         }
+        public ushort GetOffset()
+        {
+            return RegisterOffset;
+        }
         public SortedList<string, float> GetUoMs()
         {
             return UnitsOfMeasure;
@@ -315,8 +324,8 @@ namespace Stand
         {
             return SelectedIndex;
         }
-        public void SetParameters(string name, ushort RegisterAddress, int SelectedIndex, bool IsConnected, 
-            RegType RegType, DataType DataType)
+        public void SetParameters(string name, ushort RegisterAddress, ushort RegisterOffset, int SelectedIndex, 
+            bool IsConnected, RegType RegType, DataType DataType)
         {
             if (name != this.name)
             {
@@ -326,6 +335,7 @@ namespace Stand
             }
             this.name = name;
             this.RegisterAddress = RegisterAddress;
+            this.RegisterOffset = RegisterOffset;
             this.SelectedIndex = SelectedIndex;
             this.IsConnected = IsConnected;
             this.RegType = RegType;

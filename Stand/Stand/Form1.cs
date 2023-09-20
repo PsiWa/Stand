@@ -123,12 +123,13 @@ namespace Stand
             Parameter par = un.GetParametersList()[ParametersListBox.SelectedIndex];
             ParameterNameTextBox.Text = par.GetName();
             ParameterRegAddressTextBox.Text = par.GetRegisterAddress().ToString();
+            OffsetTextBox.Text = par.GetOffset().ToString();
             ParameterRegTypeComboBox.SelectedIndex = (int)par.GetRegType();
             ParameterTypeComboBox.SelectedIndex = (int)par.GetDataType();
             ParameterReadableCheckBox.Checked = par.CheckIfToggled();
             ParameterUoMComboBox.Items.Clear();
             ParameterUoMComboBox.Items.AddRange(par.GetUoMs().Keys.ToArray());
-            if (ParameterUoMComboBox.Items.Count >0)
+            if (ParameterUoMComboBox.Items.Count > 0)
                 ParameterUoMComboBox.SelectedIndex = par.GetSelectedUoM();
             PIDLabel.Text = par.id.ToString();
             ParameterChangesNotSavedLabel.Visible = false;
@@ -186,10 +187,10 @@ namespace Stand
         {
             if (SchemeComboBox.SelectedIndex != -1)
             {
-                SchemasList[SchemeComboBox.SelectedIndex].SaveXML(ref UnitsList, SchemeNameTextBox, 
-                    SchemeComboBox, PressureUnitСomboBox, PressureParComboBox1, PressureParComboBox2, 
-                    PressureParComboBox3, PressureParComboBox4, PressureParComboBox5, FlowmeterUnitComboBox, 
-                    FlowmeterParComboBox, FCUnitComboBox, FCParComboBox, FCParPowerComboBox, ValveUnitComboBox, ValveParComboBox, 
+                SchemasList[SchemeComboBox.SelectedIndex].SaveXML(ref UnitsList, SchemeNameTextBox,
+                    SchemeComboBox, PressureUnitСomboBox, PressureParComboBox1, PressureParComboBox2,
+                    PressureParComboBox3, PressureParComboBox4, PressureParComboBox5, FlowmeterUnitComboBox,
+                    FlowmeterParComboBox, FCUnitComboBox, FCParComboBox, FCParPowerComboBox, ValveUnitComboBox, ValveParComboBox,
                     DensityTextBox, L1TextBox, L2TextBox, L3TextBox, L4TextBox, DiameterTextBox, FCStepTextBox, ValveStepTextBox);
                 SchemeNotSavedLabel.Visible = false;
             }
@@ -210,7 +211,7 @@ namespace Stand
             {
                 UnitsList.Add(new Unit(un, pars));
             }
-            UnitsList.Sort((x,y) => x.id.CompareTo(y.id));
+            UnitsList.Sort((x, y) => x.id.CompareTo(y.id));
         }
         #endregion
 
@@ -248,7 +249,7 @@ namespace Stand
                         if (dbh.dbch_devicetype == 0x00000003)
                         {
                             GetComPorts();
-                            UnitLoadXML();                            
+                            UnitLoadXML();
                             MessageBox.Show("Устройство отключено");
                         }
                         break;
@@ -277,7 +278,7 @@ namespace Stand
                 MessageBox.Show("Ошибка в файле настроек или файл настроек отсутствует");
             }
         }
-        
+
         #region Настройки соединения
         private void UnitAddButton_Click(object sender, EventArgs e)
         {
@@ -423,7 +424,7 @@ namespace Stand
             {
                 Parameter par = un.GetParametersList()[ParametersListBox.SelectedIndex];
                 par.SetParameters(ParameterNameTextBox.Text, Convert.ToUInt16(ParameterRegAddressTextBox.Text),
-                    ParameterUoMComboBox.SelectedIndex, ParameterReadableCheckBox.Checked,
+                    Convert.ToUInt16(OffsetTextBox.Text), ParameterUoMComboBox.SelectedIndex, ParameterReadableCheckBox.Checked,
                     (RegType)ParameterRegTypeComboBox.SelectedIndex, (DataType)ParameterTypeComboBox.SelectedIndex);
                 par.SaveXML();
                 xSettings.Save("Defaults.xml");
@@ -445,6 +446,10 @@ namespace Stand
             ParameterChangesNotSavedLabel.Visible = true;
         }
         private void ParameterReadableCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            ParameterChangesNotSavedLabel.Visible = true;
+        }
+        private void OffsetTextBox_TextChanged(object sender, EventArgs e)
         {
             ParameterChangesNotSavedLabel.Visible = true;
         }
@@ -869,6 +874,7 @@ namespace Stand
                 un.ReadAllParams();
                 _finished.Set();
                 StartReadingEvent.Reset();
+                Thread.Sleep(50);
             }
         }
 
@@ -906,14 +912,14 @@ namespace Stand
             return true;
         }
 
-        private void MakeARow(ref DataRow row, float timespan, float Q, float N, float[] H, float[] ECE )
+        private void MakeARow(ref DataRow row, float timespan, float Q, float N, float[] H, float[] ECE)
         {
             row[0] = 0;
             row[1] = timespan;
             row[2] = Q;
             row[3] = N;
-            for (int i = 0; i< H.Length; i++)
-                row[i+4] = H[i];
+            for (int i = 0; i < H.Length; i++)
+                row[i + 4] = H[i];
             for (int i = 0; i < H.Length; i++)
                 row[i + 4 + H.Length] = ECE[i];
             if (IsExtended)
@@ -931,9 +937,9 @@ namespace Stand
                     }
                 }
             }
-        } 
+        }
 
-        private void PerformanceParametersReadout(ManualResetEvent[] FinishedReadingEventList, 
+        private void PerformanceParametersReadout(ManualResetEvent[] FinishedReadingEventList,
             ref List<Parameter> PressureParametersList, ref DataTable PerformanceDataTable)
         {
             DataRow row = PerformanceDataTable.NewRow();
@@ -1052,31 +1058,31 @@ namespace Stand
                 FlowLastReg = FlowParameter.GetLastMeasuredRegs();
                 for (int i = 0; i < H.Length; i++)
                 {
-                    H[i] = (SelectedScheme.dL[i] + (PressureParametersList[i+1].GetLastMeasuredRegs() - 
-                        PressureParametersList[i].GetLastMeasuredRegs())*(float)SiPressureCoefficient) / (SelectedScheme.Density * Scheme.g_constant);
+                    H[i] = (SelectedScheme.dL[i] + (PressureParametersList[i + 1].GetLastMeasuredRegs() -
+                        PressureParametersList[i].GetLastMeasuredRegs()) * (float)SiPressureCoefficient) / (SelectedScheme.Density * Scheme.g_constant);
                     ECE[i] = SelectedScheme.Density * Scheme.g_constant * H[i] * FlowLastReg * (float)SiFlowCoefficient
                         / (PowerLastReg * (float)SiPowerCoefficient);
                 }
 
                 int ECEoffset = H.Length * 2;
 
-                Action<DataTable,DataRow> RowInsert = (DataTable t,DataRow r) => t.Rows.InsertAt(r,0);
+                Action<DataTable, DataRow> RowInsert = (DataTable t, DataRow r) => t.Rows.InsertAt(r, 0);
 
-                Action<int> readH = (int i) => 
+                Action<int> readH = (int i) =>
                     chart1.Series[i].Points.AddXY(FlowLastReg, H[i]); //H[i]
-                Action<int> clearH = (int i) => 
+                Action<int> clearH = (int i) =>
                     chart1.Series[i].Points.Clear();
-                Action<int> addH = (int i) => 
-                    chart1.Series[i+H.Length].Points.AddXY(FlowLastReg, H[i]);
+                Action<int> addH = (int i) =>
+                    chart1.Series[i + H.Length].Points.AddXY(FlowLastReg, H[i]);
 
-                Action<int> readECE = (int i) => 
+                Action<int> readECE = (int i) =>
                     chart1.Series[i + ECEoffset].Points.AddXY(FlowLastReg, ECE[i]); //H[i]
-                Action<int> clearECE = (int i) => 
+                Action<int> clearECE = (int i) =>
                     chart1.Series[i + ECEoffset].Points.Clear();
-                Action<int> addECE = (int i) => 
+                Action<int> addECE = (int i) =>
                     chart1.Series[i + ECEoffset + ECE.Length].Points.AddXY(FlowLastReg, ECE[i]);
 
-                Action readFreq = () => CurrentFrequencyTextBox.Text 
+                Action readFreq = () => CurrentFrequencyTextBox.Text
                     = FCChangableParameter.GetLastMeasuredRegs().ToString();
                 Action readValvePos = () => CurrentValvePosTextBox.Text
                     = ValveChangableParameter.GetLastMeasuredRegs().ToString();
@@ -1182,8 +1188,8 @@ namespace Stand
                 }
                 //////
                 if (IsFCPlus)
-                    FC.ComWrire(FCChangableParameter, 
-                        (ushort)(FCChangableParameter.GetLastMeasuredRegs()+SelectedScheme.FCStep));
+                    FC.ComWrire(FCChangableParameter,
+                        (ushort)(FCChangableParameter.GetLastMeasuredRegs() + SelectedScheme.FCStep));
                 if (IsFCMinus)
                     FC.ComWrire(FCChangableParameter,
                         (ushort)(FCChangableParameter.GetLastMeasuredRegs() - SelectedScheme.FCStep));
@@ -1205,7 +1211,7 @@ namespace Stand
             if (Overlay != null)
             {
                 var result = MessageBox.Show("Вы действительно хотите начать новый эксперимент? " +
-                    "Несохраненные результаты будут удалены","Новый эксперимент",MessageBoxButtons.YesNo);
+                    "Несохраненные результаты будут удалены", "Новый эксперимент", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                     Overlay.Close();
                 else return;
@@ -1261,7 +1267,7 @@ namespace Stand
                         chart1.Series.Last().MarkerStyle = MarkerStyle.Diamond;
                         chart1.Series.Last().MarkerSize = 8;
                     }
-                    for (int i = 0; i < PressureParameterList.Count()-1; i++)
+                    for (int i = 0; i < PressureParameterList.Count() - 1; i++)
                     {
                         chart1.Series.Add($"H {i + 1}");
                         chart1.Series.Last().YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Primary;
@@ -1312,8 +1318,10 @@ namespace Stand
                     thread.Start();
                 }
                 var threadParameters1 = new System.Threading.ThreadStart(delegate
-                { PerformanceParametersReadout(FinishedReadingEventList, 
-                    ref PressureParameterList, ref PerformanceDataTable); });
+                {
+                    PerformanceParametersReadout(FinishedReadingEventList,
+                    ref PressureParameterList, ref PerformanceDataTable);
+                });
                 var thread1 = new System.Threading.Thread(threadParameters1);
                 thread1.Start();
 
@@ -1344,7 +1352,7 @@ namespace Stand
             stopthread = true;
             _stopper.Set();
             StartReadingEvent.Set();
-            for (int i = chart1.Series.Count / 4; i < chart1.Series.Count/2; i++)
+            for (int i = chart1.Series.Count / 4; i < chart1.Series.Count / 2; i++)
             {
                 chart1.Series[i].Sort(PointSortOrder.Ascending, "X");
                 chart1.Series[i].ChartType = SeriesChartType.Spline;
@@ -1434,43 +1442,6 @@ namespace Stand
                 }
             }
         }
-        #endregion
-        internal void TestReadHolding(Unit un, ListBox l, ref Parameter par, bool isReversed, int offset)
-        {
-            int wait = 1000;
-            while (true)
-            {
-                string UoM = par.GetUoMstring();
-                float fRegs = un.ComReadHolding(ref par, isReversed, offset);
-                Action read = () => l.Items.Add($"{DateTime.Now.Second}c {fRegs} [{UoM}]");
-                if (InvokeRequired)
-                    Invoke(read);
-                else
-                    read();
-                if (_stopper.WaitOne(wait, false))
-                {
-                    break;
-                }
-            }
-        }
-        internal void TestReadInput(Unit un, ListBox l, ref Parameter par, bool isReversed, int offset)
-        {
-            int wait = 1000;
-            while (true)
-            {
-                string UoM = par.GetUoMstring();
-                float fRegs = un.ComReadInput(ref par, isReversed, offset);
-                Action read = () => l.Items.Add($"{DateTime.Now.Second}c {fRegs} [{UoM}]");
-                if (InvokeRequired)
-                    Invoke(read);
-                else
-                    read();
-                if (_stopper.WaitOne(wait, false))
-                {
-                    break;
-                }
-            }
-        }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -1501,121 +1472,6 @@ namespace Stand
             }
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            _stopper.Reset();
-            stopthread = false;
-            /*if (FlowMeter.isConnected)
-            {
-                //ushort address = 49161;
-                int offset = 0;
-                bool isReversed = false;
-
-                var threadParameters = new System.Threading.ThreadStart(delegate 
-                { TestReadInput(FlowMeter, listBox1, ref Flow, isReversed, offset); });
-                var thread = new System.Threading.Thread(threadParameters);
-                thread.Start();
-            }*/
-            /*if (FlowMeter.isConnected)
-            {
-                //ushort address = 49161;
-                //int offset = 0;
-                //bool isReversed = false;
-                Flow.MeasuredRegs.Clear();
-                VarTimeChart.Series[0].Points.Clear();
-                string UoM = Flow.GetUoMstring();
-                VarTimeChart.Series[0].Name = UoM;
-                VarTimeChart.Series[1].Name = UoM+" мгновенный";
-                var threadParameters = new System.Threading.ThreadStart(delegate
-                { TestChart(FlowMeter,ref Flow, 0); });
-                var thread = new System.Threading.Thread(threadParameters);
-                thread.Start();
-            }
-            if (PressureGauges.isConnected)
-            {
-                //ushort address = 49161;
-                //int offset = 0;
-                //bool isReversed = false;
-                Pressure1.ClearMeasuredRegs();
-                VarTimeChart.Series[2].Points.Clear();
-                string UoM = Pressure1.GetUoMstring();
-                VarTimeChart.Series[2].Name = UoM;
-                VarTimeChart.Series[3].Name = UoM + " мгновенный";
-                var threadParameters = new System.Threading.ThreadStart(delegate
-                { TestChart(PressureGauges, ref Pressure1, 2); });
-                var thread = new System.Threading.Thread(threadParameters);
-                thread.Start();
-            }*/
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            stopthread = true;
-            _stopper.Set();
-        }
-
-        private void UoMRedactorButton_Click(object sender, EventArgs e)
-        {
-            //UoMRedactor UomRed = new UoMRedactor(ref ParameterDictionary,this);
-            //UomRed.Show();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            _stopper.Set();
-        }
-        /*
-        private void TEST()
-        {
-            while (true)
-            {
-                float flow = FlowMeter.ComRead(Flow, 0);
-                float p1 = PressureGauges.ComRead(Pressure1, 0);
-                float p8 = PressureGauges.ComRead(Pressure8, 0);
-                float N = flow * (p8 - p1);
-                Action readdp = () => chart1.Series[1].Points.AddXY(flow, (p8 - p1));
-                Action readN = () => chart1.Series[3].Points.AddXY(flow, N);
-
-                Action cleardp = () => chart1.Series[1].Points.Clear();
-                Action clearN = () => chart1.Series[3].Points.Clear();
-
-                Action adddp = () => chart1.Series[0].Points.AddXY(flow, (p8 - p1));
-                Action addN = () => chart1.Series[2].Points.AddXY(flow, N);
-                if (InvokeRequired)
-                {
-                    Invoke(cleardp);
-                    Invoke(clearN);
-                    Invoke(readdp);
-                    Invoke(readN);
-                }
-                else
-                {
-                    readdp();
-                    readN();
-                    cleardp();
-                    clearN();
-                }
-                if (_stopper.WaitOne(1000, false))
-                {
-                    if (stopthread)
-                        break;
-                    Flow.SetMeasuredRegs(flow);
-                    Pressure1.SetMeasuredRegs(p1);
-                    Pressure1.SetMeasuredRegs(p8);
-                    if (InvokeRequired)
-                    {
-                        Invoke(adddp);
-                        Invoke(addN);
-                    }
-                    else
-                    {
-                        adddp();
-                        addN();
-                    }
-                    _stopper.Reset();
-                }
-            }
-        }*/
         private void TEST2(Unit un)
         {
             while (!stopthread)
@@ -1679,33 +1535,6 @@ namespace Stand
                 }
             }
         }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-            stopthread = false;
-            _stopper.Reset();
-            foreach (Unit un in UnitsList)
-            {
-                var threadParameters = new System.Threading.ThreadStart(delegate
-                { TEST2(un); });
-                var thread = new System.Threading.Thread(threadParameters);
-                thread.Start();
-            }
-            var threadParameters1 = new System.Threading.ThreadStart(delegate
-            { TEST3(); });
-            var thread1 = new System.Threading.Thread(threadParameters1);
-            thread1.Start();
-            /*if (true || (FlowMeter.isConnected && PressureGauges.isConnected && FrequencyChanger.isConnected))//поменять
-            {
-                stopthread = false;
-                var threadParameters = new System.Threading.ThreadStart(delegate
-                { TEST(); });
-                var thread = new System.Threading.Thread(threadParameters);
-                thread.Start();
-            }*/
-        }
-
-
         private void button6_Click(object sender, EventArgs e)
         {
             _stopper.Set();
@@ -1727,7 +1556,6 @@ namespace Stand
                     MessageBox.Show("Сохранение успешно завершено");
                 else
                     MessageBox.Show("Error");
-
             }
         }
 
@@ -1741,7 +1569,7 @@ namespace Stand
                 if (postgreSQL.DeleteExperiment(int.Parse(parts[0])))
                 {
                     MessageBox.Show("OK");
-                    
+
                     RefreshExperimentsListBox();
                 }
                 ExperimentGridView.Refresh();
@@ -1853,4 +1681,5 @@ namespace Stand
             }
         }
     }
+    #endregion
 }

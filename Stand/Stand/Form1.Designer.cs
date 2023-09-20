@@ -28,18 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series41 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series42 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series43 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series44 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series45 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series46 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series47 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series48 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series49 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series50 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Settings = new System.Windows.Forms.TabPage();
             this.UnitConnectAllButton = new System.Windows.Forms.Button();
@@ -173,13 +173,15 @@
             this.button6 = new System.Windows.Forms.Button();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.DataBaseTab = new System.Windows.Forms.TabPage();
+            this.PerformanceTestToExcelButton = new System.Windows.Forms.Button();
             this.PerformanceGridView = new System.Windows.Forms.DataGridView();
             this.ChangeExperimentNameButton = new System.Windows.Forms.Button();
             this.TableNameTextBox = new System.Windows.Forms.TextBox();
             this.DeleteResultButton = new System.Windows.Forms.Button();
             this.ExperimentGridView = new System.Windows.Forms.DataGridView();
             this.ExperimentsListBox = new System.Windows.Forms.ListBox();
-            this.PerformanceTestToExcelButton = new System.Windows.Forms.Button();
+            this.OffsetLabel = new System.Windows.Forms.Label();
+            this.OffsetTextBox = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.Settings.SuspendLayout();
             this.Schema.SuspendLayout();
@@ -210,6 +212,8 @@
             // 
             // Settings
             // 
+            this.Settings.Controls.Add(this.OffsetLabel);
+            this.Settings.Controls.Add(this.OffsetTextBox);
             this.Settings.Controls.Add(this.UnitConnectAllButton);
             this.Settings.Controls.Add(this.ParameterChangesNotSavedLabel);
             this.Settings.Controls.Add(this.label53);
@@ -288,7 +292,7 @@
             // 
             this.label53.AutoSize = true;
             this.label53.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label53.Location = new System.Drawing.Point(770, 255);
+            this.label53.Location = new System.Drawing.Point(770, 278);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(108, 20);
             this.label53.TabIndex = 157;
@@ -296,7 +300,7 @@
             // 
             // RegTestToggleButton
             // 
-            this.RegTestToggleButton.Location = new System.Drawing.Point(774, 278);
+            this.RegTestToggleButton.Location = new System.Drawing.Point(774, 301);
             this.RegTestToggleButton.Name = "RegTestToggleButton";
             this.RegTestToggleButton.Size = new System.Drawing.Size(123, 34);
             this.RegTestToggleButton.TabIndex = 156;
@@ -307,7 +311,7 @@
             // RegTestListBox
             // 
             this.RegTestListBox.FormattingEnabled = true;
-            this.RegTestListBox.Location = new System.Drawing.Point(903, 255);
+            this.RegTestListBox.Location = new System.Drawing.Point(903, 283);
             this.RegTestListBox.Name = "RegTestListBox";
             this.RegTestListBox.Size = new System.Drawing.Size(153, 147);
             this.RegTestListBox.TabIndex = 155;
@@ -376,7 +380,7 @@
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label26.Location = new System.Drawing.Point(770, 206);
+            this.label26.Location = new System.Drawing.Point(770, 249);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(91, 20);
             this.label26.TabIndex = 148;
@@ -387,7 +391,7 @@
             this.ParameterReadableCheckBox.AutoSize = true;
             this.ParameterReadableCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.ParameterReadableCheckBox.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.ParameterReadableCheckBox.Location = new System.Drawing.Point(903, 205);
+            this.ParameterReadableCheckBox.Location = new System.Drawing.Point(903, 248);
             this.ParameterReadableCheckBox.Name = "ParameterReadableCheckBox";
             this.ParameterReadableCheckBox.Size = new System.Drawing.Size(130, 24);
             this.ParameterReadableCheckBox.TabIndex = 147;
@@ -1670,101 +1674,101 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chart1.CausesValidation = false;
-            chartArea5.AxisX.Maximum = 100D;
-            chartArea5.AxisX.Minimum = 0D;
-            chartArea5.AxisX2.Maximum = 100D;
-            chartArea5.AxisX2.Minimum = 0D;
-            chartArea5.AxisY.Maximum = 100D;
-            chartArea5.AxisY.Minimum = 0D;
-            chartArea5.AxisY2.Maximum = 100D;
-            chartArea5.AxisY2.Minimum = 0D;
-            chartArea5.AxisY2.Title = "%";
-            chartArea5.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.chart1.Legends.Add(legend5);
+            chartArea2.AxisX.Maximum = 100D;
+            chartArea2.AxisX.Minimum = 0D;
+            chartArea2.AxisX2.Maximum = 100D;
+            chartArea2.AxisX2.Minimum = 0D;
+            chartArea2.AxisY.Maximum = 100D;
+            chartArea2.AxisY.Minimum = 0D;
+            chartArea2.AxisY2.Maximum = 100D;
+            chartArea2.AxisY2.Minimum = 0D;
+            chartArea2.AxisY2.Title = "%";
+            chartArea2.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.chart1.Legends.Add(legend2);
             this.chart1.Location = new System.Drawing.Point(6, 31);
             this.chart1.Name = "chart1";
-            series41.ChartArea = "ChartArea1";
-            series41.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series41.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            series41.Legend = "Legend1";
-            series41.MarkerSize = 8;
-            series41.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
-            series41.Name = "N";
-            series42.ChartArea = "ChartArea1";
-            series42.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series42.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            series42.Legend = "Legend1";
-            series42.MarkerSize = 8;
-            series42.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series42.Name = "N мгновенная";
-            series43.ChartArea = "ChartArea1";
-            series43.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series43.Legend = "Legend1";
-            series43.MarkerSize = 8;
-            series43.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
-            series43.Name = "H1";
-            series43.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series44.ChartArea = "ChartArea1";
-            series44.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series44.Legend = "Legend1";
-            series44.MarkerSize = 8;
-            series44.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
-            series44.Name = "H2";
-            series44.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series45.ChartArea = "ChartArea1";
-            series45.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series45.Legend = "Legend1";
-            series45.MarkerSize = 8;
-            series45.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
-            series45.Name = "H3";
-            series45.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series46.ChartArea = "ChartArea1";
-            series46.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series46.Legend = "Legend1";
-            series46.MarkerSize = 8;
-            series46.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
-            series46.Name = "H4";
-            series46.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series47.ChartArea = "ChartArea1";
-            series47.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series47.Legend = "Legend1";
-            series47.MarkerSize = 8;
-            series47.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series47.Name = "H1 мгновенная";
-            series47.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series48.ChartArea = "ChartArea1";
-            series48.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series48.Legend = "Legend1";
-            series48.MarkerSize = 8;
-            series48.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series48.Name = "H2 мгновенная";
-            series48.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series49.ChartArea = "ChartArea1";
-            series49.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series49.Legend = "Legend1";
-            series49.MarkerSize = 8;
-            series49.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series49.Name = "H3 мгновенная";
-            series49.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series50.ChartArea = "ChartArea1";
-            series50.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series50.Legend = "Legend1";
-            series50.MarkerSize = 8;
-            series50.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
-            series50.Name = "H4 мгновенная";
-            series50.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            this.chart1.Series.Add(series41);
-            this.chart1.Series.Add(series42);
-            this.chart1.Series.Add(series43);
-            this.chart1.Series.Add(series44);
-            this.chart1.Series.Add(series45);
-            this.chart1.Series.Add(series46);
-            this.chart1.Series.Add(series47);
-            this.chart1.Series.Add(series48);
-            this.chart1.Series.Add(series49);
-            this.chart1.Series.Add(series50);
+            series11.ChartArea = "ChartArea1";
+            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series11.Color = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            series11.Legend = "Legend1";
+            series11.MarkerSize = 8;
+            series11.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
+            series11.Name = "N";
+            series12.ChartArea = "ChartArea1";
+            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series12.Color = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            series12.Legend = "Legend1";
+            series12.MarkerSize = 8;
+            series12.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series12.Name = "N мгновенная";
+            series13.ChartArea = "ChartArea1";
+            series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series13.Legend = "Legend1";
+            series13.MarkerSize = 8;
+            series13.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
+            series13.Name = "H1";
+            series13.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series14.ChartArea = "ChartArea1";
+            series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series14.Legend = "Legend1";
+            series14.MarkerSize = 8;
+            series14.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
+            series14.Name = "H2";
+            series14.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series15.ChartArea = "ChartArea1";
+            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series15.Legend = "Legend1";
+            series15.MarkerSize = 8;
+            series15.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
+            series15.Name = "H3";
+            series15.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series16.ChartArea = "ChartArea1";
+            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series16.Legend = "Legend1";
+            series16.MarkerSize = 8;
+            series16.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Diamond;
+            series16.Name = "H4";
+            series16.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series17.ChartArea = "ChartArea1";
+            series17.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series17.Legend = "Legend1";
+            series17.MarkerSize = 8;
+            series17.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series17.Name = "H1 мгновенная";
+            series17.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series18.ChartArea = "ChartArea1";
+            series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series18.Legend = "Legend1";
+            series18.MarkerSize = 8;
+            series18.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series18.Name = "H2 мгновенная";
+            series18.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series19.ChartArea = "ChartArea1";
+            series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series19.Legend = "Legend1";
+            series19.MarkerSize = 8;
+            series19.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series19.Name = "H3 мгновенная";
+            series19.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series20.ChartArea = "ChartArea1";
+            series20.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series20.Legend = "Legend1";
+            series20.MarkerSize = 8;
+            series20.MarkerStyle = System.Windows.Forms.DataVisualization.Charting.MarkerStyle.Circle;
+            series20.Name = "H4 мгновенная";
+            series20.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            this.chart1.Series.Add(series11);
+            this.chart1.Series.Add(series12);
+            this.chart1.Series.Add(series13);
+            this.chart1.Series.Add(series14);
+            this.chart1.Series.Add(series15);
+            this.chart1.Series.Add(series16);
+            this.chart1.Series.Add(series17);
+            this.chart1.Series.Add(series18);
+            this.chart1.Series.Add(series19);
+            this.chart1.Series.Add(series20);
             this.chart1.Size = new System.Drawing.Size(1020, 548);
             this.chart1.TabIndex = 0;
             this.chart1.Text = "chart1";
@@ -1784,6 +1788,17 @@
             this.DataBaseTab.TabIndex = 6;
             this.DataBaseTab.Text = "БД";
             this.DataBaseTab.UseVisualStyleBackColor = true;
+            // 
+            // PerformanceTestToExcelButton
+            // 
+            this.PerformanceTestToExcelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.PerformanceTestToExcelButton.Location = new System.Drawing.Point(8, 389);
+            this.PerformanceTestToExcelButton.Name = "PerformanceTestToExcelButton";
+            this.PerformanceTestToExcelButton.Size = new System.Drawing.Size(182, 35);
+            this.PerformanceTestToExcelButton.TabIndex = 190;
+            this.PerformanceTestToExcelButton.Text = "В Excel";
+            this.PerformanceTestToExcelButton.UseVisualStyleBackColor = true;
+            this.PerformanceTestToExcelButton.Click += new System.EventHandler(this.PerformanceTestToExcelButton_Click_1);
             // 
             // PerformanceGridView
             // 
@@ -1843,16 +1858,23 @@
             this.ExperimentsListBox.TabIndex = 0;
             this.ExperimentsListBox.SelectedIndexChanged += new System.EventHandler(this.ExperimentsListBox_SelectedIndexChanged);
             // 
-            // PerformanceTestToExcelButton
+            // OffsetLabel
             // 
-            this.PerformanceTestToExcelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.PerformanceTestToExcelButton.Location = new System.Drawing.Point(8, 389);
-            this.PerformanceTestToExcelButton.Name = "PerformanceTestToExcelButton";
-            this.PerformanceTestToExcelButton.Size = new System.Drawing.Size(182, 35);
-            this.PerformanceTestToExcelButton.TabIndex = 190;
-            this.PerformanceTestToExcelButton.Text = "В Excel";
-            this.PerformanceTestToExcelButton.UseVisualStyleBackColor = true;
-            this.PerformanceTestToExcelButton.Click += new System.EventHandler(this.PerformanceTestToExcelButton_Click_1);
+            this.OffsetLabel.AutoSize = true;
+            this.OffsetLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.OffsetLabel.Location = new System.Drawing.Point(770, 202);
+            this.OffsetLabel.Name = "OffsetLabel";
+            this.OffsetLabel.Size = new System.Drawing.Size(89, 20);
+            this.OffsetLabel.TabIndex = 181;
+            this.OffsetLabel.Text = "Смещение";
+            // 
+            // OffsetTextBox
+            // 
+            this.OffsetTextBox.Location = new System.Drawing.Point(903, 202);
+            this.OffsetTextBox.Name = "OffsetTextBox";
+            this.OffsetTextBox.Size = new System.Drawing.Size(153, 20);
+            this.OffsetTextBox.TabIndex = 180;
+            this.OffsetTextBox.TextChanged += new System.EventHandler(this.OffsetTextBox_TextChanged);
             // 
             // Form1
             // 
@@ -2023,6 +2045,8 @@
         private System.Windows.Forms.Button ChangeExperimentNameButton;
         private System.Windows.Forms.DataGridView PerformanceGridView;
         private System.Windows.Forms.Button PerformanceTestToExcelButton;
+        private System.Windows.Forms.Label OffsetLabel;
+        private System.Windows.Forms.TextBox OffsetTextBox;
     }
 }
 
