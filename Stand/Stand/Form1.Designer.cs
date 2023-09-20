@@ -180,6 +180,8 @@
             this.DeleteResultButton = new System.Windows.Forms.Button();
             this.ExperimentGridView = new System.Windows.Forms.DataGridView();
             this.ExperimentsListBox = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.OffsetTextBox = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.Settings.SuspendLayout();
             this.Schema.SuspendLayout();
@@ -210,6 +212,8 @@
             // 
             // Settings
             // 
+            this.Settings.Controls.Add(this.label1);
+            this.Settings.Controls.Add(this.OffsetTextBox);
             this.Settings.Controls.Add(this.UnitConnectAllButton);
             this.Settings.Controls.Add(this.ParameterChangesNotSavedLabel);
             this.Settings.Controls.Add(this.label53);
@@ -288,7 +292,7 @@
             // 
             this.label53.AutoSize = true;
             this.label53.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label53.Location = new System.Drawing.Point(770, 255);
+            this.label53.Location = new System.Drawing.Point(770, 278);
             this.label53.Name = "label53";
             this.label53.Size = new System.Drawing.Size(108, 20);
             this.label53.TabIndex = 157;
@@ -296,7 +300,7 @@
             // 
             // RegTestToggleButton
             // 
-            this.RegTestToggleButton.Location = new System.Drawing.Point(774, 278);
+            this.RegTestToggleButton.Location = new System.Drawing.Point(770, 301);
             this.RegTestToggleButton.Name = "RegTestToggleButton";
             this.RegTestToggleButton.Size = new System.Drawing.Size(123, 34);
             this.RegTestToggleButton.TabIndex = 156;
@@ -307,7 +311,7 @@
             // RegTestListBox
             // 
             this.RegTestListBox.FormattingEnabled = true;
-            this.RegTestListBox.Location = new System.Drawing.Point(903, 255);
+            this.RegTestListBox.Location = new System.Drawing.Point(903, 278);
             this.RegTestListBox.Name = "RegTestListBox";
             this.RegTestListBox.Size = new System.Drawing.Size(153, 147);
             this.RegTestListBox.TabIndex = 155;
@@ -376,7 +380,7 @@
             // 
             this.label26.AutoSize = true;
             this.label26.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label26.Location = new System.Drawing.Point(770, 206);
+            this.label26.Location = new System.Drawing.Point(770, 246);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(91, 20);
             this.label26.TabIndex = 148;
@@ -387,7 +391,7 @@
             this.ParameterReadableCheckBox.AutoSize = true;
             this.ParameterReadableCheckBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.ParameterReadableCheckBox.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.ParameterReadableCheckBox.Location = new System.Drawing.Point(903, 205);
+            this.ParameterReadableCheckBox.Location = new System.Drawing.Point(903, 245);
             this.ParameterReadableCheckBox.Name = "ParameterReadableCheckBox";
             this.ParameterReadableCheckBox.Size = new System.Drawing.Size(130, 24);
             this.ParameterReadableCheckBox.TabIndex = 147;
@@ -1854,6 +1858,23 @@
             this.ExperimentsListBox.TabIndex = 0;
             this.ExperimentsListBox.SelectedIndexChanged += new System.EventHandler(this.ExperimentsListBox_SelectedIndexChanged);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label1.Location = new System.Drawing.Point(770, 202);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(89, 20);
+            this.label1.TabIndex = 181;
+            this.label1.Text = "Смещение";
+            // 
+            // OffsetTextBox
+            // 
+            this.OffsetTextBox.Location = new System.Drawing.Point(903, 202);
+            this.OffsetTextBox.Name = "OffsetTextBox";
+            this.OffsetTextBox.Size = new System.Drawing.Size(153, 20);
+            this.OffsetTextBox.TabIndex = 180;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2023,6 +2044,8 @@
         private System.Windows.Forms.Button ChangeExperimentNameButton;
         private System.Windows.Forms.DataGridView PerformanceGridView;
         private System.Windows.Forms.Button PerformanceTestToExcelButton;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox OffsetTextBox;
     }
 }
 
