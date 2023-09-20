@@ -1056,6 +1056,10 @@ namespace Stand
                         PressureParametersList[i].GetLastMeasuredRegs())*(float)SiPressureCoefficient) / (SelectedScheme.Density * Scheme.g_constant);
                     ECE[i] = SelectedScheme.Density * Scheme.g_constant * H[i] * FlowLastReg * (float)SiFlowCoefficient
                         / (PowerLastReg * (float)SiPowerCoefficient);
+                    if (ECE[i] == float.NaN)
+                        ECE[i] = -1;
+                    if (H[i] == float.NaN)
+                        H[i] = -1;
                 }
 
                 int ECEoffset = H.Length * 2;

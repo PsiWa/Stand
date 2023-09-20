@@ -399,17 +399,17 @@ namespace Stand
                     {
                         mreScan.Reset();
                         usRegs = masterCOM.ReadInputRegisters(_slaveStationAddr,
-                            (ushort)(par.GetRegisterAddress() + offset), 1);
+                            (ushort)(par.GetRegisterAddress() + offset), 2);
                         mreScan.Set();
                     }
                     else if (par.GetRegType() == RegType.RT_Holding)
                     {
                         mreScan.Reset();
                         usRegs = masterCOM.ReadHoldingRegisters(_slaveStationAddr,
-                            (ushort)(par.GetRegisterAddress() + offset), 1);
+                            (ushort)(par.GetRegisterAddress() + offset), 2);
                         mreScan.Set();
                     }
-                    fRegs = Convert.ToInt32(usRegs[0]);
+                    fRegs = Convert.ToInt32(usRegs[1]);
                 }
                 else
                 {
@@ -508,7 +508,7 @@ namespace Stand
                         par.SetMeasuredRegs(0); //Single.NaN
             else
                 foreach (Parameter par1 in this.parameters)
-                    par1.SetMeasuredRegs(50 + rnd.Next(-10, 10));
+                    par1.SetMeasuredRegs(0);  //par1.SetMeasuredRegs(50 + rnd.Next(-10, 10));
 
         }
     }
