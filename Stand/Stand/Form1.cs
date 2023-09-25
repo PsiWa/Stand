@@ -181,6 +181,7 @@ namespace Stand
         }
         private void GetComPorts()
         {
+            UnitComComboBox.Items.Clear();
             UnitComComboBox.Items.AddRange(SerialPort.GetPortNames());
         }
         internal void UnitLoadXML()
@@ -276,7 +277,7 @@ namespace Stand
             UpdateSelectedUnit();
         }
 
-        private void UnitSaveButton_Click(object sender, EventArgs e)
+        private void SaveUnitSettings()
         {
             int selected = UnitsListBox.SelectedIndex;
             Unit un = UnitsList[selected];
@@ -293,9 +294,14 @@ namespace Stand
                 MessageBox.Show("Введены некорректные параметры");
             }
         }
+        private void UnitSaveButton_Click(object sender, EventArgs e)
+        {
+            SaveUnitSettings();
+        }
 
         private void UnitConnectButton_Click(object sender, EventArgs e)
         {
+            SaveUnitSettings();
             int selected = UnitsListBox.SelectedIndex;
             Unit un = UnitsList[selected];
             if (un.isConnected)
