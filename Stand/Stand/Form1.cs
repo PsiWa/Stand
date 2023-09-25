@@ -1,36 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO.Ports;
 using System.Xml.Linq;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Runtime.Serialization;
 using System.Threading;
-using System.Security.Cryptography;
-using System.Runtime.ConstrainedExecution;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Runtime.Remoting.Contexts;
-using static System.Net.Mime.MediaTypeNames;
 using System.Runtime.InteropServices;
-using System.Reflection.Emit;
 using System.Diagnostics;
-using System.Linq.Expressions;
 using System.Windows.Forms.DataVisualization.Charting;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using System.IO;
 using Application = System.Windows.Forms.Application;
-using Spire.Xls;
-using Spire.Pdf.Exporting.XPS.Schema;
-using static Npgsql.Replication.PgOutput.Messages.RelationMessage;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using ClosedXML.Excel;
-using DocumentFormat.OpenXml.Wordprocessing;
 using Color = System.Drawing.Color;
 
 namespace Stand
@@ -637,10 +618,10 @@ namespace Stand
                 {
                     SchemeNameTextBox.Text = SelectedScheme.name;
                     DensityTextBox.Text = SelectedScheme.Density.ToString();
-                    L1TextBox.Text = SelectedScheme.dL[0].ToString();
-                    L2TextBox.Text = SelectedScheme.dL[1].ToString();
-                    L3TextBox.Text = SelectedScheme.dL[2].ToString();
-                    L4TextBox.Text = SelectedScheme.dL[3].ToString();
+                    L1TextBox.Text = SelectedScheme.L[1].ToString();
+                    L2TextBox.Text = SelectedScheme.L[2].ToString();
+                    L3TextBox.Text = SelectedScheme.L[3].ToString();
+                    L4TextBox.Text = SelectedScheme.L[4].ToString();
                     FCStepTextBox.Text = SelectedScheme.FCStep.ToString();
                     ValveStepTextBox.Text = SelectedScheme.ValveStep.ToString();
                     FrequencyPlusButton.Text = $"+{SelectedScheme.FCStep}";
@@ -873,12 +854,12 @@ namespace Stand
             while (true)
             {
                 StartReadingEvent.WaitOne();
+                Thread.Sleep(500);
                 if (stopthread)
                     break;
                 un.ReadAllParams();
                 _finished.Set();
                 StartReadingEvent.Reset();
-                Thread.Sleep(50);
             }
         }
 
@@ -1062,7 +1043,7 @@ namespace Stand
                 FlowLastReg = FlowParameter.GetLastMeasuredRegs();
                 for (int i = 0; i < H.Length; i++)
                 {
-                    H[i] = (SelectedScheme.dL[i] + (PressureParametersList[i + 1].GetLastMeasuredRegs() -
+                    H[i] = (SelectedScheme.L[i] - SelectedScheme.L[i + 1] + (PressureParametersList[i + 1].GetLastMeasuredRegs() -
                         PressureParametersList[i].GetLastMeasuredRegs()) * (float)SiPressureCoefficient) / (SelectedScheme.Density * Scheme.g_constant);
                     ECE[i] = SelectedScheme.Density * Scheme.g_constant * H[i] * FlowLastReg * (float)SiFlowCoefficient
                         / (PowerLastReg * (float)SiPowerCoefficient);
@@ -1456,6 +1437,11 @@ namespace Stand
             stopthread = true;
             _stopper.Set();
             StartReadingEvent.Set();
+
+            foreach (var process in Process.GetProcessesByName("Stand"))
+            {
+                process.Kill();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -1480,69 +1466,6 @@ namespace Stand
             }
         }
 
-        private void TEST2(Unit un)
-        {
-            while (!stopthread)
-            {
-                StartReadingEvent.WaitOne();
-                un.ReadAllParams();
-                StartReadingEvent.Reset();
-            }
-        }
-        private void TEST3()
-        {
-            StartReadingEvent.Set();
-            Thread.Sleep(1000);
-            while (true)
-            {
-                float pressure1 = UnitsList.Find(un => un.GetName() == "ОВЕН").GetParametersList()
-                .Find(par => par.GetName() == "Давление 1").GetLastMeasuredRegs();
-                float pressure8 = UnitsList.Find(un => un.GetName() == "ОВЕН").GetParametersList()
-                    .Find(par => par.GetName() == "Давление 8").GetLastMeasuredRegs();
-                float flow = UnitsList.Find(un => un.GetName() == "Расходомер").GetParametersList()
-                    .Find(par => par.GetName() == "Расход").GetLastMeasuredRegs();
-
-                Action readp = () => chart1.Series[1].Points.AddXY(flow, pressure1);
-                Action readN = () => chart1.Series[3].Points.AddXY(flow, pressure8);
-
-                Action cleardp = () => chart1.Series[1].Points.Clear();
-                Action clearN = () => chart1.Series[3].Points.Clear();
-
-                Action adddp = () => chart1.Series[0].Points.AddXY(flow, pressure1);
-                Action addN = () => chart1.Series[2].Points.AddXY(flow, pressure8);
-                if (InvokeRequired)
-                {
-                    Invoke(cleardp);
-                    Invoke(clearN);
-                    Invoke(readp);
-                    Invoke(readN);
-                }
-                else
-                {
-                    readp();
-                    readN();
-                    cleardp();
-                    clearN();
-                }
-                StartReadingEvent.Set();
-                if (_stopper.WaitOne(1000, false))
-                {
-                    if (stopthread)
-                        break;
-                    if (InvokeRequired)
-                    {
-                        Invoke(adddp);
-                        Invoke(addN);
-                    }
-                    else
-                    {
-                        adddp();
-                        addN();
-                    }
-                    _stopper.Reset();
-                }
-            }
-        }
         private void button6_Click(object sender, EventArgs e)
         {
             _stopper.Set();

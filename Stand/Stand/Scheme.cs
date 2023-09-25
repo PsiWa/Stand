@@ -33,7 +33,7 @@ namespace Stand
         public int FlowPID;
 
         public float Density;
-        public float[] dL = new float[4] { 0, 0, 0, 0 };
+        public float[] L = new float[5] {0, 0, 0, 0, 0 };
         public float D;
         public int FCStep;
         public int ValveStep;
@@ -88,22 +88,22 @@ namespace Stand
             string stringVal = el.Attribute("L1").Value;
             if (stringVal.Contains("."))
                 stringVal = stringVal.Replace(".", ",");
-            dL[0] = Convert.ToSingle(stringVal);
+            L[1] = Convert.ToSingle(stringVal);
 
             stringVal = el.Attribute("L2").Value;
             if (stringVal.Contains("."))
                 stringVal = stringVal.Replace(".", ",");
-            dL[1] = Convert.ToSingle(stringVal);
+            L[2] = Convert.ToSingle(stringVal);
 
             stringVal = el.Attribute("L3").Value;
             if (stringVal.Contains("."))
                 stringVal = stringVal.Replace(".", ",");
-            dL[2] = Convert.ToSingle(stringVal);
+            L[3] = Convert.ToSingle(stringVal);
 
             stringVal = el.Attribute("L4").Value;
             if (stringVal.Contains("."))
                 stringVal = stringVal.Replace(".", ",");
-            dL[3] = Convert.ToSingle(stringVal);
+            L[4] = Convert.ToSingle(stringVal);
 
             stringVal = el.Attribute("Density").Value;
             if (stringVal.Contains("."))
@@ -189,14 +189,14 @@ namespace Stand
             XAttribute xValveU = new XAttribute("ValveU", ValveUID);
             XAttribute xValveP = new XAttribute("ValveP", ValvePID);
 
-            dL[0] = Convert.ToSingle(L1TB.Text);
-            dL[1] = Convert.ToSingle(L2TB.Text);
-            dL[2] = Convert.ToSingle(L3TB.Text);
-            dL[3] = Convert.ToSingle(L4TB.Text);
-            XAttribute xL1 = new XAttribute("L1", dL[0]);
-            XAttribute xL2 = new XAttribute("L2", dL[1]);
-            XAttribute xL3 = new XAttribute("L3", dL[2]);
-            XAttribute xL4 = new XAttribute("L4", dL[3]);
+            L[1] = Convert.ToSingle(L1TB.Text);
+            L[2] = Convert.ToSingle(L2TB.Text);
+            L[3] = Convert.ToSingle(L3TB.Text);
+            L[4] = Convert.ToSingle(L4TB.Text);
+            XAttribute xL1 = new XAttribute("L1", L[1]);
+            XAttribute xL2 = new XAttribute("L2", L[2]);
+            XAttribute xL3 = new XAttribute("L3", L[3]);
+            XAttribute xL4 = new XAttribute("L4", L[4]);
 
             Density = Convert.ToSingle(DensityTB.Text);
             XAttribute xDensity = new XAttribute("Density", Density);

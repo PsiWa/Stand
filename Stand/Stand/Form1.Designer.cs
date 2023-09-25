@@ -136,7 +136,6 @@
             this.label33 = new System.Windows.Forms.Label();
             this.L1TextBox = new System.Windows.Forms.TextBox();
             this.DensityTextBox = new System.Windows.Forms.TextBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.MainChart = new System.Windows.Forms.TabPage();
             this.ExtendedParametersCheckBox = new System.Windows.Forms.CheckBox();
             this.PerformanceTestAddButton = new System.Windows.Forms.Button();
@@ -182,15 +181,16 @@
             this.DeleteResultButton = new System.Windows.Forms.Button();
             this.ExperimentGridView = new System.Windows.Forms.DataGridView();
             this.ExperimentsListBox = new System.Windows.Forms.ListBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.tabControl1.SuspendLayout();
             this.Settings.SuspendLayout();
             this.Schema.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.MainChart.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.DataBaseTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PerformanceGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ExperimentGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -1112,7 +1112,7 @@
             // 
             this.PressureParComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.PressureParComboBox2.FormattingEnabled = true;
-            this.PressureParComboBox2.Location = new System.Drawing.Point(206, 454);
+            this.PressureParComboBox2.Location = new System.Drawing.Point(217, 455);
             this.PressureParComboBox2.Name = "PressureParComboBox2";
             this.PressureParComboBox2.Size = new System.Drawing.Size(121, 21);
             this.PressureParComboBox2.TabIndex = 153;
@@ -1122,7 +1122,7 @@
             // 
             this.PressureParComboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.PressureParComboBox3.FormattingEnabled = true;
-            this.PressureParComboBox3.Location = new System.Drawing.Point(206, 350);
+            this.PressureParComboBox3.Location = new System.Drawing.Point(217, 351);
             this.PressureParComboBox3.Name = "PressureParComboBox3";
             this.PressureParComboBox3.Size = new System.Drawing.Size(121, 21);
             this.PressureParComboBox3.TabIndex = 152;
@@ -1132,7 +1132,7 @@
             // 
             this.PressureParComboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.PressureParComboBox4.FormattingEnabled = true;
-            this.PressureParComboBox4.Location = new System.Drawing.Point(206, 243);
+            this.PressureParComboBox4.Location = new System.Drawing.Point(217, 244);
             this.PressureParComboBox4.Name = "PressureParComboBox4";
             this.PressureParComboBox4.Size = new System.Drawing.Size(121, 21);
             this.PressureParComboBox4.TabIndex = 151;
@@ -1142,7 +1142,7 @@
             // 
             this.PressureParComboBox5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.PressureParComboBox5.FormattingEnabled = true;
-            this.PressureParComboBox5.Location = new System.Drawing.Point(206, 145);
+            this.PressureParComboBox5.Location = new System.Drawing.Point(217, 147);
             this.PressureParComboBox5.Name = "PressureParComboBox5";
             this.PressureParComboBox5.Size = new System.Drawing.Size(121, 21);
             this.PressureParComboBox5.TabIndex = 150;
@@ -1152,7 +1152,7 @@
             // 
             this.label37.AutoSize = true;
             this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label37.Location = new System.Drawing.Point(178, 89);
+            this.label37.Location = new System.Drawing.Point(183, 89);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(187, 16);
             this.label37.TabIndex = 149;
@@ -1163,7 +1163,7 @@
             // 
             this.PressureUnitСomboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.PressureUnitСomboBox.FormattingEnabled = true;
-            this.PressureUnitСomboBox.Location = new System.Drawing.Point(206, 51);
+            this.PressureUnitСomboBox.Location = new System.Drawing.Point(217, 51);
             this.PressureUnitСomboBox.Name = "PressureUnitСomboBox";
             this.PressureUnitСomboBox.Size = new System.Drawing.Size(121, 21);
             this.PressureUnitСomboBox.TabIndex = 148;
@@ -1173,7 +1173,7 @@
             // 
             this.label36.AutoSize = true;
             this.label36.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label36.Location = new System.Drawing.Point(223, 32);
+            this.label36.Location = new System.Drawing.Point(234, 32);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(84, 16);
             this.label36.TabIndex = 147;
@@ -1184,7 +1184,7 @@
             // 
             this.label35.AutoSize = true;
             this.label35.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label35.Location = new System.Drawing.Point(187, 10);
+            this.label35.Location = new System.Drawing.Point(198, 10);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(153, 20);
             this.label35.TabIndex = 146;
@@ -1204,7 +1204,7 @@
             // 
             // L4TextBox
             // 
-            this.L4TextBox.Location = new System.Drawing.Point(58, 157);
+            this.L4TextBox.Location = new System.Drawing.Point(58, 148);
             this.L4TextBox.Name = "L4TextBox";
             this.L4TextBox.Size = new System.Drawing.Size(85, 20);
             this.L4TextBox.TabIndex = 144;
@@ -1213,7 +1213,7 @@
             // 
             // L3TextBox
             // 
-            this.L3TextBox.Location = new System.Drawing.Point(58, 262);
+            this.L3TextBox.Location = new System.Drawing.Point(58, 245);
             this.L3TextBox.Name = "L3TextBox";
             this.L3TextBox.Size = new System.Drawing.Size(85, 20);
             this.L3TextBox.TabIndex = 143;
@@ -1222,7 +1222,7 @@
             // 
             // L2TextBox
             // 
-            this.L2TextBox.Location = new System.Drawing.Point(58, 366);
+            this.L2TextBox.Location = new System.Drawing.Point(58, 352);
             this.L2TextBox.Name = "L2TextBox";
             this.L2TextBox.Size = new System.Drawing.Size(85, 20);
             this.L2TextBox.TabIndex = 142;
@@ -1241,11 +1241,11 @@
             // 
             // L1TextBox
             // 
-            this.L1TextBox.Location = new System.Drawing.Point(58, 473);
+            this.L1TextBox.Location = new System.Drawing.Point(58, 456);
             this.L1TextBox.Name = "L1TextBox";
             this.L1TextBox.Size = new System.Drawing.Size(85, 20);
             this.L1TextBox.TabIndex = 1;
-            this.L1TextBox.Text = "1";
+            this.L1TextBox.Text = "0";
             this.L1TextBox.TextChanged += new System.EventHandler(this.L4TextBox_TextChanged);
             // 
             // DensityTextBox
@@ -1257,19 +1257,6 @@
             this.DensityTextBox.Text = "998,2";
             this.DensityTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.DensityTextBox.TextChanged += new System.EventHandler(this.L4TextBox_TextChanged);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.pictureBox1.ErrorImage = null;
-            this.pictureBox1.Image = global::Stand.Properties.Resources.Схема;
-            this.pictureBox1.InitialImage = global::Stand.Properties.Resources.Схема;
-            this.pictureBox1.Location = new System.Drawing.Point(124, 2);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(955, 606);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 185;
-            this.pictureBox1.TabStop = false;
             // 
             // MainChart
             // 
@@ -1876,6 +1863,19 @@
             this.ExperimentsListBox.TabIndex = 0;
             this.ExperimentsListBox.SelectedIndexChanged += new System.EventHandler(this.ExperimentsListBox_SelectedIndexChanged);
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.pictureBox1.ErrorImage = null;
+            this.pictureBox1.Image = global::Stand.Properties.Resources.Схема;
+            this.pictureBox1.InitialImage = global::Stand.Properties.Resources.Схема;
+            this.pictureBox1.Location = new System.Drawing.Point(84, 3);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(955, 606);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 185;
+            this.pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1891,7 +1891,6 @@
             this.Settings.PerformLayout();
             this.Schema.ResumeLayout(false);
             this.Schema.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.MainChart.ResumeLayout(false);
             this.MainChart.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
@@ -1899,6 +1898,7 @@
             this.DataBaseTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PerformanceGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ExperimentGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
