@@ -506,9 +506,11 @@ namespace Stand
                         ComRead(par, par.GetOffset());
                     else
                         par.SetMeasuredRegs(0); //Single.NaN
+                        //par.SetMeasuredRegs(50 + rnd.Next(-10, 10));
             else
                 foreach (Parameter par1 in this.parameters)
                     par1.SetMeasuredRegs(0);
+                    //par1.SetMeasuredRegs(50 + rnd.Next(-10, 10));
 
         }
     }

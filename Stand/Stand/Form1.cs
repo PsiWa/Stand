@@ -1109,7 +1109,7 @@ namespace Stand
                 float span = (float)(endTime - startTime).TotalSeconds;
                 TimestampList.Add(span);
                 MakeARow(ref row, span, FlowLastReg, PowerLastReg, H, ECE);
-                ///PerformanceDataTable.Rows.Add(row);
+                //PerformanceDataTable.Rows.Add(row);
                 ////////////////
 
                 if (InvokeRequired)
