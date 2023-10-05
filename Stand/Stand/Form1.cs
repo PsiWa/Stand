@@ -13,6 +13,7 @@ using System.IO;
 using Application = System.Windows.Forms.Application;
 using ClosedXML.Excel;
 using Color = System.Drawing.Color;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace Stand
 {
@@ -166,6 +167,7 @@ namespace Stand
         }
         public void SaveScheme()
         {
+            string SelectedSchemeName = "";
             if (SchemeComboBox.SelectedIndex != -1)
             {
                 SchemasList[SchemeComboBox.SelectedIndex].SaveXML(ref UnitsList, SchemeNameTextBox,
@@ -174,10 +176,15 @@ namespace Stand
                     FlowmeterParComboBox, FCUnitComboBox, FCParComboBox, FCParPowerComboBox, ValveUnitComboBox, ValveParComboBox,
                     DensityTextBox, L1TextBox, L2TextBox, L3TextBox, L4TextBox, DiameterTextBox, FCStepTextBox, ValveStepTextBox);
                 SchemeNotSavedLabel.Visible = false;
+                SelectedSchemeName = SchemeNameTextBox.Text;
             }
             SchemeComboBox.Items.Clear();
             foreach (var sc in SchemasList)
+            {
                 SchemeComboBox.Items.Add(sc.name);
+                if (sc.name == SelectedSchemeName)
+                    SchemeComboBox.SelectedIndex = SchemeComboBox.Items.Count - 1;
+            }
         }
         private void GetComPorts()
         {
@@ -222,6 +229,7 @@ namespace Stand
                         {
                             GetComPorts();
                             UnitLoadXML();
+                            UpdateUnitsList(UnitsListBox.SelectedIndex);
                             MessageBox.Show("Подключено новое устройство");
                         }
                         break;
@@ -232,6 +240,7 @@ namespace Stand
                         {
                             GetComPorts();
                             UnitLoadXML();
+                            UpdateUnitsList(UnitsListBox.SelectedIndex);
                             MessageBox.Show("Устройство отключено");
                         }
                         break;
@@ -523,6 +532,7 @@ namespace Stand
             SchemeComboBox.Items.Clear();
             foreach (var sc in SchemasList)
                 SchemeComboBox.Items.Add(sc.name);
+            SchemeComboBox.SelectedIndex = 0;
         }
 
         private void PressureUnitСomboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -1489,7 +1499,7 @@ namespace Stand
         {
             if (postgreSQL.NpgsqlConnect())
             {
-                if (postgreSQL.SaveMeasurements(ref UnitsList, ExperimentName, ref TimestampList, ref PerformanceDataTable))
+                if (postgreSQL.SaveMeasurements(ref UnitsList, ExperimentName, SelectedScheme.Density, SelectedScheme.D, ref TimestampList, ref PerformanceDataTable))
                     MessageBox.Show("Сохранение успешно завершено");
                 else
                     MessageBox.Show("Error");
@@ -1535,6 +1545,8 @@ namespace Stand
             {
                 DataTable results = new DataTable();
                 DataTable performance = new DataTable();
+                float density = 0;
+                float viscosity = 0;
                 string[] parts = { "0" };
                 if (ExperimentsListBox.SelectedIndex >= 0)
                 {
@@ -1542,10 +1554,12 @@ namespace Stand
                     results.TableName = parts[1];
                     TableNameTextBox.Text = results.TableName;
                 }
-                if (postgreSQL.GetExperimentResults(int.Parse(parts[0]), ref results, ref performance))
+                if (postgreSQL.GetExperimentResults(int.Parse(parts[0]), ref results, ref performance, ref density, ref viscosity))
                 {
                     ExperimentGridView.DataSource = results;
                     PerformanceGridView.DataSource = performance;
+                    DensityLabel.Text = $"Плотность {density} [кг/м3]";
+                    ViscosityLabel.Text = $"Вязкость {viscosity} [Па*с]";
                 }
                 ExperimentGridView.Refresh();
             }

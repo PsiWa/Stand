@@ -479,17 +479,6 @@ namespace Stand
         }
         #endregion
 
-        /// Test Methods
-        public string TestComRead()
-        {
-            byte _slaveStationAddr = Convert.ToByte(this.address);
-            ushort[] usRegs = null;
-            mreScan.Reset();
-            usRegs = masterCOM.ReadHoldingRegisters(_slaveStationAddr, 16299, 2);
-            mreScan.Set();
-            return (usRegs[0]).ToString();//GetFloatFromRegs(usRegs[1], usRegs[0]).ToString();
-
-        }
         public void ClearMeasuredRegs()
         {
             foreach (Parameter par in parameters)
@@ -506,11 +495,22 @@ namespace Stand
                         ComRead(par, par.GetOffset());
                     else
                         par.SetMeasuredRegs(0); //Single.NaN
-                        //par.SetMeasuredRegs(50 + rnd.Next(-10, 10));
+                                                //par.SetMeasuredRegs(50 + rnd.Next(-10, 10));
             else
                 foreach (Parameter par1 in this.parameters)
                     par1.SetMeasuredRegs(0);
-                    //par1.SetMeasuredRegs(50 + rnd.Next(-10, 10));
+            //par1.SetMeasuredRegs(50 + rnd.Next(-10, 10));
+
+        }
+        /// Test Methods
+        public string TestComRead()
+        {
+            byte _slaveStationAddr = Convert.ToByte(this.address);
+            ushort[] usRegs = null;
+            mreScan.Reset();
+            usRegs = masterCOM.ReadHoldingRegisters(_slaveStationAddr, 16299, 2);
+            mreScan.Set();
+            return (usRegs[0]).ToString();//GetFloatFromRegs(usRegs[1], usRegs[0]).ToString();
 
         }
     }

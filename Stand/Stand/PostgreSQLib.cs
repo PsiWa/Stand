@@ -121,13 +121,14 @@ namespace Stand
             rdr.Close();
             return result;
         }
-        public bool SaveMeasurements(ref List<Unit> UnitsList, string expname,ref List<float> timestamp, 
-            ref DataTable performanceDT)
+        public bool SaveMeasurements(ref List<Unit> UnitsList, string expname, float density, float viscosity, 
+            ref List<float> timestamp, ref DataTable performanceDT)
         {
             try
             {
-                string sql = "INSERT INTO experiments (experiment_name) " +
-                        $"VALUES ('{expname}') ON CONFLICT DO NOTHING";
+                string sql = "INSERT INTO experiments (experiment_name, density, viscosity) " +
+                        $"VALUES ('{expname}',{density.ToString().Replace(",", ".")}," +
+                        $"{viscosity.ToString().Replace(",", ".")}) ON CONFLICT DO NOTHING";
                 var cmd = new NpgsqlCommand(sql, con);
                 cmd.ExecuteNonQuery();
                 sql = $"SELECT experiment_id FROM experiments WHERE experiment_name='{expname}'";
@@ -202,13 +203,15 @@ namespace Stand
             }
         }
         
-        private void InitDataTable(ref DataTable results, ref DataTable performance, int exp_id)
+        private void InitDataTable(ref DataTable results, ref DataTable performance, int exp_id, 
+            ref float density, ref float viscosity)
         {
             DataColumn Timecol = new DataColumn();
             Timecol.ColumnName = $"Time";
             results.Columns.Add(Timecol);
 
-            string query = "SELECT DISTINCT ON (parameters.par_name) parameters.par_name FROM experiments " +
+            string query = "SELECT DISTINCT ON (parameters.par_name) " +
+                "parameters.par_name, measurements.uom, experiments.density, experiments.viscosity FROM experiments " +
                 "JOIN measurements ON experiments.experiment_id = measurements.experiment_id " +
                 "JOIN parameters ON parameters.par_id = measurements.par_id " +
                 $"WHERE experiments.experiment_id = {exp_id}";
@@ -216,9 +219,14 @@ namespace Stand
             NpgsqlDataReader rdr = cmd.ExecuteReader();
             while (rdr.Read())
             {
-                DataColumn col = new DataColumn();
-                col.ColumnName = (string)rdr["par_name"];
-                results.Columns.Add(col);
+                DataColumn col1 = new DataColumn();
+                DataColumn col2 = new DataColumn();
+                col1.ColumnName = (string)rdr["par_name"];
+                results.Columns.Add(col1);
+                col2.ColumnName = (string)rdr["par_name"] + " UoM";
+                results.Columns.Add(col2);
+                density = (float)rdr["density"];
+                viscosity = (float)rdr["viscosity"];
             }
             rdr.Close();
 
@@ -277,6 +285,7 @@ namespace Stand
                 while (rdr.Read())
                 {
                     row[rdr["par_name"].ToString()] = rdr["measurement"].ToString();
+                    row[rdr["par_name"].ToString() + " UoM"] = rdr["uom"].ToString();
                 }
                 rdr.Close();
             }
@@ -302,11 +311,12 @@ namespace Stand
             rdr.Close();
 
         }
-        public bool GetExperimentResults(int exp_id, ref DataTable results, ref DataTable performance)
+        public bool GetExperimentResults(int exp_id, ref DataTable results, ref DataTable performance, 
+            ref float density, ref float viscosity)
         {
             try
             {
-                InitDataTable(ref results, ref performance, exp_id);
+                InitDataTable(ref results, ref performance, exp_id, ref density, ref viscosity);
                 AddToDataTable(ref results, ref performance, exp_id);
                 return true;
             }
