@@ -860,7 +860,7 @@ namespace Stand
             while (true)
             {
                 StartReadingEvent.WaitOne();
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
                 if (stopthread)
                     break;
                 un.ReadAllParams();
@@ -922,7 +922,7 @@ namespace Stand
                     {
                         if (parameter.CheckIfToggled())
                         {
-                            row[3 + H.Length + ECE.Length + i] = parameter.GetLastMeasuredRegs();
+                            row[4 + H.Length + ECE.Length + i] = parameter.GetLastMeasuredRegs();
                             i++;
                         }
                     }
