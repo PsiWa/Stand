@@ -499,7 +499,7 @@ namespace Stand
             else
                 foreach (Parameter par1 in this.parameters)
                     par1.SetMeasuredRegs(0);
-            //par1.SetMeasuredRegs(50 + rnd.Next(-10, 10));
+                    //par1.SetMeasuredRegs(50 + rnd.Next(-10, 10));
 
         }
         /// Test Methods

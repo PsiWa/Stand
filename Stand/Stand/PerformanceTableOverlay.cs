@@ -30,10 +30,7 @@ namespace Stand
 
         private void PerformanceTableOverlay_FormClosing(object sender, FormClosingEventArgs e) // Это надо убрать
         {
-            var result = MessageBox.Show("Закрытие окна приведет к непредсказуемым последствиям. " +
-                "С закрытием этой формы нить повествования обрывается, " +
-                "и вам придется жить в проклятом мире, который вы сами и создадите",
-                "Вы действительно хотите выйти?", 
+            var result = MessageBox.Show("Вы уверены, что хотите закрыть форму?", "Закрытие",
                 MessageBoxButtons.YesNo);
             if (result == DialogResult.No)
             {

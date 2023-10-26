@@ -533,6 +533,10 @@ namespace Stand
             foreach (var sc in SchemasList)
                 SchemeComboBox.Items.Add(sc.name);
             SchemeComboBox.SelectedIndex = 0;
+            if (SchemeComboBox.Items.Count == 1)
+            {
+                UpdateSchemeComboBox();
+            }
         }
 
         private void PressureUnitСomboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -625,7 +629,7 @@ namespace Stand
             }
         }
 
-        private void SchemeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void UpdateSchemeComboBox()
         {
             try
             {
@@ -736,6 +740,11 @@ namespace Stand
             {
                 MessageBox.Show("Ошибка");
             }
+        }
+
+        private void SchemeComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSchemeComboBox();
         }
         private void FCParPowerComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1059,10 +1068,13 @@ namespace Stand
                 FlowLastReg = FlowParameter.GetLastMeasuredRegs();
                 for (int i = 0; i < H.Length; i++)
                 {
-                    H[i] = (SelectedScheme.L[i] - SelectedScheme.L[i + 1] + (PressureParametersList[i + 1].GetLastMeasuredRegs() -
-                        PressureParametersList[i].GetLastMeasuredRegs()) * (float)SiPressureCoefficient) / (SelectedScheme.Density * Scheme.g_constant);
+                    H[i] = (SelectedScheme.L[i] - SelectedScheme.L[i + 1]) + 
+                        (PressureParametersList[i + 1].GetLastMeasuredRegs() - PressureParametersList[i].GetLastMeasuredRegs()) * (float)SiPressureCoefficient 
+                        / (SelectedScheme.Density * Scheme.g_constant);
+                    
                     ECE[i] = SelectedScheme.Density * Scheme.g_constant * H[i] * FlowLastReg * (float)SiFlowCoefficient
-                        / (PowerLastReg * (float)SiPowerCoefficient);
+                        / ((PowerLastReg * (float)SiPowerCoefficient));
+
                     if (ECE[i] == float.NaN)
                         ECE[i] = -1;
                     if (H[i] == float.NaN)
@@ -1450,9 +1462,14 @@ namespace Stand
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            
             stopthread = true;
             _stopper.Set();
             StartReadingEvent.Set();
+            foreach (Unit un in UnitsList)
+            {
+                    un.Disconnect();
+            }
 
             foreach (var process in Process.GetProcessesByName("Stand"))
             {

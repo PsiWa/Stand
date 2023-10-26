@@ -17,17 +17,19 @@ namespace Stand
     {
         NpgsqlConnection con = null;
         bool isConenected = false;
+        string DBname = "Stand";
+
         private bool InitDB()
         {
             string connStr = "Server=localhost;Username = postgres; Password = 1234; Database = postgres";
             var m_conn = new NpgsqlConnection(connStr);
             m_conn.Open();
-            var m_createdb_cmd = new NpgsqlCommand("CREATE DATABASE \"StandResults\" ",m_conn);
+            var m_createdb_cmd = new NpgsqlCommand($"CREATE DATABASE \"{DBname}\" ",m_conn);
             m_createdb_cmd.ExecuteNonQuery();
             m_conn.Close();
             try
             {
-                connStr = "Host=localhost;Username=postgres;Password=1234;Database=StandResults";
+                connStr = $"Host=localhost;Username=postgres;Password=1234;Database={DBname}";
                 m_conn = new NpgsqlConnection(connStr);
                 m_conn.Open();
                 using (var sr = new StreamReader("DB_StandResults_init.txt"))
@@ -50,7 +52,7 @@ namespace Stand
             {
                 try
                 {
-                    var connectionString = "Host=localhost;Username=postgres;Password=1234;Database=StandResults";
+                    var connectionString = $"Host=localhost;Username=postgres;Password=1234;Database={DBname}";
                     con = new NpgsqlConnection(connectionString);
                     con.Open();
                     isConenected = true;
@@ -68,7 +70,7 @@ namespace Stand
                         {
                             if (InitDB())
                             {
-                                var connectionString = "Host=localhost;Username=postgres;Password=1234;Database=StandResults";
+                                var connectionString = $"Host=localhost;Username=postgres;Password=1234;Database={DBname}";
                                 con = new NpgsqlConnection(connectionString);
                                 con.Open();
                                 return true;
@@ -160,7 +162,7 @@ namespace Stand
                                 if (i >= timestamp.Count())
                                     break;
                                 sql = "INSERT INTO measurements (measurement,par_id,experiment_id,time,uom) " +
-                                    $"VALUES ({m},{par.id},{expid},{timestamp[i++].ToString().Replace(",",".")},\'{par.GetUoMstring()}\') " +
+                                    $"VALUES ({m.ToString().Replace(",", ".")},{par.id},{expid},{timestamp[i++].ToString().Replace(",",".")},\'{par.GetUoMstring()}\') " +
                                     "ON CONFLICT DO NOTHING";
                                 cmd = new NpgsqlCommand(sql, con);
                                 cmd.ExecuteNonQuery();
